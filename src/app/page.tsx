@@ -1,9 +1,11 @@
-import KanbanBoard from './components/KanbanBoard';
+"use client";
 
-export default function Home() {
+import KanbanBoard from "./components/KanbanBoard";
+
+export default function Page() {
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold text-center py-6">📋 Progress Tracker</h1>
+    <div className="bg-red-100 min-h-screen p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Progress Tracker</h1>
       <KanbanBoard />
     </div>
   );
