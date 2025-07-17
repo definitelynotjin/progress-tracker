@@ -1,4 +1,7 @@
 // tailwind.config.js
+// import scrollbar from '@tailwindcss-scrollbar';
+
+
 module.exports = {
     content: [
         "./src/**/*.{js,jsx,ts,tsx}", // scan all JS/TS files in src/
@@ -7,5 +10,7 @@ module.exports = {
     theme: {
         extend: {}, // you can add custom styles here later
     },
-    plugins: [],
+    plugins: [
+        scrollbar, // for better scrollbar styles
+    ],
 };

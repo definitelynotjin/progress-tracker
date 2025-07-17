@@ -2,20 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* optionally add scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.scrollbar-thumb-gray-300 {
+  scrollbar-color: #D1D5DB transparent;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.scrollbar-track-gray-100 {
+  background-color: #F3F4F6;
 }

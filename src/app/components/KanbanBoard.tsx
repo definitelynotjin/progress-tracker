@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
     DndContext,
     closestCenter,
@@ -8,53 +8,72 @@ import {
     useSensor,
     useSensors,
     DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
     SortableContext,
     arrayMove,
     verticalListSortingStrategy,
     useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-type ColumnType = 'To Do' | 'In Progress' | 'Done';
+// Define the columns names (type)
+type ColumnType = "To Do" | "In Progress" | "Done";
 
+// Initial tasks for each column
 const initialTasks: Record<ColumnType, string[]> = {
-    'To Do': ['Create login page', 'Design UI'],
-    'In Progress': ['Setup Firebase'],
-    Done: ['Initialize project'],
+    "To Do": ["Create login page", "Design UI"],
+    "In Progress": ["Setup Firebase"],
+    Done: ["Initialize project"],
 };
 
 const KanbanBoard = () => {
+    // State holds the tasks grouped by column
     const [tasks, setTasks] = useState<Record<ColumnType, string[]>>(initialTasks);
 
+    // Set up drag sensors (mouse/touch)
     const sensors = useSensors(useSensor(PointerSensor));
 
+    // This function runs when you finish dragging a task
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
+
+        // If dropped outside or on itself, do nothing
         if (!over || active.id === over.id) return;
 
+        // Get source and target column names from dragged item and drop target
         const sourceCol = active.data.current?.column as ColumnType;
         const targetCol = over.data.current?.column as ColumnType;
+
         if (!sourceCol || !targetCol) return;
 
         if (sourceCol === targetCol) {
+            // Moving task inside the same column (reorder)
             const oldIndex = tasks[sourceCol].indexOf(active.id as string);
             const newIndex = tasks[targetCol].indexOf(over.id as string);
+
+            // Move task inside the array and update state
             setTasks((prev) => ({
                 ...prev,
                 [sourceCol]: arrayMove(prev[sourceCol], oldIndex, newIndex),
             }));
         } else {
+            // Moving task from one column to another
+
             setTasks((prev) => {
-                const sourceTasks = prev[sourceCol].filter((t) => t !== active.id);
-                const targetTasks = [...prev[targetCol]];
-                const overIndex = targetTasks.indexOf(over.id as string);
-                targetTasks.splice(overIndex, 0, active.id as string);
+                // Remove task from source column
+                const newSourceTasks = prev[sourceCol].filter((task) => task !== active.id);
+
+                // Insert task into target column at the right position
+                const newTargetTasks = [...prev[targetCol]];
+                const overIndex = newTargetTasks.indexOf(over.id as string);
+                newTargetTasks.splice(overIndex, 0, active.id as string);
+
+                // Update state with both changes
                 return {
                     ...prev,
-                    [sourceCol]: sourceTasks,
-                    [targetCol]: targetTasks,
+                    [sourceCol]: newSourceTasks,
+                    [targetCol]: newTargetTasks,
                 };
             });
         }
@@ -66,44 +85,58 @@ const KanbanBoard = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            <div className="min-h-screen bg-gray-50 px-4 py-8 flex justify-center items-start">
-                <div className="grid grid-cols-3 gap-6 w-full max-w-7xl">
-                    {Object.entries(tasks).map(([column, items]) => (
-                        <div
-                            key={column}
-                            className="bg-white rounded-lg shadow-lg p-6 min-h-[400px] flex flex-col"
-                        >
-                            <h2 className="text-lg font-semibold mb-4">{column}</h2>
-                            <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                                <div className="flex-1 space-y-3">
-                                    {items.map((task) => (
-                                        <DraggableCard key={task} id={task} column={column} />
-                                    ))}
-                                </div>
-                            </SortableContext>
-                        </div>
-                    ))}
-                </div>
+            <div className="min-h-screen bg-gray-50 px-6 py-8 flex space-x-6 overflow-x-auto">
+                {/* Render columns */}
+                {Object.entries(tasks).map(([column, items]) => (
+                    <Column key={column} column={column as ColumnType} items={items} />
+                ))}
             </div>
-
-
         </DndContext>
     );
 };
 
-export default KanbanBoard;
+// Props for each column component
+interface ColumnProps {
+    column: ColumnType;
+    items: string[];
+}
 
+// Single column with sortable tasks inside
+const Column = ({ column, items }: ColumnProps) => {
+    return (
+        <div className="flex-shrink-0 w-80 bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <h2 className="text-xl font-semibold mb-4">{column}</h2>
+
+            {/* SortableContext lets dnd-kit know which items are sortable */}
+            <SortableContext items={items} strategy={verticalListSortingStrategy}>
+                <div className="flex flex-col gap-3 max-h-[70vh] overflow-y-auto">
+                    {items.map((task) => (
+                        <DraggableCard key={task} id={task} column={column} />
+                    ))}
+                </div>
+            </SortableContext>
+
+            <button className="mt-4 text-sm text-blue-600 hover:text-blue-800 hover:underline text-left">
+                + Add a card
+            </button>
+        </div>
+    );
+};
+
+// Props for individual draggable task card
 interface DraggableCardProps {
     id: string;
-    column: string;
+    column: ColumnType;
 }
 
 const DraggableCard = ({ id, column }: DraggableCardProps) => {
+    // useSortable gives props and ref needed to make the element draggable
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id,
         data: { column },
     });
 
+    // Convert drag transform to CSS style
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
@@ -115,9 +148,11 @@ const DraggableCard = ({ id, column }: DraggableCardProps) => {
             style={style}
             {...attributes}
             {...listeners}
-            className="bg-white p-4 rounded shadow cursor-move"
+            className="bg-gray-100 rounded-md p-3 shadow-sm cursor-move hover:bg-gray-200 transition"
         >
             {id}
         </div>
     );
 };
+
+export default KanbanBoard;
