@@ -2,6 +2,7 @@
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType } from "./types";
+import toast from "react-hot-toast";
 
 interface ColumnProps {
     column: ColumnType;
@@ -10,10 +11,10 @@ interface ColumnProps {
 
 export default function Column({ column, items }: ColumnProps) {
     return (
-        <div className="w-64 bg-gray-100 rounded p-4 flex flex-col gap-y-6">
-            <h2 className="font-semibold text-center mb-4">{column}</h2>
+        <div className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2">
+            <h2 className="font-semibold text-center mb-4 text-white">{column}</h2>
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                <div className="space-y-8 overflow-y-auto max-h-64">
+                <div className="space-y-2 overflow-y-auto max-h-32">
                     {items.map((item) => (
                         <TaskCard key={item} id={item} column={column} />
                     ))}
@@ -24,7 +25,7 @@ export default function Column({ column, items }: ColumnProps) {
                 className="mt-4 text-blue-600 hover:underline text-sm self-start"
                 onClick={() => {
                     // You can replace with your add task logic here
-                    alert(`Add new task to ${column}`);
+                    toast(`Add new task to ${column}`);
                 }}
             >
                 + Add a card
