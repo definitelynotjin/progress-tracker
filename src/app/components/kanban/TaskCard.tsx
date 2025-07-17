@@ -1,18 +1,14 @@
-"use client";
-
+// components/kanban/TaskCard.tsx
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ColumnType } from "./KanbanBoard";
+import { ColumnType } from "./types";
 
-interface DraggableCardProps {
-    id: string;
-    column: ColumnType;
-}
-
-export default function DraggableCard({ id, column }: DraggableCardProps) {
+export default function TaskCard({ id, column }: { id: string; column: ColumnType }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id,
-        data: { column },
+        data: {
+            column, // This is needed for onDragEnd
+        },
     });
 
     const style = {
@@ -26,7 +22,7 @@ export default function DraggableCard({ id, column }: DraggableCardProps) {
             style={style}
             {...attributes}
             {...listeners}
-            className="bg-gray-100 rounded-md p-3 shadow-sm cursor-move hover:bg-gray-200 transition"
+            className="p-3 bg-white border-1 rounded shadow-md cursor-move"
         >
             {id}
         </div>

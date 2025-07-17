@@ -1,10 +1,10 @@
 "use client";
 
-import KanbanBoard from "./components/KanbanBoard";
+import KanbanBoard from "./components/kanban/KanbanBoard";
 
 export default function Page() {
   return (
-    <div className="bg-red-100 min-h-screen p-6">
+    <div className="bg-red-100 border-2 min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Progress Tracker</h1>
       <KanbanBoard />
     </div>

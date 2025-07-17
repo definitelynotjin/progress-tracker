@@ -9,7 +9,11 @@ import {
     useSensors,
     DragEndEvent,
 } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
+import {
+    SortableContext,
+    horizontalListSortingStrategy,
+    verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import Column from "./Column";
 
 export type ColumnType = "To Do" | "In Progress" | "Done";
@@ -17,7 +21,7 @@ export type ColumnType = "To Do" | "In Progress" | "Done";
 const initialTasks: Record<ColumnType, string[]> = {
     "To Do": ["Task A", "Task B"],
     "In Progress": ["Task C"],
-    Done: ["Tasks D"],
+    Done: ["Task D"],
 };
 
 export default function KanbanBoard() {
@@ -38,9 +42,14 @@ export default function KanbanBoard() {
         if (sourceCol === targetCol) {
             const oldIndex = tasks[sourceCol].indexOf(active.id as string);
             const newIndex = tasks[targetCol].indexOf(over.id as string);
+
+            const updated = [...tasks[sourceCol]];
+            const [moved] = updated.splice(oldIndex, 1);
+            updated.splice(newIndex, 0, moved);
+
             setTasks((prev) => ({
                 ...prev,
-                [sourceCol]: arrayMove(prev[sourceCol], oldIndex, newIndex),
+                [sourceCol]: updated,
             }));
         } else {
             setTasks((prev) => {
@@ -60,17 +69,27 @@ export default function KanbanBoard() {
         }
     };
 
+    const columns = Object.keys(tasks) as ColumnType[];
+
     return (
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            <div className="flex flex-row flex-wrap gap-6 justify-center p-8 bg-gray-50 min-h-screen">
-                {Object.entries(tasks).map(([column, items]) => (
-                    <Column key={column} column={column as ColumnType} items={items} />
-                ))}
+            <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
+                <SortableContext items={columns} strategy={verticalListSortingStrategy}>
+                    {columns.map((column) => (
+                        <Column key={column} column={column} items={tasks[column]} />
+                    ))}
+                </SortableContext>
+
+                {/* <div className="w-64 min-w-[16rem] bg-white border-1 border-dashed border-gray-300 p-4 rounded flex items-center justify-center hover:bg-gray-100 cursor-pointer">
+                    <button className="text-blue-600 font-medium">+ Add Group</button>
+                </div> */}
             </div>
+
+
         </DndContext>
     );
 }
