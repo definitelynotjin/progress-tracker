@@ -11,11 +11,12 @@ import {
 } from "@dnd-kit/core";
 import {
     SortableContext,
-    horizontalListSortingStrategy,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import Column from "./Column";
-import Modal from "./Modal"; // Import your modal
+import Modal from "./Modal";
+import { DragOverlay } from "@dnd-kit/core";
+import TaskCard from "./TaskCard";
 
 export type ColumnType = "To Do" | "In Progress" | "Done";
 
@@ -29,6 +30,8 @@ export default function KanbanBoard() {
     const [tasks, setTasks] = useState<Record<ColumnType, string[]>>(initialTasks);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
+
+    const [activeId, setActiveId] = useState<string | null>(null);
 
     const handleAddCard = (column: ColumnType) => {
         setModalColumn(column);
@@ -50,6 +53,8 @@ export default function KanbanBoard() {
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
+
+        setActiveId(null);
 
         if (!over || active.id === over.id) return;
 
@@ -88,6 +93,10 @@ export default function KanbanBoard() {
         }
     };
 
+    const handleDragStart = (event: any) => {
+        setActiveId(event.active.id as string);
+    };
+
     const columns = Object.keys(tasks) as ColumnType[];
 
     return (
@@ -95,6 +104,7 @@ export default function KanbanBoard() {
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
                 <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
@@ -103,6 +113,11 @@ export default function KanbanBoard() {
                             <Column key={column} column={column} items={tasks[column]} onAddCard={handleAddCard} />
                         ))}
                     </SortableContext>
+                    <DragOverlay>
+                        {activeId ? (
+                            <TaskCard id={activeId} column={"To Do"} /> // column can be anything for display
+                        ) : null}
+                    </DragOverlay>
                 </div>
             </DndContext>
             <Modal

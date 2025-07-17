@@ -2,29 +2,37 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { ColumnType } from "./types";
+import { GripVertical } from "lucide-react";
 
 export default function TaskCard({ id, column }: { id: string; column: ColumnType }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id,
         data: {
-            column, // This is needed for onDragEnd
+            column,
         },
     });
 
     const style = {
         transform: CSS.Transform.toString(transform),
-        transition,
+        transition: transition ?? "transform 250ms ease",
     };
 
     return (
         <div
             ref={setNodeRef}
             style={style}
-            {...attributes}
-            {...listeners}
-            className="p-3 bg-gray-400 gap-y-6 rounded shadow-md cursor-move text-white hover:bg-gray-500 transition"
+            className="p-3 bg-gray-400 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between"
         >
-            {id}
+            <span>{id}</span>
+
+            {/* 🟡 Only this icon is draggable now */}
+            <div
+                {...attributes}
+                {...listeners}
+                className="cursor-grab p-1 hover:text-yellow-300"
+            >
+                <GripVertical size={16} />
+            </div>
         </div>
     );
 }
