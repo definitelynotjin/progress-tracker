@@ -22,7 +22,7 @@ export default function TaskCard({ id, column }: { id: string; column: ColumnTyp
             style={style}
             {...attributes}
             {...listeners}
-            className="p-3 bg-white border-1 rounded shadow-md cursor-move"
+            className="p-3 bg-white border-1 gap-y-6 rounded shadow-md cursor-move"
         >
             {id}
         </div>
