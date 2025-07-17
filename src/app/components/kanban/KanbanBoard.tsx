@@ -15,6 +15,7 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import Column from "./Column";
+import Modal from "./Modal"; // Import your modal
 
 export type ColumnType = "To Do" | "In Progress" | "Done";
 
@@ -26,6 +27,24 @@ const initialTasks: Record<ColumnType, string[]> = {
 
 export default function KanbanBoard() {
     const [tasks, setTasks] = useState<Record<ColumnType, string[]>>(initialTasks);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
+
+    const handleAddCard = (column: ColumnType) => {
+        setModalColumn(column);
+        setModalOpen(true);
+    };
+
+    const handleModalSubmit = (taskName: string) => {
+        if (modalColumn && taskName.trim()) {
+            setTasks((prev) => ({
+                ...prev,
+                [modalColumn]: [...prev[modalColumn], taskName.trim()],
+            }));
+        }
+        setModalOpen(false);
+        setModalColumn(null);
+    };
 
     const sensors = useSensors(useSensor(PointerSensor));
 
@@ -72,24 +91,25 @@ export default function KanbanBoard() {
     const columns = Object.keys(tasks) as ColumnType[];
 
     return (
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-        >
-            <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
-                <SortableContext items={columns} strategy={verticalListSortingStrategy}>
-                    {columns.map((column) => (
-                        <Column key={column} column={column} items={tasks[column]} />
-                    ))}
-                </SortableContext>
-
-                {/* <div className="w-64 min-w-[16rem] bg-white border-1 border-dashed border-gray-300 p-4 rounded flex items-center justify-center hover:bg-gray-100 cursor-pointer">
-                    <button className="text-blue-600 font-medium">+ Add Group</button>
-                </div> */}
-            </div>
-
-
-        </DndContext>
+        <>
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+            >
+                <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
+                    <SortableContext items={columns} strategy={verticalListSortingStrategy}>
+                        {columns.map((column) => (
+                            <Column key={column} column={column} items={tasks[column]} onAddCard={handleAddCard} />
+                        ))}
+                    </SortableContext>
+                </div>
+            </DndContext>
+            <Modal
+                isOpen={modalOpen}
+                onClose={() => setModalOpen(false)}
+                onSubmit={handleModalSubmit}
+            />
+        </>
     );
 }

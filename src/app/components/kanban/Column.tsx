@@ -7,9 +7,10 @@ import toast from "react-hot-toast";
 interface ColumnProps {
     column: ColumnType;
     items: string[];
+    onAddCard: (column: ColumnType) => void;
 }
 
-export default function Column({ column, items }: ColumnProps) {
+export default function Column({ column, items, onAddCard }: ColumnProps) {
     return (
         <div className="w-64 bg-gray-700  rounded p-4 flex
         flex-col gap-y-2 overflow-y-auto"
@@ -28,6 +29,7 @@ export default function Column({ column, items }: ColumnProps) {
                 className="mt-4 text-blue-300 hover:underline text-sm self-start"
                 onClick={() => {
                     // You can replace with your add task logic here
+                    onAddCard(column);
                     toast(`Add new task to ${column}`);
                 }}
             >
