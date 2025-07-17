@@ -66,14 +66,14 @@ const KanbanBoard = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            <div className="min-h-screen flex justify-center items-center bg-gray-50 px-4 py-8">
-                <div className="inline-flex gap-6 w-max">
+            <div className="min-h-screen bg-gray-50 px-4 py-8 flex justify-center items-start">
+                <div className="grid grid-cols-3 gap-6 w-full max-w-7xl">
                     {Object.entries(tasks).map(([column, items]) => (
                         <div
                             key={column}
-                            className="bg-gray-100 rounded-lg shadow-md p-4 w-80 min-h-[400px] flex flex-col"
+                            className="bg-white rounded-lg shadow-lg p-6 min-h-[400px] flex flex-col"
                         >
-                            <h2 className="text-lg font-semibold mb-3">{column}</h2>
+                            <h2 className="text-lg font-semibold mb-4">{column}</h2>
                             <SortableContext items={items} strategy={verticalListSortingStrategy}>
                                 <div className="flex-1 space-y-3">
                                     {items.map((task) => (
@@ -85,6 +85,8 @@ const KanbanBoard = () => {
                     ))}
                 </div>
             </div>
+
+
         </DndContext>
     );
 };
