@@ -17,22 +17,31 @@ import Column from "./Column";
 import Modal from "./Modal";
 import { DragOverlay } from "@dnd-kit/core";
 import TaskCard from "./TaskCard";
+import { Task } from "./types";
 
 export type ColumnType = "To Do" | "In Progress" | "Done";
 
-const initialTasks: Record<ColumnType, string[]> = {
-    "To Do": ["Task A", "Task B"],
-    "In Progress": ["Task C"],
-    Done: ["Task D"],
+const initialTasks: Record<ColumnType, Task[]> = {
+    "To Do": [
+        { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
+        { id: "task-b", title: "Task B", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
+    ],
+    "In Progress": [
+        { id: "task-c", title: "Task C", content: "", updatedAt: new Date().toISOString(), column: "In Progress" },
+    ],
+    Done: [
+        { id: "task-d", title: "Task D", content: "", updatedAt: new Date().toISOString(), column: "Done" },
+    ],
 };
 
 export default function KanbanBoard() {
-    const [tasks, setTasks] = useState<Record<ColumnType, string[]>>(initialTasks);
+    const [tasks, setTasks] = useState<Record<ColumnType, Task[]>>(initialTasks);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
-
     const [activeId, setActiveId] = useState<string | null>(null);
-
+    const activeTask = Object.values(tasks)
+        .flat()
+        .find((task) => task.id === activeId);
     const handleAddCard = (column: ColumnType) => {
         setModalColumn(column);
         setModalOpen(true);
@@ -42,11 +51,20 @@ export default function KanbanBoard() {
         if (modalColumn && taskName.trim()) {
             setTasks((prev) => ({
                 ...prev,
-                [modalColumn]: [...prev[modalColumn], taskName.trim()],
+                [modalColumn]: [
+                    ...prev[modalColumn],
+                    {
+                        id: crypto.randomUUID(),
+                        title: taskName.trim(),
+                        content: "",
+                        updatedAt: new Date().toISOString(),
+                        column: modalColumn,
+                    },
+                ],
             }));
+            setModalOpen(false);
+            setModalColumn(null);
         }
-        setModalOpen(false);
-        setModalColumn(null);
     };
 
     const sensors = useSensors(useSensor(PointerSensor));
@@ -64,8 +82,8 @@ export default function KanbanBoard() {
         if (!sourceCol || !targetCol) return;
 
         if (sourceCol === targetCol) {
-            const oldIndex = tasks[sourceCol].indexOf(active.id as string);
-            const newIndex = tasks[targetCol].indexOf(over.id as string);
+            const oldIndex = tasks[sourceCol].findIndex((task) => task.id === active.id);
+            const newIndex = tasks[targetCol].findIndex((task) => task.id === over.id);
 
             const updated = [...tasks[sourceCol]];
             const [moved] = updated.splice(oldIndex, 1);
@@ -78,11 +96,15 @@ export default function KanbanBoard() {
         } else {
             setTasks((prev) => {
                 const newSourceTasks = prev[sourceCol].filter(
-                    (task) => task !== active.id
+                    (task) => task.id !== active.id
                 );
+                const movedTask = prev[sourceCol].find((task) => task.id === active.id);
+                if (!movedTask) return prev;
+
+                const updatedMovedTask = { ...movedTask, column: targetCol };
                 const newTargetTasks = [...prev[targetCol]];
-                const overIndex = newTargetTasks.indexOf(over.id as string);
-                newTargetTasks.splice(overIndex, 0, active.id as string);
+                const overIndex = newTargetTasks.findIndex((task) => task.id === over.id);
+                newTargetTasks.splice(overIndex, 0, updatedMovedTask);
 
                 return {
                     ...prev,
@@ -114,8 +136,8 @@ export default function KanbanBoard() {
                         ))}
                     </SortableContext>
                     <DragOverlay>
-                        {activeId ? (
-                            <TaskCard id={activeId} column={"To Do"} /> // column can be anything for display
+                        {activeTask ? (
+                            <TaskCard task={activeTask} />
                         ) : null}
                     </DragOverlay>
                 </div>

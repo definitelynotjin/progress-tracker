@@ -1,14 +1,13 @@
-// components/kanban/TaskCard.tsx
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ColumnType } from "./types";
+import { Task } from "./types";
 import { GripVertical } from "lucide-react";
 
-export default function TaskCard({ id, column }: { id: string; column: ColumnType }) {
+export default function TaskCard({ task }: { task: Task }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-        id,
+        id: task.id,
         data: {
-            column,
+            column: task.column,
         },
     });
 
@@ -23,9 +22,7 @@ export default function TaskCard({ id, column }: { id: string; column: ColumnTyp
             style={style}
             className="p-3 bg-gray-400 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between"
         >
-            <span>{id}</span>
-
-            {/* 🟡 Only this icon is draggable now */}
+            <span>{task.title}</span>
             <div
                 {...attributes}
                 {...listeners}
