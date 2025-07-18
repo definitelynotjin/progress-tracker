@@ -30,7 +30,7 @@ export default function Column({ column, items, onAddCard }: ColumnProps) {
                 onClick={() => {
                     // You can replace with your add task logic here
                     onAddCard(column);
-                    toast(`Add new task to ${column}`);
+                    // toast(`Add new task to ${column}`);
                 }}
             >
                 + Add a card
