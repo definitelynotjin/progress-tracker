@@ -3,7 +3,22 @@
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
+import { useDroppable } from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
 
+function EmptyCard({ id }: { id: string }) {
+    const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
+    return (
+        <div
+            ref={setNodeRef}
+            {...attributes}
+            {...listeners}
+            className={`h-12 flex items-center justify-center border-2 border-dashed border-gray-400 rounded bg-gray-600/30 text-gray-300 ${isDragging ? 'opacity-50' : ''}`}
+        >
+            Drop here
+        </div>
+    );
+}
 
 interface ColumnProps {
     column: ColumnType;
@@ -20,8 +35,7 @@ const columnColors: Record<string, string> = {
 };
 
 export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
-    // Debug: log the column name to check for typos or unexpected values
-    console.log('Column:', JSON.stringify(column));
+    const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
 
     return (
         <div className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2 relative">
@@ -32,11 +46,15 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
                     {items.length}
                 </span>
             </div>
-            <SortableContext items={items.map(task => task.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
                 <div className="space-y-2 text-center max-h-96 overflow-y-auto">
-                    {items.map((task) => (
-                        <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
-                    ))}
+                    {items.length === 0 ? (
+                        <EmptyCard id={`placeholder-${column}`} />
+                    ) : (
+                        items.map((task) => (
+                            <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
+                        ))
+                    )}
                 </div>
             </SortableContext>
             <button

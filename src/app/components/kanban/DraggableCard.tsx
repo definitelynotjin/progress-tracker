@@ -2,7 +2,7 @@
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ColumnType } from "./KanbanBoard";
+import { ColumnType } from "./types";
 
 interface DraggableCardProps {
     id: string;

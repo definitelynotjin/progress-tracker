@@ -25,11 +25,11 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
+            <div className="bg-gray-700 rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
                 {/* Title input */}
                 <input
                     type="text"
-                    className="w-full text-1xl font-semibold border-b pb-2 outline-none"
+                    className="text-white w-full bg-gray-700 text-1xl font-semibold border-b pb-2 outline-none"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Task Title"

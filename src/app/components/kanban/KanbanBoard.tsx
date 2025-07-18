@@ -8,6 +8,7 @@ import {
     useSensor,
     useSensors,
     DragEndEvent,
+    useDroppable
 } from "@dnd-kit/core";
 import {
     SortableContext,
@@ -25,8 +26,8 @@ import type { ColumnType } from "./types";
 const initialTasks: Record<ColumnType, Task[]> = {
 
     "Backlog": [
-        { id: "task-a", title: "Task O", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
-        { id: "task-b", title: "Task P", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-o", title: "Task O", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-p", title: "Task P", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
     ],
     "To Do": [
         { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
@@ -100,7 +101,10 @@ export default function KanbanBoard() {
         if (!over || active.id === over.id) return;
 
         const sourceCol = active.data.current?.column as ColumnType;
-        const targetCol = over.data.current?.column as ColumnType;
+        let targetCol = over.data.current?.column as ColumnType | undefined;
+        if (!targetCol && typeof over.id === "string" && over.id.startsWith("placeholder-")) {
+            targetCol = over.id.replace("placeholder-", "") as ColumnType;
+        }
 
         if (!sourceCol || !targetCol) return;
 
