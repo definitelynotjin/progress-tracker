@@ -3,7 +3,6 @@
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
-import { useDroppable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 
 function EmptyCard({ id }: { id: string }) {
@@ -13,9 +12,9 @@ function EmptyCard({ id }: { id: string }) {
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={`h-12 flex items-center justify-center border-2 border-dashed border-gray-400 rounded bg-gray-600/30 text-gray-300 ${isDragging ? 'opacity-50' : ''}`}
+            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 ${isDragging ? 'opacity-50' : ''}`}
         >
-            Drop here
+            Add card here
         </div>
     );
 }
@@ -39,7 +38,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
 
     return (
         <div className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2 relative">
-            <div className={`w-full h-1 rounded-full mb-3 ${columnColors[column] ?? "bg-gray-300"}`} />
+            <div className={`w-full h-0.5 rounded-full mb-1 ${columnColors[column] ?? "bg-gray-300"}`} />
             <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold text-left text-white">{column}</h2>
                 <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
