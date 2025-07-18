@@ -26,7 +26,7 @@ export default function DraggableCard({ id, column }: DraggableCardProps) {
             style={style}
             {...attributes}
             {...listeners}
-            className="bg-gray-100 rounded-md p-3 shadow-sm cursor-move hover:bg-gray-200 transition"
+            className="bg-gray-400 rounded-md p-3 shadow-sm cursor-move hover:bg-gray-200 transition"
         >
             {id}
         </div>

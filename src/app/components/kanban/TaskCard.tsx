@@ -3,7 +3,11 @@ import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
 import { GripVertical } from "lucide-react";
 
-export default function TaskCard({ task, onClick }: { task: Task, onClick?: () => void }) {
+
+
+type TaskCardProps = { task: Task; onClick?: () => void };
+
+export default function TaskCard({ task, onClick }: TaskCardProps) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: task.id,
         data: {
@@ -20,14 +24,14 @@ export default function TaskCard({ task, onClick }: { task: Task, onClick?: () =
         <div
             ref={setNodeRef}
             style={style}
-            className="p-3 bg-gray-400 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between cursor-pointer"
+            className="p-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between cursor-pointer"
             onClick={onClick}
         >
-            <span>{task.title}</span>
+            <span className="text-sm">{task.title}</span>
             <div
                 {...attributes}
                 {...listeners}
-                className="cursor-grab p-1 hover:text-yellow-300"
+                className="cursor-grab p-1 hover:text-gray-900"
                 onClick={e => e.stopPropagation()}
             >
                 <GripVertical size={16} />

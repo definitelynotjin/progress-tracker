@@ -1,5 +1,5 @@
 // components/kanban/types.ts
-export type ColumnType = "To Do" | "In Progress" | "Done";
+export type ColumnType = "Backlog" | "To Do" | "In Progress" | "Done";
 
 export interface Task {
     id: string;

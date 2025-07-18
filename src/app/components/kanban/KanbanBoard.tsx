@@ -20,9 +20,14 @@ import TaskCard from "./TaskCard";
 import { Task } from "./types";
 import TaskDetail from "./TaskDetail";
 
-export type ColumnType = "To Do" | "In Progress" | "Done";
+import type { ColumnType } from "./types";
 
 const initialTasks: Record<ColumnType, Task[]> = {
+
+    "Backlog": [
+        { id: "task-a", title: "Task O", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-b", title: "Task P", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+    ],
     "To Do": [
         { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
         { id: "task-b", title: "Task B", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
@@ -147,7 +152,7 @@ export default function KanbanBoard() {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
+                <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-800 p-8 min-h-screen">
                     <SortableContext items={columns} strategy={verticalListSortingStrategy}>
                         {columns.map((column) => (
                             <Column
