@@ -43,13 +43,13 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                 <div className="flex justify-end gap-4">
                     <button
                         onClick={onCancel}
-                        className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+                        className="px-4 py-2 text-xs rounded bg-gray-300 hover:bg-gray-400"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSave}
-                        className="px-4 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
+                        className="px-4 py-2 text-xs rounded bg-gray-600 text-white hover:bg-gray-700"
                     >
                         Save
                     </button>

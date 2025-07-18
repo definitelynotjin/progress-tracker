@@ -12,9 +12,9 @@ function EmptyCard({ id }: { id: string }) {
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 ${isDragging ? 'opacity-50' : ''}`}
+            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? 'opacity-50' : ''}`}
         >
-            Add card here
+            Drop the card here
         </div>
     );
 }
@@ -28,16 +28,25 @@ interface ColumnProps {
 
 const columnColors: Record<string, string> = {
     Backlog: "bg-gray-400",
-    "To Do": "bg-blue-500",
-    "In Progress": "bg-yellow-500",
-    "Done": "bg-green-500",
+    "To Do": "bg-purple-400",
+    "In Progress": "bg-teal-400",
+    "Done": "bg-lime-400",
 };
 
 export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
+    // Each card is about 56px tall (including margin), min height is as if there is 1 card
+    const cardHeight = 56;
+    const headerHeight = 120; // header/buttons
+    const columnHeight = (items.length === 0)
+        ? (1 * cardHeight + headerHeight)
+        : (items.length * cardHeight + headerHeight);
 
     return (
-        <div className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2 relative">
+        <div
+            className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2 relative"
+            style={{ height: `${columnHeight}px` }}
+        >
             <div className={`w-full h-0.5 rounded-full mb-1 ${columnColors[column] ?? "bg-gray-300"}`} />
             <div className="flex items-center justify-between mb-4">
                 <h2 className="font-semibold text-left text-white">{column}</h2>
@@ -46,7 +55,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
                 </span>
             </div>
             <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
-                <div className="space-y-2 text-center max-h-96 overflow-y-auto">
+                <div className="space-y-2 text-center">
                     {items.length === 0 ? (
                         <EmptyCard id={`placeholder-${column}`} />
                     ) : (

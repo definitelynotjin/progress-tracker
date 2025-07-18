@@ -25,18 +25,18 @@ import type { ColumnType } from "./types";
 const initialTasks: Record<ColumnType, Task[]> = {
 
     "Backlog": [
-        { id: "task-o", title: "Task O", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
-        { id: "task-p", title: "Task P", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-b", title: "Task B", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
     ],
     "To Do": [
-        { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
-        { id: "task-b", title: "Task B", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
+        { id: "task-c", title: "Task C", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
+        { id: "task-d", title: "Task D", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
     ],
     "In Progress": [
-        { id: "task-c", title: "Task C", content: "", updatedAt: new Date().toISOString(), column: "In Progress" },
+        { id: "task-e", title: "Task E", content: "", updatedAt: new Date().toISOString(), column: "In Progress" },
     ],
     Done: [
-        { id: "task-d", title: "Task D", content: "", updatedAt: new Date().toISOString(), column: "Done" },
+        { id: "task-f", title: "Task F", content: "", updatedAt: new Date().toISOString(), column: "Done" },
     ],
 };
 
