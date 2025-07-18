@@ -1,8 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { useEffect } from 'react';
 
 type TaskEditorProps = {
     content: string;
@@ -10,25 +10,19 @@ type TaskEditorProps = {
 };
 
 export default function TaskEditor({ content, onChange }: TaskEditorProps) {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
     const editor = useEditor({
         extensions: [StarterKit],
         content,
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
         },
+        immediatelyRender: false, // <-- add this line
     });
 
-    useEffect(() => {
-        if (editor && editor.getHTML() !== content) {
-            editor.commands.setContent(content);
-        }
-    }, [content, editor]);
+    if (!mounted) return null;
 
-    if (!editor) return null;
-
-    return (
-        <div className="border rounded-md p-4 min-h-[200px] bg-white shadow-sm">
-            <EditorContent editor={editor} />
-        </div>
-    );
+    return <EditorContent editor={editor} />;
 }

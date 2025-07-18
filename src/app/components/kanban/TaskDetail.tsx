@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import TaskEditor from './TaskEditor';
@@ -49,7 +49,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                     </button>
                     <button
                         onClick={handleSave}
-                        className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+                        className="px-4 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
                     >
                         Save
                     </button>

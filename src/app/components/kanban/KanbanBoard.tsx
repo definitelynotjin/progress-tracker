@@ -18,6 +18,7 @@ import Modal from "./Modal";
 import { DragOverlay } from "@dnd-kit/core";
 import TaskCard from "./TaskCard";
 import { Task } from "./types";
+import TaskDetail from "./TaskDetail";
 
 export type ColumnType = "To Do" | "In Progress" | "Done";
 
@@ -39,6 +40,7 @@ export default function KanbanBoard() {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
+    const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const activeTask = Object.values(tasks)
         .flat()
         .find((task) => task.id === activeId);
@@ -46,6 +48,22 @@ export default function KanbanBoard() {
         setModalColumn(column);
         setModalOpen(true);
     };
+
+    const handleTaskClick = (task: Task) => {
+        setSelectedTask(task);
+    };
+
+    const handleTaskSave = (updatedTask: Task) => {
+        setTasks(prev => ({
+            ...prev,
+            [updatedTask.column]: prev[updatedTask.column].map(t =>
+                t.id === updatedTask.id ? updatedTask : t
+            ),
+        }));
+        setSelectedTask(null);
+    };
+
+    const handleTaskCancel = () => setSelectedTask(null);
 
     const handleModalSubmit = (taskName: string) => {
         if (modalColumn && taskName.trim()) {
@@ -132,7 +150,13 @@ export default function KanbanBoard() {
                 <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-50 p-8 min-h-screen">
                     <SortableContext items={columns} strategy={verticalListSortingStrategy}>
                         {columns.map((column) => (
-                            <Column key={column} column={column} items={tasks[column]} onAddCard={handleAddCard} />
+                            <Column
+                                key={column}
+                                column={column}
+                                items={tasks[column]}
+                                onAddCard={handleAddCard}
+                                onTaskClick={handleTaskClick}
+                            />
                         ))}
                     </SortableContext>
                     <DragOverlay>
@@ -147,6 +171,13 @@ export default function KanbanBoard() {
                 onClose={() => setModalOpen(false)}
                 onSubmit={handleModalSubmit}
             />
+            {selectedTask && (
+                <TaskDetail
+                    task={selectedTask}
+                    onSave={handleTaskSave}
+                    onCancel={handleTaskCancel}
+                />
+            )}
         </>
     );
 }
