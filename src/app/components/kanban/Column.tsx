@@ -37,40 +37,40 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
     // Each card is about 56px tall (including margin), min height is as if there is 1 card
     const cardHeight = 56;
-    const headerHeight = 120; // header/buttons
+    const headerHeight = 120;
+    // Reduce min height for empty columns for compactness
     const columnHeight = (items.length === 0)
-        ? (1 * cardHeight + headerHeight)
+        ? (1 * cardHeight + 40) // 40px header/buttons for empty
         : (items.length * cardHeight + headerHeight);
 
     return (
-        <div
-            className="w-64 bg-gray-700 rounded p-4 flex flex-col gap-y-2 relative"
-            style={{ height: `${columnHeight}px` }}
-        >
-            <div className={`w-full h-0.5 rounded-full mb-1 ${columnColors[column] ?? "bg-gray-300"}`} />
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-left text-white">{column}</h2>
-                <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
-                    {items.length}
-                </span>
-            </div>
-            <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
-                <div className="space-y-2 text-center">
-                    {items.length === 0 ? (
-                        <EmptyCard id={`placeholder-${column}`} />
-                    ) : (
-                        items.map((task) => (
-                            <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
-                        ))
-                    )}
+        <div className="w-64 flex flex-col relative" style={{ height: `${columnHeight}px` }}>
+            <div className={`w-full h-0.5 rounded-t bg-clip-padding ${columnColors[column] ?? "bg-gray-300"}`} />
+            <div className="bg-gray-700 rounded-b p-4 flex flex-col gap-y-2 flex-1">
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="font-semibold text-left text-white">{column}</h2>
+                    <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
+                        {items.length}
+                    </span>
                 </div>
-            </SortableContext>
-            <button
-                className="mt-4 text-gray-100 hover:underline text-xs text-center self-start"
-                onClick={() => onAddCard(column)}
-            >
-                + Add card
-            </button>
+                <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
+                    <div className="space-y-2 text-center">
+                        {items.length === 0 ? (
+                            <EmptyCard id={`placeholder-${column}`} />
+                        ) : (
+                            items.map((task) => (
+                                <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
+                            ))
+                        )}
+                    </div>
+                </SortableContext>
+                <button
+                    className="mt-4 text-gray-100 hover:underline text-xs text-center self-start"
+                    onClick={() => onAddCard(column)}
+                >
+                    + Add card
+                </button>
+            </div>
         </div>
     );
 }
