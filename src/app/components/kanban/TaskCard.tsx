@@ -4,6 +4,8 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
 
+import PriorityBadge from "./PriorityBadge";
+
 
 
 
@@ -22,12 +24,6 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         transition: transition ?? "transform 250ms ease",
     };
 
-    // Priority badge color
-    const priorityColors: Record<string, string> = {
-        High: "bg-red-400",
-        Medium: "bg-yellow-500",
-        Low: "bg-green-400",
-    };
 
     // Only open modal when clicking the card, not the dot
     const handleCardClick = (e: React.MouseEvent) => {
@@ -55,11 +51,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
             <div className="flex flex-col items-center justify-center w-full h-full">
                 {/* Card content */}
                 <div className="flex flex-col items-start gap-1 w-full">
-                    {task.priority && (
-                        <span className={`px-2 py-0.5 rounded text-xs font-semibold text-white mb-1 ${priorityColors[task.priority] ?? "bg-gray-400"}`}>
-                            {task.priority}
-                        </span>
-                    )}
+                    {task.priority && <PriorityBadge priority={task.priority} />}
                     <span className="text-sm font-semibold">{task.title}</span>
                     {task.content && (
                         <span

@@ -41,7 +41,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
             {/* Main column background container */}
             <div className="bg-gray-700 rounded-b flex flex-col">
                 {/* Title fixed at the top */}
-                <div className="p-4">
+                <div className="py-4 px-4">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="font-semibold text-left text-white">{column}</h2>
                         <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
@@ -50,7 +50,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
                     </div>
                 </div>
                 {/* Scrollable card area only */}
-                <div className="p-4 flex flex-col gap-y-2 flex-1 min-h-0 overflow-y-auto">
+                <div className="px-4 flex flex-col gap-y-2 flex-1 min-h-0 overflow-y-auto">
                     <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
                         <div className="space-y-2 text-center">
                             {items.length === 0 ? (
