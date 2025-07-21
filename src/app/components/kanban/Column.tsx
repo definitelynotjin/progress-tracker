@@ -40,10 +40,10 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
     return (
         <div className="flex-1 min-w-80 relative rounded-t-lg" style={{ height: `${columnHeight}px` }}>
             {/* Colored bar at the very top of the column, static position */}
-            {column.trim().toLowerCase() === "backlog" && <div className="h-1.5 rounded-t-lg bg-gray-400" />}
-            {column.trim().toLowerCase() === "to do" && <div className="h-1.5 rounded-t-lg bg-purple-200" />}
-            {column.trim().toLowerCase() === "in progress" && <div className="h-1.5 rounded-t-lg bg-teal-500" />}
-            {column.trim().toLowerCase() === "done" && <div className="h-1.5 rounded-t-lg bg-lime-400" />}
+            {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-gray-200" />}
+            {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-500" />}
+            {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-500" />}
+            {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-t-lg bg-lime-500" />}
             {/* Main column content below the colored bar */}
             <div className="bg-gray-700 rounded-b p-4 flex flex-col gap-y-2 flex-1">
                 <div className="flex items-center justify-between mb-4">

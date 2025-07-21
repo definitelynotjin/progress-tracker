@@ -24,5 +24,5 @@ export default function TaskEditor({ content, onChange }: TaskEditorProps) {
 
     if (!mounted) return null;
 
-    return <EditorContent editor={editor} />;
+    return <EditorContent editor={editor} className="text-gray-200" />;
 }

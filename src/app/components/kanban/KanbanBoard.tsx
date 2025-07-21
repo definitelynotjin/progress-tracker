@@ -25,18 +25,18 @@ import type { ColumnType } from "./types";
 const initialTasks: Record<ColumnType, Task[]> = {
 
     "Backlog": [
-        { id: "task-a", title: "Lorem ipsum dolor sit amet", content: "", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Low" },
-        { id: "task-b", title: "Consectetur adipiscing elit", content: "", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Medium" },
+        { id: "task-a", title: "Lorem ipsum dolor sit amet", content: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi eu consectetur.</p>", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Low" },
+        { id: "task-b", title: "Consectetur adipiscing elit", content: "<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Medium" },
     ],
     "To Do": [
-        { id: "task-c", title: "Sed do eiusmod tempor incididunt", content: "", updatedAt: new Date().toISOString(), column: "To Do", priority: "High" },
-        { id: "task-d", title: "Ut labore et dolore magna aliqua", content: "", updatedAt: new Date().toISOString(), column: "To Do", priority: "Medium" },
+        { id: "task-c", title: "Sed do eiusmod tempor incididunt", content: "<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>", updatedAt: new Date().toISOString(), column: "To Do", priority: "High" },
+        { id: "task-d", title: "Ut labore et dolore magna aliqua", content: "<p>Ut labore et dolore magna aliqua. Quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>", updatedAt: new Date().toISOString(), column: "To Do", priority: "Medium" },
     ],
     "In Progress": [
-        { id: "task-e", title: "Ut enim ad minim veniam", content: "", updatedAt: new Date().toISOString(), column: "In Progress", priority: "High" },
+        { id: "task-e", title: "Ut enim ad minim veniam", content: "<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>", updatedAt: new Date().toISOString(), column: "In Progress", priority: "High" },
     ],
     Done: [
-        { id: "task-f", title: "Quis nostrud exercitation ullamco", content: "", updatedAt: new Date().toISOString(), column: "Done", priority: "Low" },
+        { id: "task-f", title: "Quis nostrud exercitation ullamco", content: "<p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>", updatedAt: new Date().toISOString(), column: "Done", priority: "Low" },
     ],
 };
 

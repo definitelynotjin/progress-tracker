@@ -40,7 +40,13 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                         {task.priority}
                     </span>
                 )}
-                <span className="text-sm">{task.title}</span>
+                <span className="text-sm font-semibold">{task.title}</span>
+                {task.content && (
+                    <span
+                        className="text-xs text-left text-gray-200 mt-1"
+                        dangerouslySetInnerHTML={{ __html: task.content }}
+                    />
+                )}
             </div>
             <div
                 {...attributes}
