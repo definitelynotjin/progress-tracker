@@ -20,6 +20,13 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         transition: transition ?? "transform 250ms ease",
     };
 
+    // Priority badge color
+    const priorityColors: Record<string, string> = {
+        High: "bg-red-700",
+        Medium: "bg-yellow-600",
+        Low: "bg-green-700",
+    };
+
     return (
         <div
             ref={setNodeRef}
@@ -27,7 +34,14 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
             className="p-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between cursor-pointer"
             onClick={onClick}
         >
-            <span className="text-sm">{task.title}</span>
+            <div className="flex flex-col items-start gap-1">
+                {task.priority && (
+                    <span className={`px-2 py-0.5 rounded text-xs font-semibold text-white mb-1 ${priorityColors[task.priority] ?? "bg-gray-400"}`}>
+                        {task.priority}
+                    </span>
+                )}
+                <span className="text-sm">{task.title}</span>
+            </div>
             <div
                 {...attributes}
                 {...listeners}

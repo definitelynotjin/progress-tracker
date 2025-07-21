@@ -25,18 +25,18 @@ import type { ColumnType } from "./types";
 const initialTasks: Record<ColumnType, Task[]> = {
 
     "Backlog": [
-        { id: "task-a", title: "Task A", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
-        { id: "task-b", title: "Task B", content: "", updatedAt: new Date().toISOString(), column: "Backlog" },
+        { id: "task-a", title: "Lorem ipsum dolor sit amet", content: "", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Low" },
+        { id: "task-b", title: "Consectetur adipiscing elit", content: "", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Medium" },
     ],
     "To Do": [
-        { id: "task-c", title: "Task C", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
-        { id: "task-d", title: "Task D", content: "", updatedAt: new Date().toISOString(), column: "To Do" },
+        { id: "task-c", title: "Sed do eiusmod tempor incididunt", content: "", updatedAt: new Date().toISOString(), column: "To Do", priority: "High" },
+        { id: "task-d", title: "Ut labore et dolore magna aliqua", content: "", updatedAt: new Date().toISOString(), column: "To Do", priority: "Medium" },
     ],
     "In Progress": [
-        { id: "task-e", title: "Task E", content: "", updatedAt: new Date().toISOString(), column: "In Progress" },
+        { id: "task-e", title: "Ut enim ad minim veniam", content: "", updatedAt: new Date().toISOString(), column: "In Progress", priority: "High" },
     ],
     Done: [
-        { id: "task-f", title: "Task F", content: "", updatedAt: new Date().toISOString(), column: "Done" },
+        { id: "task-f", title: "Quis nostrud exercitation ullamco", content: "", updatedAt: new Date().toISOString(), column: "Done", priority: "Low" },
     ],
 };
 
@@ -155,7 +155,7 @@ export default function KanbanBoard() {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex flex-row border-1 justify-center gap-4 overflow-x-auto bg-gray-800 p-8 min-h-screen">
+                <div className="flex flex-row border-1 justify-left gap-4 overflow-x-auto bg-gray-800 p-10 min-h-screen">
                     <SortableContext items={columns} strategy={verticalListSortingStrategy}>
                         {columns.map((column) => (
                             <Column

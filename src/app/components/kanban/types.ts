@@ -7,4 +7,5 @@ export interface Task {
     content: string;     // rich text content as HTML string (default empty)
     column: ColumnType;  // the column the task belongs to
     updatedAt?: string;  // optional timestamp of last update
+    priority?: "Low" | "Medium" | "High";
 }

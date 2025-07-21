@@ -44,7 +44,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
         : (items.length * cardHeight + headerHeight);
 
     return (
-        <div className="w-64 flex flex-col relative" style={{ height: `${columnHeight}px` }}>
+        <div className="flex-1 min-w-64 flex flex-col relative" style={{ height: `${columnHeight}px` }}>
             <div className={`w-full h-0.5 rounded-t bg-clip-padding ${columnColors[column] ?? "bg-gray-300"}`} />
             <div className="bg-gray-700 rounded-b p-4 flex flex-col gap-y-2 flex-1">
                 <div className="flex items-center justify-between mb-4">
