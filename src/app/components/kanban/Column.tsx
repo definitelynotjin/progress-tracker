@@ -29,46 +29,49 @@ interface ColumnProps {
 
 export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
-    // Each card is about 56px tall (including margin), min height is as if there is 1 card
-    const cardHeight = 56;
-    const headerHeight = 120;
-    // Reduce min height for empty columns for compactness
-    const columnHeight = (items.length === 0)
-        ? (1 * cardHeight + 40) // 40px header/buttons for empty
-        : (items.length * cardHeight + headerHeight);
+
 
     return (
-        <div className="flex-1 min-w-80 relative rounded-t-lg" style={{ height: `${columnHeight}px` }}>
+        <div className="min-w-80 relative rounded-t-lg flex flex-col">
             {/* Colored bar at the very top of the column, static position */}
             {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-gray-200" />}
             {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-500" />}
             {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-500" />}
             {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-t-lg bg-lime-500" />}
-            {/* Main column content below the colored bar */}
-            <div className="bg-gray-700 rounded-b p-4 flex flex-col gap-y-2 flex-1">
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="font-semibold text-left text-white">{column}</h2>
-                    <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
-                        {items.length}
-                    </span>
-                </div>
-                <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
-                    <div className="space-y-2 text-center">
-                        {items.length === 0 ? (
-                            <EmptyCard id={`placeholder-${column}`} />
-                        ) : (
-                            items.map((task) => (
-                                <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
-                            ))
-                        )}
+            {/* Main column background container */}
+            <div className="bg-gray-700 rounded-b flex flex-col">
+                {/* Title fixed at the top */}
+                <div className="p-4">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="font-semibold text-left text-white">{column}</h2>
+                        <span className="ml-2 text-white text-xs text-right font-semibold min-w-6">
+                            {items.length}
+                        </span>
                     </div>
-                </SortableContext>
-                <button
-                    className="mt-4 text-gray-100 hover:underline text-xs text-center self-start"
-                    onClick={() => onAddCard(column)}
-                >
-                    + Add card
-                </button>
+                </div>
+                {/* Scrollable card area only */}
+                <div className="p-4 flex flex-col gap-y-2 flex-1 min-h-0 overflow-y-auto">
+                    <SortableContext items={sortableItems} strategy={verticalListSortingStrategy}>
+                        <div className="space-y-2 text-center">
+                            {items.length === 0 ? (
+                                <EmptyCard id={`placeholder-${column}`} />
+                            ) : (
+                                items.map((task) => (
+                                    <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
+                                ))
+                            )}
+                        </div>
+                    </SortableContext>
+                </div>
+                {/* Add card button at the bottom, inside the column */}
+                <div className="p-3 mt-auto">
+                    <button
+                        className="w-full text-gray-100 align-text-top hover:underline text-xs text-center"
+                        onClick={() => onAddCard(column)}
+                    >
+                        + Add card
+                    </button>
+                </div>
             </div>
         </div>
     );

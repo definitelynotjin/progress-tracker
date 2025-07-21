@@ -42,9 +42,9 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                 <div className="flex items-center gap-2">
                     <span className="text-xs text-gray-300">Priority:</span>
                     {[
-                        { label: "Low", color: "bg-green-700" },
-                        { label: "Medium", color: "bg-yellow-600" },
-                        { label: "High", color: "bg-red-700" },
+                        { label: "Low", color: "bg-green-400" },
+                        { label: "Medium", color: "bg-yellow-500" },
+                        { label: "High", color: "bg-red-400" },
                     ].map(opt => (
                         <button
                             key={opt.label}
