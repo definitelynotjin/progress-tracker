@@ -155,7 +155,7 @@ export default function KanbanBoard() {
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
             >
-                <div className="flex flex-row border-1 justify-left gap-4 overflow-x-auto bg-gray-800 p-10 min-h-screen">
+                <div className="flex flex-row justify-left gap-4 overflow-x-auto bg-gray-800 p-10 min-h-screen">
                     <SortableContext items={columns} strategy={verticalListSortingStrategy}>
                         {columns.map((column) => (
                             <Column

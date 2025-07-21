@@ -31,7 +31,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="p-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between cursor-pointer"
+            className="py-5 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition flex items-center justify-between cursor-pointer"
             onClick={onClick}
         >
             <div className="flex flex-col items-start gap-1">

@@ -12,7 +12,7 @@ function EmptyCard({ id }: { id: string }) {
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? 'opacity-50' : ''}`}
+            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? ' opacity-50' : ''}`}
         >
             Drop the card here
         </div>
@@ -26,12 +26,6 @@ interface ColumnProps {
     onTaskClick: (task: Task) => void;
 }
 
-const columnColors: Record<string, string> = {
-    Backlog: "bg-gray-400",
-    "To Do": "bg-purple-400",
-    "In Progress": "bg-teal-400",
-    "Done": "bg-lime-400",
-};
 
 export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
@@ -44,8 +38,13 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
         : (items.length * cardHeight + headerHeight);
 
     return (
-        <div className="flex-1 min-w-64 flex flex-col relative" style={{ height: `${columnHeight}px` }}>
-            <div className={`w-full h-0.5 rounded-t bg-clip-padding ${columnColors[column] ?? "bg-gray-300"}`} />
+        <div className="flex-1 min-w-80 relative rounded-t-lg" style={{ height: `${columnHeight}px` }}>
+            {/* Colored bar at the very top of the column, static position */}
+            {column.trim().toLowerCase() === "backlog" && <div className="h-1.5 rounded-t-lg bg-gray-400" />}
+            {column.trim().toLowerCase() === "to do" && <div className="h-1.5 rounded-t-lg bg-purple-200" />}
+            {column.trim().toLowerCase() === "in progress" && <div className="h-1.5 rounded-t-lg bg-teal-500" />}
+            {column.trim().toLowerCase() === "done" && <div className="h-1.5 rounded-t-lg bg-lime-400" />}
+            {/* Main column content below the colored bar */}
             <div className="bg-gray-700 rounded-b p-4 flex flex-col gap-y-2 flex-1">
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="font-semibold text-left text-white">{column}</h2>

@@ -6,7 +6,7 @@ export default function Sidebar() {
     return (
         <aside className="h-full w-64 bg-gray-800 text-gray-100 flex flex-col shadow-lg md:flex">
             <div className="flex items-center justify-center h-20 border-b border-gray-700 min-w-0">
-                <span className="text-2xl font-bold tracking-wide justify-center truncate overflow-hidden text-ellipsis">
+                <span className="text-2xl font-bold p-4 tracking-wide justify-center truncate overflow-hidden text-ellipsis">
                     <span className="block md:inline">Progress</span>
                     <span className="block md:inline"> Tracker</span>
                 </span>
