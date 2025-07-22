@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import TaskEditor from './TaskEditor';
+import TiptapEditor from './TiptapEditor';
 import { Task } from './types'; // Adjust path if your Task type is elsewhere
 
 type TaskDetailProps = {
@@ -59,12 +59,20 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                     ))}
                 </div>
 
-                {/* Rich text editor and assignee input */}
-                <TaskEditor
-                    content={content}
-                    assignee={assignee}
+
+                {/* Rich text editor */}
+                <TiptapEditor
+                    value={content}
                     onChange={setContent}
-                    onAssigneeChange={setAssignee}
+                />
+
+                {/* Assignee input */}
+                <input
+                    type="text"
+                    className="w-full bg-gray-700 text-white rounded px-3 py-2 mt-2"
+                    value={assignee}
+                    onChange={e => setAssignee(e.target.value)}
+                    placeholder="Assigned to..."
                 />
 
                 {/* Buttons */}

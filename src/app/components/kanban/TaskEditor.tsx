@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { BulletList, ListItem } from './tiptapExtensions';
 
 type TaskEditorProps = {
     content: string;
@@ -16,7 +17,7 @@ export default function TaskEditor({ content, assignee = "", onChange, onAssigne
     useEffect(() => setMounted(true), []);
 
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [StarterKit, BulletList, ListItem],
         content,
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
@@ -31,7 +32,7 @@ export default function TaskEditor({ content, assignee = "", onChange, onAssigne
             <EditorContent editor={editor} className="text-gray-200" />
             <input
                 type="text"
-                className="bg-gray-700 text-gray-200 rounded px-3 py-2 mt-2"
+                className=" text-gray-200 rounded px-3 py-2 mt-2"
                 placeholder="Assigned to..."
                 value={assignee}
                 onChange={e => onAssigneeChange && onAssigneeChange(e.target.value)}
