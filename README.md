@@ -2,6 +2,11 @@
 
 A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tiptap. Easily track progress, manage tasks, and enjoy smooth drag-and-drop for both columns and cards. It's basically Notion Lite.
 
+## Preview
+
+<img width="2554" height="1611" alt="image" src="https://github.com/user-attachments/assets/1da02a26-9572-469c-bd31-2b184a043fe1" />
+
+
 ## Features
 - Kanban board with draggable/reorderable columns and cards
 - Rich text editor for task details (Tiptap)
