@@ -14,6 +14,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
     const [title, setTitle] = useState(task.title);
     const [content, setContent] = useState(task.content || '');
     const [priority, setPriority] = useState(task.priority || 'Medium');
+    const [assignee, setAssignee] = useState(task.assignee || "");
 
     const handleSave = () => {
         onSave({
@@ -21,6 +22,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
             title,
             content,
             priority,
+            assignee,
             updatedAt: new Date().toISOString(),
         });
     };
@@ -57,8 +59,13 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                     ))}
                 </div>
 
-                {/* Rich text editor */}
-                <TaskEditor content={content} onChange={setContent} />
+                {/* Rich text editor and assignee input */}
+                <TaskEditor
+                    content={content}
+                    assignee={assignee}
+                    onChange={setContent}
+                    onAssigneeChange={setAssignee}
+                />
 
                 {/* Buttons */}
                 <div className="flex justify-end gap-4">

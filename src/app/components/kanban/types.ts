@@ -11,4 +11,5 @@ export interface Task {
     column: ColumnType;
     updatedAt?: string;
     priority?: PriorityType;
+    assignee?: string;
 }

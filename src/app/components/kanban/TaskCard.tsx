@@ -3,11 +3,7 @@ import { GripVertical, Pencil } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
-
 import PriorityBadge from "./PriorityBadge";
-
-
-
 
 type TaskCardProps = { task: Task; onClick?: () => void };
 
@@ -45,7 +41,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                 onClick={e => { e.stopPropagation(); if (onClick) onClick(); }}
                 aria-label="Edit task"
             >
-                <Pencil size={12} className="text-gray-300 hover:text-white" />
+                <Pencil size={14} className="text-gray-300 hover:text-white" />
             </button>
             {/* Card content and drag icon centered */}
             <div className="flex flex-col items-center justify-center w-full h-full">
@@ -59,6 +55,10 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                             dangerouslySetInnerHTML={{ __html: task.content }}
                         />
                     )}
+                    {/* Assigned to text below the body */}
+                    <span className="text-xs text-left font-bold text-gray-100 mt-2 ">
+                        Assigned to{task.assignee ? `: ${task.assignee}` : ' :'}
+                    </span>
                 </div>
                 {/* Draggable grip icon centered below content */}
                 <div

@@ -6,10 +6,12 @@ import StarterKit from '@tiptap/starter-kit';
 
 type TaskEditorProps = {
     content: string;
+    assignee?: string;
     onChange: (content: string) => void;
+    onAssigneeChange?: (assignee: string) => void;
 };
 
-export default function TaskEditor({ content, onChange }: TaskEditorProps) {
+export default function TaskEditor({ content, assignee = "", onChange, onAssigneeChange }: TaskEditorProps) {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
@@ -19,10 +21,21 @@ export default function TaskEditor({ content, onChange }: TaskEditorProps) {
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
         },
-        immediatelyRender: false, // <-- add this line
+        immediatelyRender: false,
     });
 
     if (!mounted) return null;
 
-    return <EditorContent editor={editor} className="text-gray-200" />;
+    return (
+        <div className="flex flex-col gap-4">
+            <EditorContent editor={editor} className="text-gray-200" />
+            <input
+                type="text"
+                className="bg-gray-700 text-gray-200 rounded px-3 py-2 mt-2"
+                placeholder="Assigned to..."
+                value={assignee}
+                onChange={e => onAssigneeChange && onAssigneeChange(e.target.value)}
+            />
+        </div>
+    );
 }
