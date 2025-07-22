@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { COLUMN_TYPES, ColumnType, PriorityType } from "./kanbanConfig";
+import { ColumnType } from "./kanbanConfig";
 import { Task } from "./types";
 
 export function useKanbanBoard(initialTasks: Record<ColumnType, Task[]>) {

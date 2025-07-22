@@ -5,7 +5,7 @@ import SidebarNavItem from "./components/sidebar/SidebarNavItem";
 
 export default function Sidebar() {
     const navItems = [
-        { href: "/", icon: <LayoutDashboard className="text-lg" />, label: "Dashboard" },
+        { href: "/dashboard", icon: <LayoutDashboard className="text-lg" />, label: "Dashboard" },
         { href: "/kanban", icon: <Kanban className="text-lg" />, label: "Kanban Board" },
         { href: "/profile", icon: <UserRound className="text-lg" />, label: "Profile" },
         { href: "/settings", icon: <Settings className="text-lg" />, label: "Settings" },
