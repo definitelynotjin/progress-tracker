@@ -10,7 +10,6 @@ const dashboardSections = [
     { title: "Deadlines", color: "bg-lime-500", content: "Upcoming deadlines and milestones." },
 ];
 
-
 export default function Dashboard() {
     return (
         <KanbanProvider>
@@ -26,31 +25,37 @@ function DashboardContent() {
     return (
         <div className="flex min-h-screen">
             <Sidebar />
-            <main className="flex flex-col gap-8 p-10 flex-1">
+            <main className="bg-gray-800 flex flex-col gap-8 p-10 flex-1">
                 {/* Kanban Data Table */}
                 <section className="mb-8">
-                    <h2 className="text-xl font-bold text-white mb-4">Kanban Board Data</h2>
+                    <h2 className="text-2xl font-extrabold text-white mb-4 tracking-wide drop-shadow">Kanban Board Data</h2>
                     <div className="overflow-x-auto">
-                        <table className="min-w-full bg-gray-800 rounded shadow">
+                        <table className="min-w-full bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg shadow-lg">
                             <thead>
-                                <tr>
-                                    <th className="px-4 py-2 text-left text-gray-300">Title</th>
-                                    <th className="px-4 py-2 text-left text-gray-300">Column</th>
-                                    <th className="px-4 py-2 text-left text-gray-300">Priority</th>
-                                    <th className="px-4 py-2 text-left text-gray-300">Assignee</th>
-                                    <th className="px-4 py-2 text-left text-gray-300">Updated</th>
+                                <tr className="bg-gray-900/80">
+                                    <th className="px-4 py-3 text-left text-lg font-semibold text-blue-300 tracking-wide">Title</th>
+                                    <th className="px-4 py-3 text-left text-lg font-semibold text-purple-300 tracking-wide">Column</th>
+                                    <th className="px-4 py-3 text-left text-lg font-semibold text-pink-300 tracking-wide">Priority</th>
+                                    <th className="px-4 py-3 text-left text-lg font-semibold text-teal-300 tracking-wide">Assignee</th>
+                                    <th className="px-4 py-3 text-left text-lg font-semibold text-lime-300 tracking-wide">Updated</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {allTasks.map(task => (
-                                    <tr key={task.id} className="border-b border-gray-700">
-                                        <td className="px-4 py-2 text-gray-100">{task.title}</td>
-                                        <td className="px-4 py-2 text-gray-100">{task.column}</td>
-                                        <td className="px-4 py-2 text-gray-100">{task.priority}</td>
-                                        <td className="px-4 py-2 text-gray-100">{task.assignee || '-'}</td>
-                                        <td className="px-4 py-2 text-gray-100">{task.updatedAt ? new Date(task.updatedAt).toLocaleString() : '-'}</td>
+                                {allTasks.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={5} className="px-4 py-8 text-center text-gray-400 italic text-lg">No tasks available.</td>
                                     </tr>
-                                ))}
+                                ) : (
+                                    allTasks.map(task => (
+                                        <tr key={task.id} className="border-b border-gray-700 hover:bg-gray-700/40 transition">
+                                            <td className="px-4 py-3 text-gray-100 font-medium text-base">{task.title}</td>
+                                            <td className="px-4 py-3 text-purple-200 font-semibold text-base">{task.column}</td>
+                                            <td className="px-4 py-3 text-pink-200 font-semibold text-base">{task.priority}</td>
+                                            <td className="px-4 py-3 text-teal-200 font-semibold text-base">{task.assignee || <span className="italic text-gray-400">Unassigned</span>}</td>
+                                            <td className="px-4 py-3 text-lime-200 font-semibold text-base">{task.updatedAt ? new Date(task.updatedAt).toLocaleString() : '-'}</td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
                     </div>
@@ -66,12 +71,12 @@ function DashboardContent() {
                                 {/* Title fixed at the top */}
                                 <div className="py-4 px-4">
                                     <div className="flex items-center justify-between mb-4">
-                                        <h2 className="font-semibold text-left text-white">{section.title}</h2>
+                                        <h2 className="font-bold text-left text-white text-lg tracking-wide drop-shadow mb-2">{section.title}</h2>
                                     </div>
                                 </div>
                                 {/* Section content area */}
                                 <div className="px-4 flex flex-col gap-y-2 flex-1 min-h-0">
-                                    <div className="space-y-2 text-left text-gray-200">
+                                    <div className="space-y-2 text-left text-gray-300 text-base leading-relaxed">
                                         {section.content}
                                     </div>
                                 </div>

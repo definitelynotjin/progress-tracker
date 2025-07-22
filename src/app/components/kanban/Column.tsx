@@ -34,10 +34,10 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
     return (
         <div className="min-w-80 relative rounded-t-lg flex flex-col">
             {/* Colored bar at the very top of the column, static position */}
-            {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-gray-200" />}
-            {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-500" />}
-            {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-500" />}
-            {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-t-lg bg-lime-500" />}
+            {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-blue-200" />}
+            {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-200" />}
+            {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-200" />}
+            {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-t-lg bg-lime-200" />}
             {/* Main column background container */}
             <div className="bg-gray-700 rounded-b flex flex-col">
                 {/* Title fixed at the top */}

@@ -1,16 +1,12 @@
 import Dashboard from "@/app/components/dashboard/Dashboard";
+import Header from "@/app/components/dashboard/Header";
 
 export default function DashboardPage() {
     return (
         <div className="bg-gray-900 bg-repeat-round min-h-screen">
-
             <div className="ml-64 flex min-h-screen">
                 <div className="flex-1 flex flex-col">
-                    <div className="h-20 flex p-8 items-center justify-left bg-gray-700 mb-6 py-8">
-                        <h1 className="text-3xl font-bold text-red-400 text-center">
-                            Project 1
-                        </h1>
-                    </div>
+                    <Header />
                     <main className="flex-1 p-10 pt-6 bg-transparent">
                         <Dashboard />
                     </main>
