@@ -15,6 +15,7 @@ import {
     horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import Column from "./Column";
+import { GripVertical } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Modal from "./Modal";
@@ -49,7 +50,7 @@ export default function KanbanBoard() {
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-    const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
+    // Removed unused activeColumnId state
     const activeTask = Object.values(tasks)
         .flat()
         .find((task) => task.id === activeId);
@@ -99,18 +100,12 @@ export default function KanbanBoard() {
 
     // Unified drag logic for columns and cards
     const handleDragStart = (event: DragEndEvent) => {
-        // If dragging a column, set activeColumnId
-        if (columnOrder.includes(event.active.id as ColumnType)) {
-            setActiveColumnId(event.active.id as string);
-        } else {
-            setActiveId(event.active.id as string);
-        }
+        setActiveId(event.active.id as string);
     };
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
         setActiveId(null);
-        setActiveColumnId(null);
         if (!over || active.id === over.id) return;
 
         // Column drag
@@ -175,18 +170,11 @@ export default function KanbanBoard() {
                 {/* Handlebar for dragging column */}
                 <button
                     {...listeners}
-                    className="absolute left-1 top-1 z-10 flex items-center justify-center w-6 h-6 rounded bg-gray-700 hover:bg-gray-600 cursor-grab"
+                    className="absolute left-1 top-1 z-10 flex items-center justify-center w-6 h-6 rounded bg-gray-700 hover:bg-gray-200 cursor-grab"
                     style={{ cursor: 'grab' }}
                     aria-label="Drag column"
                 >
-                    <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
-                        <circle cx="4" cy="4" r="1.5" fill="#ccc" />
-                        <circle cx="4" cy="8" r="1.5" fill="#ccc" />
-                        <circle cx="4" cy="12" r="1.5" fill="#ccc" />
-                        <circle cx="12" cy="4" r="1.5" fill="#ccc" />
-                        <circle cx="12" cy="8" r="1.5" fill="#ccc" />
-                        <circle cx="12" cy="12" r="1.5" fill="#ccc" />
-                    </svg>
+                    <GripVertical size={18} className="text-gray-400 group-hover:text-gray-900" />
                 </button>
                 <div className="pl-8">
                     {children}
