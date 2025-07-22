@@ -4,6 +4,7 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
 import { useSortable } from "@dnd-kit/sortable";
+import { Plus } from "lucide-react";
 
 function EmptyCard({ id }: { id: string }) {
     const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
@@ -66,10 +67,11 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
                 {/* Add card button at the bottom, inside the column */}
                 <div className="p-3 mt-auto">
                     <button
-                        className="w-full text-gray-100 align-text-top hover:underline text-xs text-center"
                         onClick={() => onAddCard(column)}
+                        className="w-full text-gray-100 align-text-top hover:underline text-xs text-center group"
+                        aria-label="Add card"
                     >
-                        + Add card
+                        <Plus size={18} className="mx-auto bold text-gray-300 group-hover:text-gray-100 transition-colors" />
                     </button>
                 </div>
             </div>

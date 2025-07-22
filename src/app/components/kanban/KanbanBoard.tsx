@@ -170,13 +170,13 @@ export default function KanbanBoard() {
                 {/* Handlebar for dragging column */}
                 <button
                     {...listeners}
-                    className="absolute left-1 top-1 z-10 flex items-center justify-center w-6 h-6 rounded bg-gray-700 hover:bg-gray-200 cursor-grab"
+                    className="absolute left-1 top-1.5 x-1 z-10 flex items-center justify-center w-7 h-7 rounded bg-gray-700 hover:bg-gray-200 cursor-grab"
                     style={{ cursor: 'grab' }}
                     aria-label="Drag column"
                 >
-                    <GripVertical size={18} className="text-gray-400 group-hover:text-gray-900" />
+                    <GripVertical size={22} className="text-gray-400 group-hover:text-gray-900" />
                 </button>
-                <div className="pl-8">
+                <div className="pl-11">
                     {children}
                 </div>
             </div>
