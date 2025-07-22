@@ -40,9 +40,3 @@ A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tipta
 - Drag cards between columns
 - Click a card to edit details with rich text
 - Add new cards using the column's add button
-
-## Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-MIT
