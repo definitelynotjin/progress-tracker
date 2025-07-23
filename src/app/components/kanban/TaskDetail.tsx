@@ -39,7 +39,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                 {/* Title input */}
                 <input
                     type="text"
-                    className="text-white w-full bg-gray-700 text-1xl font-semibold border-b pb-2 outline-none"
+                    className="text-white w-full bg-gray-700 text-1xl font-semibold border-b border-gray-500 pb-2 outline-none"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Task Title"

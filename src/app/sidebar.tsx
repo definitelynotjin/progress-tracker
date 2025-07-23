@@ -35,7 +35,7 @@ export default function Sidebar() {
 
     function SidebarFooter() {
         return (
-            <div className="p-4 border-t border-gray-700 text-xs text-gray-400">
+            <div className="p-4 text-center border-t border-gray-700 text-xs text-gray-400">
                 &copy; {new Date().getFullYear()} Progress Tracker
             </div>
         );

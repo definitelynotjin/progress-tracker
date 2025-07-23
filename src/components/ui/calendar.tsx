@@ -29,7 +29,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "bg-gray-500 text-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+        "bg-gray-600 text-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         String.raw`rtl:**:[.rdp-button_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button_previous>svg]:rotate-180`,
         className
@@ -201,7 +201,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        "bg-gray-500 text-white flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none rounded-md [&>span]:text-xs [&>span]:opacity-90 data-[selected-single=true]:bg-gray-100 data-[selected-single=true]:text-gray-700",
+        "bg-gray-600 text-white flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none rounded-md [&>span]:text-xs [&>span]:opacity-90 data-[selected-single=true]:bg-gray-100 data-[selected-single=true]:text-gray-700",
         defaultClassNames.day,
         className
       )}
