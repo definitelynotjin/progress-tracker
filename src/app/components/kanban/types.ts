@@ -12,5 +12,5 @@ export interface Task {
     updatedAt?: string;
     priority?: PriorityType;
     assignee?: string;
-    dueDate?: string; // ISO date string, optional
+    dueDate?: string | { from?: string; to?: string }; // ISO date string or range object
 }

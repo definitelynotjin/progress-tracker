@@ -7,9 +7,10 @@ import {
   ChevronRightIcon,
 } from "lucide-react"
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
-
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
+
+import type { DateRange } from "react-day-picker"
 
 function Calendar({
   className,
@@ -25,21 +26,26 @@ function Calendar({
 }) {
   const defaultClassNames = getDefaultClassNames()
 
+  const [range, setRange] = React.useState<DateRange | undefined>()
+
   return (
     <DayPicker
+      mode="range"
+      selected={range}
+      onSelect={setRange}
       showOutsideDays={showOutsideDays}
-      className={cn(
-        "bg-gray-600 text-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
-        String.raw`rtl:**:[.rdp-button_next>svg]:rotate-180`,
-        String.raw`rtl:**:[.rdp-button_previous>svg]:rotate-180`,
-        className
-      )}
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
           date.toLocaleString("default", { month: "short" }),
         ...formatters,
       }}
+      className={cn(
+        "bg-gray-600 text-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
+        String.raw`rtl:**:[.rdp-button_next>svg]:rotate-180`,
+        String.raw`rtl:**:[.rdp-button_previous>svg]:rotate-180`,
+        className
+      )}
       classNames={{
         root: cn("w-fit", defaultClassNames.root),
         months: cn(
@@ -104,11 +110,12 @@ function Calendar({
           defaultClassNames.day
         ),
         range_start: cn(
-          "bg-accent rounded-l-md",
+          "bg-gray-500 text-white font-bold shadow-lg ring-1 ring-gray-100",
           defaultClassNames.range_start
         ),
-        range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("bg-accent rounded-r-md", defaultClassNames.range_end),
+        range_middle: cn("bg-gray-500 text-white font-bold shadow-lg", defaultClassNames.range_middle),
+
+        range_end: cn("bg-gray-500 text-white font-bold shadow-lg ring-1 ring-gray-100", defaultClassNames.range_end),
         today: cn(
           "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
           defaultClassNames.today

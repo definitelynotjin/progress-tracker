@@ -5,8 +5,8 @@ import { Bell } from "lucide-react";
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     return (
-        <div className="h-20 flex px-8 items-center justify-between bg-gray-700">
-            <h1 className="text-3xl font-bold text-pink-300">
+        <div className="h-20 flex px-8 items-center justify-between bg-gray-800">
+            <h1 className="text-3xl pl-1 font-bold text-pink-300">
                 Team 44
             </h1>
             <div className="flex items-center gap-4 relative">

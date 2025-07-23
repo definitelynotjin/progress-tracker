@@ -1,9 +1,6 @@
-import ClientKanbanBoard from "./components/kanban/ClientKanbanBoard";
+import { redirect } from "next/navigation";
 
-export default function Page() {
-    return (
-        <div className="bg-gray-200 bg-repeat-round min-h-screen">
-            <ClientKanbanBoard />
-        </div>
-    );
+export default function Home() {
+    redirect("/dashboard");
+    return null;
 }

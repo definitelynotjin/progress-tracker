@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import type { DateRange } from "react-day-picker";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,12 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
     const [content, setContent] = useState(task.content || '');
     const [priority, setPriority] = useState(task.priority || 'Medium');
     const [assignee, setAssignee] = useState(task.assignee || "");
-    const [dueDate, setDueDate] = useState<Date | undefined>(task.dueDate ? new Date(task.dueDate) : undefined);
+    // Support range selection for due date
+    const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
+        task.dueDate && typeof task.dueDate === 'object' && task.dueDate.from && task.dueDate.to
+            ? { from: new Date(task.dueDate.from), to: new Date(task.dueDate.to) }
+            : undefined
+    );
 
     const handleSave = () => {
         onSave({
@@ -28,7 +34,12 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
             content,
             priority,
             assignee,
-            dueDate: dueDate ? dueDate.toISOString() : undefined,
+            dueDate: dueDateRange
+                ? {
+                    from: dueDateRange.from ? dueDateRange.from.toISOString() : undefined,
+                    to: dueDateRange.to ? dueDateRange.to.toISOString() : undefined,
+                }
+                : undefined,
             updatedAt: new Date().toISOString(),
         });
     };
@@ -65,20 +76,24 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                     ))}
                 </div>
 
-                {/* Due date picker */}
+                {/* Due date range picker */}
                 <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-300">Due date:</span>
+                    <span className="text-xs text-gray-300">Date Range:</span>
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button variant="outline" size="sm" className="text-xs px-2 py-1">
-                                {dueDate ? format(dueDate, "MMM dd, yyyy") : "Pick date"}
+                                {dueDateRange?.from && dueDateRange?.to
+                                    ? `${format(dueDateRange.from, "MMM dd, yyyy")} - ${format(dueDateRange.to, "MMM dd, yyyy")}`
+                                    : dueDateRange?.from
+                                        ? format(dueDateRange.from, "MMM dd, yyyy")
+                                        : "Pick range"}
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="p-0 w-auto">
                             <Calendar
-                                mode="single"
-                                selected={dueDate}
-                                onSelect={setDueDate}
+                                mode="range"
+                                selected={dueDateRange}
+                                onSelect={setDueDateRange}
                                 initialFocus
                             />
                         </PopoverContent>
