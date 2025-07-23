@@ -11,7 +11,6 @@ import {
 } from "@dnd-kit/core";
 import {
     SortableContext,
-    verticalListSortingStrategy,
     horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import Column from "./Column";
