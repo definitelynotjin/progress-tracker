@@ -14,7 +14,7 @@ export default function Sidebar() {
     return (
         <aside className="fixed top-0 left-0 z-50 h-screen w-64 bg-gray-800 text-gray-100 flex flex-col shadow-lg md:flex overflow-hidden">
             <SidebarHeader />
-            <nav className="py-6 px-4 space-y-2">
+            <nav className="py-6 px-8 space-y-2">
                 {navItems.map((item) => (
                     <SidebarNavItem key={item.href} {...item} />
                 ))}

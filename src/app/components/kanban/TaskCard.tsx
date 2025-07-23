@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { GripVertical, Pencil } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
 import PriorityBadge from "./PriorityBadge";
 
+
+
 type TaskCardProps = { task: Task; onClick?: () => void };
 
 export default function TaskCard({ task, onClick }: TaskCardProps) {
+    // ...existing code...
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: task.id,
         data: {
@@ -19,7 +22,6 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         transform: CSS.Transform.toString(transform),
         transition: transition ?? "transform 250ms ease",
     };
-
 
     // Only open modal when clicking the card, not the dot
     const handleCardClick = (e: React.MouseEvent) => {
@@ -47,7 +49,10 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
             <div className="flex flex-col items-center justify-center w-full h-full">
                 {/* Card content */}
                 <div className="flex flex-col items-start gap-1 w-full">
-                    {task.priority && <PriorityBadge priority={task.priority} />}
+                    {/* Priority badge row */}
+                    <div className="flex items-center w-full">
+                        {task.priority && <PriorityBadge priority={task.priority} />}
+                    </div>
                     <span className="text-sm font-semibold">{task.title}</span>
                     {task.content && (
                         <span

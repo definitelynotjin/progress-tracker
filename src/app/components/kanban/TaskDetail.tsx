@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
 import TiptapEditor from './TiptapEditor';
 import { Task } from './types'; // Adjust path if your Task type is elsewhere
 
@@ -15,6 +19,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
     const [content, setContent] = useState(task.content || '');
     const [priority, setPriority] = useState(task.priority || 'Medium');
     const [assignee, setAssignee] = useState(task.assignee || "");
+    const [dueDate, setDueDate] = useState<Date | undefined>(task.dueDate ? new Date(task.dueDate) : undefined);
 
     const handleSave = () => {
         onSave({
@@ -23,6 +28,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
             content,
             priority,
             assignee,
+            dueDate: dueDate ? dueDate.toISOString() : undefined,
             updatedAt: new Date().toISOString(),
         });
     };
@@ -57,6 +63,26 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                             {opt.label}
                         </button>
                     ))}
+                </div>
+
+                {/* Due date picker */}
+                <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-300">Due date:</span>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant="outline" size="sm" className="text-xs px-2 py-1">
+                                {dueDate ? format(dueDate, "MMM dd, yyyy") : "Pick date"}
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="p-0 w-auto">
+                            <Calendar
+                                mode="single"
+                                selected={dueDate}
+                                onSelect={setDueDate}
+                                initialFocus
+                            />
+                        </PopoverContent>
+                    </Popover>
                 </div>
 
 

@@ -1,15 +1,26 @@
+'use client';
+
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import BulletList from '@tiptap/extension-bullet-list';
-import ListItem from '@tiptap/extension-list-item';
-import OrderedList from '@tiptap/extension-ordered-list';
 
-export default function TiptapEditor({ value, onChange }: { value?: string; onChange?: (markdown: string) => void }) {
+export default function TiptapEditor({
+    value,
+    onChange,
+}: {
+    value?: string;
+    onChange?: (markdown: string) => void;
+}) {
     const editor = useEditor({
-        extensions: [StarterKit, BulletList, OrderedList, ListItem],
+        extensions: [StarterKit],
         content: value || '',
         onUpdate: ({ editor }) => {
-            if (onChange) onChange(editor.getHTML());
+            onChange?.(editor.getHTML());
+        },
+        autofocus: true,
+        editorProps: {
+            attributes: {
+                class: 'outline-none prose prose-sm max-w-none',
+            },
         },
         immediatelyRender: false,
     });
