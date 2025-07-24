@@ -4,7 +4,8 @@ A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tipta
 
 ## Preview
 
-<img width="2554" height="1611" alt="image" src="https://github.com/user-attachments/assets/1da02a26-9572-469c-bd31-2b184a043fe1" />
+<img width="2539" height="1381" alt="image" src="https://github.com/user-attachments/assets/f817c5d4-913d-4504-ae6c-4382953b47e7" />
+
 
 
 ## Features
