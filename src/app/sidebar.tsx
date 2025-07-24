@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import SidebarNavItem from "./components/sidebar/SidebarNavItem";
 
-export default function Sidebar({ className = "" }: { className?: string } = {}) {
+export default function Sidebar({ className = "", onMouseEnter, onMouseLeave }: { className?: string, onMouseEnter?: React.MouseEventHandler, onMouseLeave?: React.MouseEventHandler } = {}) {
     const navItems = [
         { href: "/dashboard", icon: <LayoutDashboard className="text-2xl" />, label: "Dashboard" },
         { href: "/kanban", icon: <Kanban className="text-2xl" />, label: "Kanban Board" },
@@ -15,6 +15,8 @@ export default function Sidebar({ className = "" }: { className?: string } = {})
     return (
         <aside
             className={`sidebar group fixed top-0 left-0 z-50 h-screen w-16 hover:w-48 bg-gray-800 text-gray-100 flex flex-col shadow-lg md:flex overflow-hidden transition-all duration-200 ${className}`}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         >
             <SidebarHeader />
             <nav className="py-8 px-2 md:px-2 space-y-6 flex-1">
@@ -32,9 +34,9 @@ export default function Sidebar({ className = "" }: { className?: string } = {})
     );
     function SidebarHeader() {
         return (
-            <div className="p-4 flex items-center justify-center max-h-max border-b border-gray-700 min-w-0">
+            <div className="p-4 flex items-center bg-gray-700 justify-center max-h-max border-b border-gray-700 min-w-0 rounded-t-md">
                 <Image src="/logo.png" alt="Logo" width={48} height={48} />
-                <span className="group-hover:opacity-0 opacity-100 transition-all duration-200 text-xl font-bold"></span>
+                <span className="group-hover:opacity-0 opacity-100 bg-gray-200 transition-all duration-200 text-xl font-bold"></span>
             </div>
         );
     }
