@@ -59,10 +59,18 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                             dangerouslySetInnerHTML={{ __html: task.content }}
                         />
                     )}
-                    {/* Assigned to text below the body */}
-                    <span className="text-xs text-left font-bold text-gray-100 mt-2 ">
-                        Assigned to{task.assignee ? `: ${task.assignee}` : ' :'}
-                    </span>
+                    {/* Assigned to avatar on the right */}
+                    <div className="flex items-center w-full mt-2">
+                        <div className="flex-1"></div>
+                        {task.assignee ? (
+                            <span
+                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-900 font-bold text-xs border-2 border-gray-300 shadow"
+                                title={task.assignee}
+                            >
+                                {task.assignee.charAt(0).toUpperCase()}
+                            </span>
+                        ) : null}
+                    </div>
                 </div>
                 {/* Draggable grip icon centered below content */}
                 <div
