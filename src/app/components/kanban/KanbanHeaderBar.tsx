@@ -26,16 +26,43 @@ export default function KanbanHeaderBar() {
                 </BreadcrumbItem>
             </Breadcrumb>
             {/* Avatars */}
-            <div className="flex items-center gap-2">
-                {boardMembers.map((member) => (
-                    <div
-                        key={member.name}
-                        title={member.name}
-                        className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
-                    >
-                        {member.avatar && typeof member.avatar === "string" ? member.avatar : null}
+            <div className="flex items-center gap-3">
+                <div className="relative group/avatar-roster">
+                    {/* Expanded view: show all avatars on hover, to the left */}
+                    <div className="absolute right-full top-0 flex items-center gap-3 transition-all duration-300 ease-in-out opacity-0 pointer-events-none group-hover/avatar-roster:opacity-100 group-hover/avatar-roster:pointer-events-auto">
+                        {boardMembers.map((member, idx) => (
+                            <div
+                                key={member.name}
+                                title={member.name}
+                                className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
+                                style={{ zIndex: 10 - idx, marginLeft: idx === 0 ? 0 : '-0.75rem' }}
+                            >
+                                {member.avatar && typeof member.avatar === "string" ? member.avatar : null}
+                            </div>
+                        ))}
                     </div>
-                ))}
+                    {/* Compact view: show up to 3 avatars and +x indicator */}
+                    <div className="flex items-center gap-3 group-hover/avatar-roster:opacity-0 group-hover/avatar-roster:pointer-events-none transition-all duration-300 ease-in-out">
+                        {boardMembers.slice(0, 3).map((member, idx) => (
+                            <div
+                                key={member.name}
+                                title={member.name}
+                                className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
+                                style={{ zIndex: 10 - idx, marginLeft: idx === 0 ? 0 : '-0.75rem' }}
+                            >
+                                {member.avatar && typeof member.avatar === "string" ? member.avatar : null}
+                            </div>
+                        ))}
+                        {boardMembers.length > 3 && (
+                            <div
+                                className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-200 font-bold text-xs border-2 border-gray-700 shadow -ml-3"
+                                style={{ zIndex: 6 }}
+                            >
+                                +{boardMembers.length - 3}
+                            </div>
+                        )}
+                    </div>
+                </div>
                 <button className="ml-2 w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition" title="Add member">
                     <UserRound size={18} />
                 </button>
