@@ -5,16 +5,17 @@ interface SidebarNavItemProps {
     href: string;
     icon: React.ReactNode;
     label: string;
+    collapsedLabelClass?: string;
 }
 
-export default function SidebarNavItem({ href, icon, label }: SidebarNavItemProps) {
+export default function SidebarNavItem({ href, icon, label, collapsedLabelClass }: SidebarNavItemProps) {
     return (
         <Link
             href={href}
-            className="flex items-center gap-3 px-6 py-2 rounded transition group hover:bg-gray-800 hover:shadow-inner hover:shadow-black/100"
+            className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-150"
         >
             <span className="group-hover:shadow-inner group-hover:shadow-black/60 group-hover:bg-gray-800 rounded-full transition duration-150 ease-in-out">{icon}</span>
-            <span className="text-sm">{label}</span>
+            <span className={collapsedLabelClass || "text-sm ml-3"}>{label}</span>
         </Link>
     );
 }

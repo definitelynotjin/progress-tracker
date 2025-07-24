@@ -23,9 +23,9 @@ function DashboardContent() {
     // Flatten all tasks
     const allTasks = Object.values(tasks).flat();
     return (
-        <div className="flex min-h-screen">
-            <Sidebar />
-            <main className="bg-gray-800 flex flex-col gap-8 p-10 flex-1">
+        <div className="flex relative min-h-screen">
+            <Sidebar className="sidebar" />
+            <main className="content bg-gray-800 flex flex-col gap-8 p-10 flex-1">
                 {/* Kanban Data Table */}
                 <section className="mb-8">
                     <h2 className="text-2xl font-extrabold text-white mb-4 tracking-wide drop-shadow">Kanban Board Data</h2>
