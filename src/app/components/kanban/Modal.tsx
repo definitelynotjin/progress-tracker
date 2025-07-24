@@ -12,8 +12,8 @@ export default function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-gray-700 rounded-lg p-6 w-80 shadow-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-in fade-in duration-500">
+            <div className="bg-gray-700 rounded-lg p-6 w-80 shadow-lg animate-in fade-in duration-500">
                 <h2 className="text-lgt text-sm text-white font-bold mb-4">Add New Task</h2>
                 <form
                     onSubmit={e => {

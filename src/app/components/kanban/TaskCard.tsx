@@ -7,7 +7,6 @@ import PriorityBadge from "./PriorityBadge";
 type TaskCardProps = { task: Task; onClick?: () => void };
 
 export default function TaskCard({ task, onClick }: TaskCardProps) {
-    // ...existing code...
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: task.id,
         data: {
@@ -31,7 +30,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative overflow-y-auto max-h-64 w-full"
+            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative overflow-y-auto max-h-64 w-full animate-fade-in"
             onClick={handleCardClick}
         >
             {/* Edit icon top right */}
@@ -53,7 +52,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                     <span className="text-sm font-semibold">{task.title}</span>
                     {task.content && (
                         <span
-                            className="text-xs text-left text-gray-200 mt-1"
+                            className="tiptap-taskcard prose max-w-none text-xs text-left text-gray-200 mt-1 [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-0"
                             dangerouslySetInnerHTML={{ __html: task.content }}
                         />
                     )}

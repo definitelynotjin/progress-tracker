@@ -1,12 +1,8 @@
 'use client';
 
 import StarterKit from '@tiptap/starter-kit';
-import BulletList from '@tiptap/extension-bullet-list';
-import ListItem from '@tiptap/extension-list-item';
 import { useEditor, EditorContent } from '@tiptap/react';
 import React, { useEffect, useState } from 'react';
-
-
 
 export interface TiptapBulletEditorProps {
     value: string;
@@ -14,7 +10,7 @@ export interface TiptapBulletEditorProps {
     className?: string;
 }
 
-export default function TiptapBulletEditor({ value, onChange, className }: TiptapBulletEditorProps) {
+export default function TiptapBulletEditor({ value, onChange }: TiptapBulletEditorProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -23,15 +19,29 @@ export default function TiptapBulletEditor({ value, onChange, className }: Tipta
 
     const editor = useEditor({
         extensions: [
-            StarterKit.configure({ bulletList: false }),
-            BulletList,
-            ListItem,
+            StarterKit.configure({
+                bulletList: {
+                    HTMLAttributes: {
+                        class: "bullet_class",
+                    },
+                },
+                orderedList: {
+                    HTMLAttributes: {
+                        class: "order_class",
+                    },
+                },
+                heading: {
+                    HTMLAttributes: {
+                        class: "headers_class",
+                    },
+                },
+            }),
         ],
         content: value,
         autofocus: true,
         editorProps: {
             attributes: {
-                class: className || 'min-h-[300px] p-4 bg-gray-600 text-sm text-white rounded-md w-full',
+                class: 'prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc min-h-[300px] p-4 bg-gray-600 text-sm text-white rounded-md w-full [&_li]:my-0',
             },
         },
         onUpdate({ editor }) {
