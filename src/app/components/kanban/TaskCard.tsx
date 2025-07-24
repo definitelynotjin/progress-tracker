@@ -4,8 +4,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
 import PriorityBadge from "./PriorityBadge";
 
-
-
 type TaskCardProps = { task: Task; onClick?: () => void };
 
 export default function TaskCard({ task, onClick }: TaskCardProps) {

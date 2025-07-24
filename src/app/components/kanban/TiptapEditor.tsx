@@ -31,7 +31,7 @@ export default function TiptapBulletEditor({ value, onChange, className }: Tipta
         autofocus: true,
         editorProps: {
             attributes: {
-                class: className || 'min-h-[150px] p-1 bg-gray-700 text-white rounded-md',
+                class: className || 'min-h-[300px] p-4 bg-gray-600 text-white rounded-md w-full',
             },
         },
         onUpdate({ editor }) {
