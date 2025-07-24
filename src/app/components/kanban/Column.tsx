@@ -31,16 +31,15 @@ interface ColumnProps {
 export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
 
-
     return (
-        <div className="min-w-80 relative rounded-t-lg flex flex-col">
+        <div className="flex-1 min-w-0 relative rounded-t-lg flex flex-col">
             {/* Colored bar at the very top of the column, static position */}
             {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-blue-200" />}
             {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-200" />}
             {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-200" />}
             {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-t-lg bg-lime-200" />}
             {/* Main column background container */}
-            <div className="bg-gray-700 rounded-b flex flex-col">
+            <div className="bg-gray-700 rounded-b flex flex-col h-full">
                 {/* Title fixed at the top */}
                 <div className="py-4 px-4">
                     <div className="flex items-center justify-between mb-4">

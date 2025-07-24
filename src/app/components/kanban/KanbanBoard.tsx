@@ -27,18 +27,96 @@ import type { ColumnType } from "./types";
 
 const initialTasks: Record<ColumnType, Task[]> = {
     "Backlog": [
-        { id: "task-a", title: "Survey network topology", content: "<p>Document the current network layout and identify all connected devices.</p>", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Low", assignee: "Ali" },
-        { id: "task-b", title: "Plan IP address allocation", content: "<p>Design an efficient IP addressing scheme for new subnets.</p>", updatedAt: new Date().toISOString(), column: "Backlog", priority: "Medium", assignee: "Burhan" },
+        {
+            id: "task-a",
+            title: "Survey network topology",
+            content: `
+                <ul>
+                    <li>Document the current network layout</li>
+                    <li>Identify all connected devices</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "Backlog",
+            priority: "Low",
+            assignee: "Ali"
+        },
+        {
+            id: "task-b",
+            title: "Plan IP address allocation",
+            content: `
+                <ul>
+                    <li>Design an efficient IP addressing scheme</li>
+                    <li>Plan for new subnets</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "Backlog",
+            priority: "Medium",
+            assignee: "Burhan"
+        },
     ],
     "To Do": [
-        { id: "task-c", title: "Configure VLANs on switches", content: "<p>Set up VLANs for department separation and improved security.</p>", updatedAt: new Date().toISOString(), column: "To Do", priority: "High", assignee: "Coki" },
-        { id: "task-d", title: "Install network monitoring tools", content: "<p>Deploy tools like Zabbix or Nagios to monitor network health.</p>", updatedAt: new Date().toISOString(), column: "To Do", priority: "Medium", assignee: "Dennis" },
+        {
+            id: "task-c",
+            title: "Configure VLANs on switches",
+            content: `
+                <ul>
+                    <li>Set up VLANs for department separation</li>
+                    <li>Improve network security</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "To Do",
+            priority: "High",
+            assignee: "Coki"
+        },
+        {
+            id: "task-d",
+            title: "Install network monitoring tools",
+            content: `
+                <ul>
+                    <li>Deploy Zabbix or Nagios</li>
+                    <li>Monitor network health</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "To Do",
+            priority: "Medium",
+            assignee: "Dennis"
+        },
     ],
     "In Progress": [
-        { id: "task-e", title: "Troubleshoot connectivity issues", content: "<p>Investigate and resolve intermittent connection drops in the office.</p>", updatedAt: new Date().toISOString(), column: "In Progress", priority: "High", assignee: "Erfan" },
+        {
+            id: "task-e",
+            title: "Troubleshoot connectivity issues",
+            content: `
+                <ul>
+                    <li>Investigate intermittent connection drops</li>
+                    <li>Resolve office connectivity problems</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "In Progress",
+            priority: "High",
+            assignee: "Erfan"
+        },
     ],
     Done: [
-        { id: "task-f", title: "Upgrade router firmware", content: "<p>Successfully updated firmware on all core routers.</p>", updatedAt: new Date().toISOString(), column: "Done", priority: "Low", assignee: "Frank" },
+        {
+            id: "task-f",
+            title: "Upgrade router firmware",
+            content: `
+                <ul>
+                    <li>Update firmware on all core routers</li>
+                    <li>Verify successful upgrade</li>
+                </ul>
+            `,
+            updatedAt: new Date().toISOString(),
+            column: "Done",
+            priority: "Low",
+            assignee: "Frank"
+        },
     ],
 };
 
@@ -169,7 +247,7 @@ export default function KanbanBoard() {
                 {/* Handlebar for dragging column */}
                 <button
                     {...listeners}
-                    className="absolute left-1 top-1.5 x-1 z-10 flex items-center justify-center w-7 h-7 rounded bg-gray-700 hover:bg-gray-200 cursor-grab"
+                    className="absolute left-1 top-1.5 z-10 flex items-center justify-center w-7 h-7 rounded bg-gray-700 hover:bg-gray-200 cursor-grab"
                     style={{ cursor: 'grab' }}
                     aria-label="Drag column"
                 >
