@@ -64,7 +64,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                     <div className="flex-1"></div>
                     {task.assignee ? (
                         <span
-                            className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-900 font-bold text-xs border-2 border-gray-300 shadow"
+                            className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-100 font-bold text-xs border-2 border-gray-600 shadow"
                             title={task.assignee}
                         >
                             {task.assignee.charAt(0).toUpperCase()}
