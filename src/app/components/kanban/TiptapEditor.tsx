@@ -1,8 +1,10 @@
 'use client';
 
 import StarterKit from '@tiptap/starter-kit';
+import './tiptap-animations.css';
 import { useEditor, EditorContent } from '@tiptap/react';
 import React, { useEffect, useState } from 'react';
+import { motion } from "framer-motion";
 
 export interface TiptapBulletEditorProps {
     value: string;
@@ -12,10 +14,19 @@ export interface TiptapBulletEditorProps {
 
 export default function TiptapBulletEditor({ value, onChange }: TiptapBulletEditorProps) {
     const [mounted, setMounted] = useState(false);
+    const [fadeIn, setFadeIn] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (mounted) {
+            // Allow the browser to paint with opacity-0 before animating
+            const timeout = setTimeout(() => setFadeIn(true), 10);
+            return () => clearTimeout(timeout);
+        }
+    }, [mounted]);
 
     const editor = useEditor({
         extensions: [
@@ -61,8 +72,13 @@ export default function TiptapBulletEditor({ value, onChange }: TiptapBulletEdit
     if (!mounted) return null;
 
     return (
-        <div className="w-full max-w-xl mx-auto mt-6">
+        <motion.div
+            className="w-full max-w-xl mx-auto mt-6"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+        >
             <EditorContent editor={editor} />
-        </div>
+        </motion.div>
     );
 }
