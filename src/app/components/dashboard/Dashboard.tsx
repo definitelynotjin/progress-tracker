@@ -1,6 +1,9 @@
 "use client";
+
 import React from "react";
 import { KanbanProvider, useKanban } from "../kanban/KanbanContext";
+
+import { DashboardSectionCard } from "./DashboardSectionCard";
 
 const dashboardSections = [
     { title: "Overview", color: "bg-blue-500", content: "Project summary, stats, and quick links." },
@@ -60,25 +63,7 @@ function DashboardContent() {
             {/* Existing dashboard sections */}
             <div className="flex flex-row gap-4 overflow-x-auto">
                 {dashboardSections.map((section) => (
-                    <div key={section.title} className="min-w-80 justify-center relative rounded-t-lg flex flex-col">
-                        {/* Colored bar at the very top of the section */}
-                        <div className={`h-1 rounded-t-lg ${section.color}`} />
-                        {/* Main section background container */}
-                        <div className="bg-gray-700 rounded-b flex flex-col">
-                            {/* Title fixed at the top */}
-                            <div className="py-4 px-4">
-                                <div className="flex items-center justify-between mb-4">
-                                    <h2 className="font-bold text-left text-white text-lg tracking-wide drop-shadow mb-2">{section.title}</h2>
-                                </div>
-                            </div>
-                            {/* Section content area */}
-                            <div className="px-4 flex flex-col gap-y-2 flex-1 min-h-0">
-                                <div className="space-y-2 text-left text-gray-300 text-base leading-relaxed">
-                                    {section.content}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <DashboardSectionCard key={section.title} {...section} />
                 ))}
             </div>
         </div>

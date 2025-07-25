@@ -1,13 +1,27 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useRef, useEffect } from "react";
 import { Bell } from "lucide-react";
 
 export default function NotificationButton() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!dropdownOpen) return;
+        function handleClickOutside(event: MouseEvent) {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setDropdownOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [dropdownOpen]);
+
     return (
-        <div className="relative">
+        <div className="relative" ref={ref}>
             <button
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative"
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative"
                 aria-label="Notifications"
                 onClick={() => setDropdownOpen((open) => !open)}
             >
@@ -17,7 +31,7 @@ export default function NotificationButton() {
                 <div className="absolute right-0 top-12 w-96 bg-gray-700 rounded-lg shadow-2xl border-gray-200 z-20 p-6">
                     <div className="pb-4 font-bold text-gray-100 text-sm border-b">Notifications</div>
                     <ul className="divide-y divide-gray-200">
-                        <li className="py-6 text-sm text-gray-100">No new notifications</li>
+                        <li className="py-6 text-sm text-gray-400">No new notifications</li>
                     </ul>
                 </div>
             )}

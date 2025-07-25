@@ -34,9 +34,11 @@ export default function Sidebar({ className = "", onMouseEnter, onMouseLeave }: 
     );
     function SidebarHeader() {
         return (
-            <div className="p-4 flex items-center bg-gray-700 justify-center max-h-max border-b border-gray-700 min-w-0 rounded-t-md">
-                <Image src="/logo.png" alt="Logo" width={48} height={48} />
-                <span className="group-hover:opacity-0 opacity-100 bg-gray-200 transition-all duration-200 text-xl font-bold"></span>
+            <div className="p-4 flex items-center bg-gray-900 justify-center max-h-max border-b border-gray-700 min-w-0 rounded-t-md">
+                <div className="bg-gray-800 flex items-center justify-center rounded-md">
+                    <Image src="/logo.png" alt="Logo" width={48} height={48} />
+                    <span className="group-hover:opacity-0 opacity-100 bg-gray-200 transition-all duration-200 text-xl font-bold"></span>
+                </div>
             </div>
         );
     }

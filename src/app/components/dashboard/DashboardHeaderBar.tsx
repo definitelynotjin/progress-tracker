@@ -1,15 +1,6 @@
-import { UserRound } from "lucide-react";
+import React from "react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, } from "@/components/ui/breadcrumb";
 import { ChevronRight } from "lucide-react";
-// Dummy data for avatars (replace with your board members)
-const boardMembers = [
-    { name: "Ali", avatar: "A" },
-    { name: "Burhan", avatar: "B" },
-    { name: "Coki", avatar: "C" },
-    { name: "Dennis", avatar: "D" },
-    { name: "Erfan", avatar: "E" },
-    { name: "Frank", avatar: "F" },
-];
 
 export default function DashboardHeaderBar() {
     return (
