@@ -22,6 +22,7 @@ export default function NotificationButton() {
         <div className="relative" ref={ref}>
             <button
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative"
+                title="Notifications"
                 aria-label="Notifications"
                 onClick={() => setDropdownOpen((open) => !open)}
             >
