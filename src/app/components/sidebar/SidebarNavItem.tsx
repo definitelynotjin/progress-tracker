@@ -15,7 +15,9 @@ export default function SidebarNavItem({ href, icon, label, collapsedLabelClass,
             href={href}
             className="flex items-center gap-2 px-4 py-4 rounded-md hover:bg-gray-700 transition duration-150 transform hover:scale-95 group"
         >
-            <span className="group-hover:shadow-inner group-hover:shadow-black/60 group-hover:bg-gray-800 rounded-full transition duration-150 ease-in-out">{icon}</span>
+            <span className="flex items-center justify-center w-8 h-8 shrink-0 group-hover:shadow-inner group-hover:shadow-black/60 group-hover:bg-gray-800 rounded-full transition duration-150 ease-in-out">
+                {icon}
+            </span>
             <span className={`${collapsedLabelClass || "ml-3"} ${labelClassName || "text-sm"}`}>{label}</span>
         </Link>
     );
