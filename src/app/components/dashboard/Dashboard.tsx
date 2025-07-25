@@ -60,7 +60,7 @@ function DashboardContent() {
             {/* Existing dashboard sections */}
             <div className="flex flex-row gap-4 overflow-x-auto">
                 {dashboardSections.map((section) => (
-                    <div key={section.title} className="min-w-80 relative rounded-t-lg flex flex-col">
+                    <div key={section.title} className="min-w-80 justify-center relative rounded-t-lg flex flex-col">
                         {/* Colored bar at the very top of the section */}
                         <div className={`h-1 rounded-t-lg ${section.color}`} />
                         {/* Main section background container */}

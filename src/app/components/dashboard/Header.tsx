@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import NotificationButton from "./notification/NotificationButton";
+import NotificationButton from "../notification/NotificationButton";
 
 export default function Header() {
     return (
