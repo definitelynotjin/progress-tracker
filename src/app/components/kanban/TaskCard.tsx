@@ -30,7 +30,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative overflow-y-auto max-h-64 w-full animate-fade-in"
+            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative min-w-[275px] max-w-[350px] w-full animate-fade-in"
             onClick={handleCardClick}
         >
             {/* Edit icon top right */}
@@ -43,33 +43,34 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
             </button>
             {/* Card content and drag icon centered */}
             <div className="flex flex-col items-center justify-center w-full h-full">
-                {/* Card content */}
+                {/* Header: Priority badge and title */}
                 <div className="flex flex-col items-start gap-1 w-full">
-                    {/* Priority badge row */}
                     <div className="flex items-center w-full">
                         {task.priority && <PriorityBadge priority={task.priority} />}
                     </div>
                     <span className="text-sm font-semibold">{task.title}</span>
+                </div>
+                {/* Scrollable text body */}
+                <div className="w-full overflow-y-auto max-h-24">
                     {task.content && (
                         <span
-                            className="tiptap-taskcard prose max-w-none text-xs text-left text-gray-200 mt-1 [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-0"
+                            className="tiptap-taskcard prose max-w-none text-xs text-left text-gray-200 mt-1 gap-2 flex flex-col [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
                             dangerouslySetInnerHTML={{ __html: task.content }}
                         />
                     )}
-                    {/* Assigned to avatar on the right */}
-                    <div className="flex items-center w-full mt-2">
-                        <div className="flex-1"></div>
-                        {task.assignee ? (
-                            <span
-                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-900 font-bold text-xs border-2 border-gray-300 shadow"
-                                title={task.assignee}
-                            >
-                                {task.assignee.charAt(0).toUpperCase()}
-                            </span>
-                        ) : null}
-                    </div>
                 </div>
-                {/* Draggable grip icon centered below content */}
+                {/* Footer: Assigned to avatar and grip icon */}
+                <div className="flex items-center w-full mt-2">
+                    <div className="flex-1"></div>
+                    {task.assignee ? (
+                        <span
+                            className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-900 font-bold text-xs border-2 border-gray-300 shadow"
+                            title={task.assignee}
+                        >
+                            {task.assignee.charAt(0).toUpperCase()}
+                        </span>
+                    ) : null}
+                </div>
                 <div
                     data-handle="dot"
                     {...attributes}

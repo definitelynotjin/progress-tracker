@@ -13,7 +13,7 @@ function EmptyCard({ id }: { id: string }) {
             ref={setNodeRef}
             {...attributes}
             {...listeners}
-            className={`h-12 text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? ' opacity-50' : ''}`}
+            className={`min-h-[60px] min-w-[275px] w-full text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? ' opacity-50' : ''}`}
         >
             Drop the card here
         </div>
@@ -32,7 +32,7 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
 
     return (
-        <div className="flex-1 min-w-0 relative rounded-t-lg flex flex-col">
+        <div className="flex-1 overflow-auto min-w-0 w-full relative rounded-t-lg flex flex-col">
             {/* Colored bar at the very top of the column, static position */}
             {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-t-lg bg-blue-200" />}
             {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-t-lg bg-purple-200" />}
