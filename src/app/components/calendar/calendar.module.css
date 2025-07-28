@@ -1,13 +1,13 @@
 /* Only target FullCalendar elements to avoid global style leakage */
 .fc {
-    background: #1e293b;
+    background: #f3f4f6;
     border-radius: 1rem;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
     font-family: inherit;
 }
 
 .fc-toolbar-title {
-    color: #1e293b;
+    color: #f3f4f6;
     font-weight: 600;
     font-size: 1.25rem;
 }
