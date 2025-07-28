@@ -41,9 +41,10 @@ export default function Calendar({ tasks }: CalendarProps) {
                 content={
                     <div className="p-4 text-left max-w-xs">
                         <div><strong>Assignee:</strong> {task.assignee}</div>
+                        <div><strong>Column:</strong> {task.column}</div>
                         <div><strong>Priority:</strong> {task.priority}</div>
                         <div><strong>Due:</strong> {task.dueDate?.from} - {task.dueDate?.to}</div>
-                        <div dangerouslySetInnerHTML={{ __html: task.content }} />
+                        <div><strong>Tasks:</strong> <span dangerouslySetInnerHTML={{ __html: task.content }} /></div>
                     </div>
                 }
                 interactive={true}
