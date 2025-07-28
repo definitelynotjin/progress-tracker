@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import InviteModal from './invite-modal';
 
 // Sample data for demonstration
 const initialMembers = [
@@ -13,10 +14,9 @@ const roles = ['Admin', 'Member', 'Viewer'];
 
 export default function TeamManagement() {
     const [members, setMembers] = useState(initialMembers);
-    const [inviteEmail, setInviteEmail] = useState("");
+    const [inviteModalOpen, setInviteModalOpen] = useState(false);
 
     const handleInvite = (email: string) => {
-        // For demo, just add a fake member
         setMembers([
             ...members,
             {
@@ -37,32 +37,22 @@ export default function TeamManagement() {
     };
 
     return (
-        <div className="flex flex-row  gap-4 rounded-xl overflow-auto bg-gray-800 p-16 min-h-screen">
+        <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-16 min-h-screen">
             <div className="max-w-2xl mx-auto p-6 bg-gray-800 rounded-xl shadow-lg mt-8">
                 <h1 className="text-3xl font-bold text-white mb-6">Team Management</h1>
 
-                {/* Invite Form */}
-                <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                        if (inviteEmail) {
-                            handleInvite(inviteEmail);
-                            setInviteEmail("");
-                        }
-                    }}
-                    className="flex gap-2 mb-8"
+                <button
+                    onClick={() => setInviteModalOpen(true)}
+                    className="mb-8 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition"
                 >
-                    <input
-                        type="email"
-                        placeholder="Invite by email"
-                        value={inviteEmail}
-                        onChange={e => setInviteEmail(e.target.value)}
-                        className="px-3 py-2 rounded bg-gray-700 text-white flex-1"
-                    />
-                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded">
-                        Invite
-                    </button>
-                </form>
+                    Invite Member
+                </button>
+
+                <InviteModal
+                    open={inviteModalOpen}
+                    onClose={() => setInviteModalOpen(false)}
+                    onInvite={handleInvite}
+                />
 
                 {/* Team Member List */}
                 <div className="grid grid-cols-1 gap-4">
