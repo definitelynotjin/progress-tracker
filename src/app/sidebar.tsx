@@ -1,5 +1,5 @@
 import React from "react";
-import { LayoutDashboard, Kanban, Settings, Users } from "lucide-react";
+import { LayoutDashboard, Kanban, Settings, Users, CalendarDays } from "lucide-react";
 import Image from "next/image";
 
 import SidebarNavItem from "./components/sidebar/SidebarNavItem";
@@ -9,6 +9,7 @@ export default function Sidebar({ className = "", onMouseEnter, onMouseLeave }: 
         { href: "/dashboard", icon: <LayoutDashboard className="text-2xl" />, label: "Dashboard" },
         { href: "/kanban", icon: <Kanban className="text-2xl" />, label: "Kanban Board" },
         { href: "/team-management", icon: <Users className="text-2xl" />, label: "Team" },
+        { href: "/calendar", icon: <CalendarDays className="text-2xl" />, label: "Calendar" },
         { href: "/settings", icon: <Settings className="text-4xl" />, label: "Settings" },
     ];
 

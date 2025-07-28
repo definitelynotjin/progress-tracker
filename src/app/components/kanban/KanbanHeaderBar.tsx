@@ -32,7 +32,7 @@ export default function KanbanHeaderBar() {
                 <div className="flex items-center gap-3">
                     <div className="relative group/avatar-roster">
                         {/* Expanded view: show all avatars on hover, to the left */}
-                        <div className="absolute right-full top-0 flex items-center gap-3 transition-all duration-300 ease-in-out opacity-0 pointer-events-none group-hover/avatar-roster:opacity-100 group-hover/avatar-roster:pointer-events-auto">
+                        <div className="absolute right-full top-0 flex items-center gap-3 transition-all duration-300 ease-in-out opacity-0 pointer-events-auto group-hover/avatar-roster:opacity-100 group-hover/avatar-roster:pointer-events-auto">
                             {boardMembers.map((member, idx) => (
                                 <div
                                     key={member.name}
@@ -70,7 +70,9 @@ export default function KanbanHeaderBar() {
                         <Plus size={18} />
                     </button>
                     <Button
-                        className="w-20 h-8 rounded-md bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition p-0 border-0"
+                        variant="ghost"
+                        className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                        title="Import Board"
                     >
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -81,7 +83,7 @@ export default function KanbanHeaderBar() {
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
-                                    className="text-grkay-200"
+                                    className="text-gray-200"
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
                                 </svg>

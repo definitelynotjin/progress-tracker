@@ -1,0 +1,57 @@
+/* Only target FullCalendar elements to avoid global style leakage */
+.fc {
+    background: #1e293b;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+    font-family: inherit;
+}
+
+.fc-toolbar-title {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.fc-button {
+    background: #f3f4f6;
+    color: #222;
+    border: none;
+    border-radius: 0.375rem;
+    box-shadow: none;
+    transition: background 0.2s;
+}
+
+.fc-button:hover,
+.fc-button:focus {
+    background: #e5e7eb;
+    color: #111;
+}
+
+.fc-daygrid-day {
+    background: #fff;
+    border: none;
+}
+
+.fc-daygrid-day.fc-day-today {
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+}
+
+.fc-event {
+    background: #2563eb !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.95em;
+    padding: 2px 6px;
+}
+
+.fc-daygrid-event-dot {
+    background: #2563eb !important;
+}
+
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number {
+    color: #64748b;
+    font-weight: 500;
+}
