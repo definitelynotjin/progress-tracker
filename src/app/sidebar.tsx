@@ -8,7 +8,7 @@ export default function Sidebar({ className = "", onMouseEnter, onMouseLeave }: 
     const navItems = [
         { href: "/dashboard", icon: <LayoutDashboard className="text-2xl" />, label: "Dashboard" },
         { href: "/kanban", icon: <Kanban className="text-2xl" />, label: "Kanban Board" },
-        { href: "/users", icon: <Users className="text-2xl" />, label: "Team" },
+        { href: "/team-management", icon: <Users className="text-2xl" />, label: "Team" },
         { href: "/settings", icon: <Settings className="text-4xl" />, label: "Settings" },
     ];
 
