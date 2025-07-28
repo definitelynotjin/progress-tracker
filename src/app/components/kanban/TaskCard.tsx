@@ -59,6 +59,18 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                         />
                     )}
                 </div>
+                {/* Due date range display */}
+                {task.dueDate && typeof task.dueDate === 'object' && 'from' in task.dueDate && 'to' in task.dueDate && task.dueDate.from && task.dueDate.to && (
+                    <div className="w-full mt-2 text-xs text-muted-foreground flex items-center justify-between">
+                        <span className="flex items-center gap-1 text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3M16 7V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span>{new Date(task.dueDate.from).toLocaleDateString("default", { month: "short", day: "numeric" })} - {new Date(task.dueDate.to).toLocaleDateString("default", { month: "short", day: "numeric" })}</span>
+                        </span>
+                    </div>
+                )}
+
                 {/* Footer: Assigned to avatar and grip icon */}
                 <div className="flex items-center w-full mt-2">
                     <div className="flex-1"></div>

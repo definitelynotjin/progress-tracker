@@ -39,7 +39,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "Backlog",
             priority: "Low",
-            assignee: "Ali"
+            assignee: "Ali",
+            dueDate: { from: "2025-07-01", to: "2025-07-03" }
         },
         {
             id: "task-b",
@@ -53,7 +54,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "Backlog",
             priority: "Medium",
-            assignee: "Burhan"
+            assignee: "Burhan",
+            dueDate: { from: "2025-07-04", to: "2025-07-07" }
         },
     ],
     "To Do": [
@@ -69,7 +71,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "To Do",
             priority: "High",
-            assignee: "Coki"
+            assignee: "Coki",
+            dueDate: { from: "2025-07-08", to: "2025-07-10" }
         },
         {
             id: "task-d",
@@ -83,7 +86,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "To Do",
             priority: "Medium",
-            assignee: "Dennis"
+            assignee: "Dennis",
+            dueDate: { from: "2025-07-11", to: "2025-07-13" }
         },
     ],
     "In Progress": [
@@ -99,7 +103,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "In Progress",
             priority: "High",
-            assignee: "Erfan"
+            assignee: "Erfan",
+            dueDate: { from: "2025-07-14", to: "2025-07-16" }
         },
     ],
     Done: [
@@ -115,7 +120,8 @@ const initialTasks: Record<ColumnType, Task[]> = {
             updatedAt: new Date().toISOString(),
             column: "Done",
             priority: "Low",
-            assignee: "Frank"
+            assignee: "Frank",
+            dueDate: { from: "2025-07-17", to: "2025-07-18" }
         },
     ],
 };

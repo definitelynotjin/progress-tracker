@@ -157,7 +157,7 @@ function CalendarDayButton({
       className={cn(
         // Only apply bg if not in range
         !modifiers.range_start && !modifiers.range_middle && !modifiers.range_end
-          ? "bg-gray-700 text-white"
+          ? "bg-gray-700 text-white "
           : "",
         "flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none [&>span]:text-xs [&>span]:opacity-90 data-[selected-single=true]:bg-gray-900 data-[selected-single=true]:text-gray-100",
         className
