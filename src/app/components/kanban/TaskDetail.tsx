@@ -7,7 +7,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import TiptapEditor from './TiptapEditor';
-import { Task } from './types'; // Adjust path if your Task type is elsewhere
+import { Task } from './types';
 
 type TaskDetailProps = {
     task: Task;
@@ -81,7 +81,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                     <span className="text-xs text-gray-300">Date Range:</span>
                     <Popover>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" size="sm" className="text-xs px-2 py-1">
+                            <Button variant="outline" size="sm" className="text-xs text-gray-600 rounded-md bg-gray-300 px-2 py-1">
                                 {dueDateRange?.from && dueDateRange?.to
                                     ? `${format(dueDateRange.from, "MMM dd, yyyy")} - ${format(dueDateRange.to, "MMM dd, yyyy")}`
                                     : dueDateRange?.from

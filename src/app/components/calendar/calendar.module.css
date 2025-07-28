@@ -1,7 +1,8 @@
 /* Only target FullCalendar elements to avoid global style leakage */
+
 .fc {
     background: #f3f4f6;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
     font-family: inherit;
 }
@@ -16,7 +17,7 @@
     background: #f3f4f6;
     color: #222;
     border: none;
-    border-radius: 0.375rem;
+    /* border-radius: 0.375rem; */
     box-shadow: none;
     transition: background 0.2s;
 }
@@ -34,14 +35,14 @@
 
 .fc-daygrid-day.fc-day-today {
     background: #f1f5f9;
-    border-radius: 0.5rem;
+    /* border-radius: 0.5rem; */
 }
 
 .fc-event {
     background: #2563eb !important;
     color: #fff !important;
     border: none !important;
-    border-radius: 0.375rem !important;
+    /* border-radius: 0.375rem !important; */
     font-size: 0.95em;
     padding: 2px 6px;
 }

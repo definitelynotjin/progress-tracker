@@ -4,8 +4,6 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, } from "@/components/ui/bre
 import { ChevronRight, ArrowDownToLine, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
-
-
 const boardMembers = [
     { name: "Ali", avatar: "A" },
     { name: "Burhan", avatar: "B" },
@@ -78,18 +76,18 @@ export default function KanbanHeaderBar() {
                             Add Member
                         </TooltipContent>
                     </Tooltip>
-                    <Button
-                        className="w-20 h-8 rounded-md bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition p-0 border-0 cursor-pointer"
-                    >
-                        <Tooltip>
-                            <TooltipTrigger>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                className="w-20 h-8 rounded-md bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition p-0 border-0 cursor-pointer"
+                            >
                                 <ArrowDownToLine size={18} className="m-4" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                Export Board
-                            </TooltipContent>
-                        </Tooltip>
-                    </Button>
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Export Board
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
             </div>
         </TooltipProvider>
