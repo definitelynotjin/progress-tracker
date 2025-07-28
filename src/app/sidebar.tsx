@@ -1,7 +1,6 @@
 import React from "react";
 import { LayoutDashboard, Kanban, Settings, Users, CalendarDays } from "lucide-react";
 import Image from "next/image";
-
 import SidebarNavItem from "./components/sidebar/SidebarNavItem";
 
 export default function Sidebar({ className = "", onMouseEnter, onMouseLeave }: { className?: string, onMouseEnter?: React.MouseEventHandler, onMouseLeave?: React.MouseEventHandler } = {}) {

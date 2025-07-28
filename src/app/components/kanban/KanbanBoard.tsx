@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTasks } from "./TaskContext";
 import {
     DndContext,
     closestCenter,
@@ -25,7 +26,7 @@ import TaskDetail from "./TaskDetail";
 
 import type { ColumnType } from "./types";
 
-const initialTasks: Record<ColumnType, Task[]> = {
+export const initialTasks: Record<ColumnType, Task[]> = {
     "Backlog": [
         {
             id: "task-a",
@@ -127,13 +128,14 @@ const initialTasks: Record<ColumnType, Task[]> = {
 };
 
 export default function KanbanBoard() {
-    const [tasks, setTasks] = useState<Record<ColumnType, Task[]>>(initialTasks);
-    const [columnOrder, setColumnOrder] = useState<ColumnType[]>(Object.keys(initialTasks) as ColumnType[]);
+    const { tasks, setTasks } = useTasks();
+    const [columnOrder, setColumnOrder] = useState<ColumnType[]>(Object.keys(tasks ?? {}) as ColumnType[]);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     // Removed unused activeColumnId state
+    if (!tasks) return null;
     const activeTask = Object.values(tasks)
         .flat()
         .find((task) => task.id === activeId);

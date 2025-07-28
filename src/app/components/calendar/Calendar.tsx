@@ -1,21 +1,37 @@
 "use client";
 
-
-import React, { useState } from "react";
+import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import styles from "./calendar.module.css";
-
-const initialEvents = [
-    { id: "1", title: "Event 1", date: "2023-10-01" },
-    { id: "2", title: "Event 2", date: "2023-10-02" },
-    { id: "3", title: "Event 3", date: "2023-10-03" },
-];
+import { text } from "stream/consumers";
+import { color } from "framer-motion";
 
 
-export default function Calendar() {
-    const [events] = useState(initialEvents);
+type CalendarProps = {
+    tasks?: Record<string, any[]>; // Use your actual Task/ColumnType types if available
+};
+
+export default function Calendar({ tasks }: CalendarProps) {
+    if (!tasks) return null; // or show a loading/error state
+
+    const columnColors: Record<string, string> = {
+        Backlog: "#BFDBFE",
+        "To Do": "#E9D5FF",
+        "In Progress": "#99F6E4",
+        Done: "#D9F99D"
+    }
+
+    const allTasks = Object.values(tasks).flat();
+    const events = allTasks.map(task => ({
+        title: task.title,
+        textColor: "#1e293b", // your desired text color (e.g., slate-800)
+        start: task.dueDate?.from,
+        end: task.dueDate?.to,
+        ...task,
+        color: columnColors[task.column] || "#888888", // fallback color
+    }));
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
@@ -39,4 +55,5 @@ export default function Calendar() {
             </div>
         </div>
     );
+
 }
