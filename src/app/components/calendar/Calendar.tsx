@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
 import styles from "./calendar.module.css";
 
 const initialEvents = [
@@ -13,7 +12,6 @@ const initialEvents = [
     { id: "2", title: "Event 2", date: "2023-10-02" },
     { id: "3", title: "Event 3", date: "2023-10-03" },
 ];
-
 
 
 export default function Calendar() {

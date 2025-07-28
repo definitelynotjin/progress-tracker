@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, } from "@/components/ui/breadcrumb";
-import { ChevronRight, Plus } from "lucide-react";
+import { ChevronRight, ArrowDownToLine, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+
+
 
 const boardMembers = [
     { name: "Ali", avatar: "A" },
@@ -66,29 +68,26 @@ export default function KanbanHeaderBar() {
                             )}
                         </div>
                     </div>
-                    <button className=" w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition mr-5 " title="Add member">
-                        <Plus size={18} />
-                    </button>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className=" w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition mr-5 ">
+                                <Plus size={18} />
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            Add Member
+                        </TooltipContent>
+                    </Tooltip>
                     <Button
-                        variant="ghost"
-                        className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
-                        title="Import Board"
+                        className="w-20 h-8 rounded-md bg-gray-700 flex items-center justify-center text-gray-300 hover:bg-gray-600 transition p-0 border-0 cursor-pointer"
                     >
                         <Tooltip>
-                            <TooltipTrigger asChild>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width={20}
-                                    height={20}
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    className="text-gray-200"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
-                                </svg>
+                            <TooltipTrigger>
+                                <ArrowDownToLine size={18} className="m-4" />
                             </TooltipTrigger>
-                            <TooltipContent>Import Board</TooltipContent>
+                            <TooltipContent>
+                                Export Board
+                            </TooltipContent>
                         </Tooltip>
                     </Button>
                 </div>
