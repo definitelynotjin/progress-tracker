@@ -5,8 +5,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import styles from "./calendar.module.css";
-import { text } from "stream/consumers";
-import { color } from "framer-motion";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 
 
 type CalendarProps = {
@@ -30,8 +31,39 @@ export default function Calendar({ tasks }: CalendarProps) {
         start: task.dueDate?.from,
         end: task.dueDate?.to,
         ...task,
-        color: columnColors[task.column] || "#888888", // fallback color
+        color: columnColors[task.column] || "#888888",
     }));
+    function renderEventContent(arg: any) {
+        const task = arg.event.extendedProps;
+        return (
+            <Tippy
+                key={arg.event.id || arg.event._def?.publicId || arg.event.title}
+                content={
+                    <div className="p-4 text-left max-w-xs">
+                        <div><strong>Assignee:</strong> {task.assignee}</div>
+                        <div><strong>Priority:</strong> {task.priority}</div>
+                        <div><strong>Due:</strong> {task.dueDate?.from} - {task.dueDate?.to}</div>
+                        <div dangerouslySetInnerHTML={{ __html: task.content }} />
+                    </div>
+                }
+                interactive={true}
+                placement="top"
+                arrow={true}
+                theme="light"
+                zIndex={99999}
+            >
+                <span
+                    className="fc-custom-event"
+                    style={{
+                        '--fc-custom-bg': arg.event.backgroundColor || arg.event.color || arg.event.extendedProps.color,
+                        '--fc-custom-color': arg.event.textColor,
+                    } as React.CSSProperties}
+                >
+                    <span className="font-bold">{arg.event.title}</span>
+                </span>
+            </Tippy>
+        );
+    }
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
@@ -43,6 +75,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                     eventClick={(info) => {
                         alert(`Clicked: ${info.event.title}`);
                     }}
+                    eventContent={renderEventContent}
                     editable={true}
                     selectable={true}
                     height="auto"

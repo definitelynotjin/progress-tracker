@@ -89,3 +89,16 @@ body {
 .tiptap-taskcard ol li {
   color: #fff !important;
 }
+
+/* Ensure Radix HoverCard is always above FullCalendar events */
+[data-radix-hover-card-content-wrapper],
+[data-radix-hover-card-content-wrapper]>div {
+  z-index: 99999 !important;
+  position: relative;
+}
+
+/* Lower z-index for FullCalendar events if needed */
+.fc .fc-event,
+.fc .fc-popover {
+  z-index: 10 !important;
+}

@@ -1,3 +1,17 @@
+/* Force custom event background and text color in FullCalendar */
+.fc-custom-event {
+    width: 100% !important;
+    display: block !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: var(--fc-custom-bg) !important;
+    color: var(--fc-custom-color) !important;
+}
+
 /* Only target FullCalendar elements to avoid global style leakage */
 
 .fc {
@@ -39,12 +53,9 @@
 }
 
 .fc-event {
-    background: #2563eb !important;
-    color: #fff !important;
+    background: transparent !important;
+    color: inherit !important;
     border: none !important;
-    /* border-radius: 0.375rem !important; */
-    font-size: 0.95em;
-    padding: 2px 6px;
 }
 
 .fc-daygrid-event-dot {
@@ -60,4 +71,20 @@
 .fc-button {
     color: #fff !important;
     font-weight: 500;
+}
+
+.fc-custom-event {
+    width: 100% !important;
+    display: block !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Make default event background transparent when using custom event rendering */
+.fc-daygrid-event-harness {
+    background: transparent !important;
 }
