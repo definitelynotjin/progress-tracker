@@ -1,5 +1,4 @@
-// components/kanban/Column.tsx
-
+import React from "react";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
