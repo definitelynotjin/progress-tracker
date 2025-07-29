@@ -27,7 +27,7 @@ export default function Calendar({ tasks }: CalendarProps) {
     const allTasks = Object.values(tasks).flat();
     const events = allTasks.map(task => ({
         title: task.title,
-        textColor: "#1e293b", // your desired text color (e.g., slate-800)
+        textColor: "#1e293b",
         start: task.dueDate?.from,
         end: task.dueDate?.to,
         ...task,
@@ -65,6 +65,28 @@ export default function Calendar({ tasks }: CalendarProps) {
             </Tippy>
         );
     }
+
+    {/* Highlight today's date */ }
+    React.useEffect(() => {
+        function styleTodayCell() {
+            const todayCell = document.querySelector('td.fc-day.fc-day-today');
+            if (todayCell) {
+                todayCell.style.background = '#1e293b';
+                const dayNumber = todayCell.querySelector('.fc-daygrid-day-number');
+                if (dayNumber) {
+                    dayNumber.style.color = '#f3f4f6';
+                    dayNumber.style.fontWeight = '700';
+                    dayNumber.style.textShadow = '0 1px 2px rgba(0,0,0,0.15)';
+                }
+            }
+        }
+        styleTodayCell();
+        const calendarRoot = document.querySelector('.fc');
+        if (!calendarRoot) return;
+        const observer = new MutationObserver(styleTodayCell);
+        observer.observe(calendarRoot, { childList: true, subtree: true });
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
