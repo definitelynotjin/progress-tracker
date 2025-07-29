@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import type { Task, ColumnType } from "./types";
 import { initialTasks } from "./KanbanBoard";
 
@@ -13,6 +13,30 @@ const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const [tasks, setTasks] = useState(initialTasks);
+
+    useEffect(() => {
+        // Replace with your actual API endpoint
+        fetch("http://localhost:8000/api/tasks")
+            .then(res => res.json())
+            .then(data => {
+                // Transform data if needed to match your state shape
+                // Example assumes API returns an array of tasks
+                const grouped: Record<ColumnType, Task[]> = {
+                    Backlog: [],
+                    "To Do": [],
+                    "In Progress": [],
+                    Done: [],
+                };
+                data.forEach((task: Task) => {
+                    grouped[task.column].push(task);
+                });
+                setTasks(grouped);
+            })
+            .catch(err => {
+                console.error("Failed to fetch tasks:", err);
+            });
+    }, []);
+
     return (
         <TaskContext.Provider value={{ tasks, setTasks }}>
             {children}
