@@ -15,7 +15,6 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const [tasks, setTasks] = useState(initialTasks);
 
     useEffect(() => {
-        // Replace with your actual API endpoint
         fetch("http://localhost:8000/api/tasks")
             .then(res => res.json())
             .then(data => {
