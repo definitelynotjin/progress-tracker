@@ -9,7 +9,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 
-
 type CalendarProps = {
     tasks?: Record<string, any[]>; // Use your actual Task/ColumnType types if available
 };
