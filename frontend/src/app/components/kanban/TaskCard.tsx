@@ -30,7 +30,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative min-w-[275px] max-w-[350px] w-full animate-fade-in"
+            className="py-3 px-3 bg-gray-800 rounded shadow-md text-white hover:bg-gray-500 transition relative min-w-[275px] max-w-[350px] w-full animate-fade-in"
             onClick={handleCardClick}
         >
             {/* Edit icon top right */}

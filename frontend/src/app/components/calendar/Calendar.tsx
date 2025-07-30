@@ -33,6 +33,15 @@ export default function Calendar({ tasks }: CalendarProps) {
         ...task,
         color: columnColors[task.column] || "#888888",
     }));
+
+    function formatDate(dateStr?: string) {
+        if (!dateStr) return "";
+        const date = new Date(dateStr);
+        return date.toLocaleDateString("en-US", {
+            day: "2-digit",
+            month: "short"
+        });
+    }
     function renderEventContent(arg: any) {
         const task = arg.event.extendedProps;
         return (
@@ -70,7 +79,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                                 {task.priority}
                             </span>
                         </div>
-                        <div><strong>Due:</strong> {task.dueDate?.from} - {task.dueDate?.to}</div>
+                        <div><strong>Due:</strong> {formatDate(task.dueDate?.from)} - {formatDate(task.dueDate?.to)}</div>
                         <div><strong>Tasks:</strong> <span dangerouslySetInnerHTML={{ __html: task.content }} /></div>
                     </div>
                 }

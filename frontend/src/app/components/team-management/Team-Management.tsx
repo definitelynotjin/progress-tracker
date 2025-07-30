@@ -13,11 +13,11 @@ export default function TeamManagement() {
                 {/* Team members list */}
                 <ul className="space-y-2">
                     {/* Example team member */}
-                    <li className="flex items-center justify-between bg-gray-600 p-3 rounded-md">
+                    <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">John Doe</span>
                         <button className="text-red-400 hover:text-red-300">Remove</button>
                     </li>
-                    <li className="flex items-center justify-between bg-gray-600 p-3 rounded-md">
+                    <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">Jane Doe</span>
                         <button className="text-red-400 hover:text-red-300">Remove</button>
                     </li>
@@ -30,8 +30,8 @@ export default function TeamManagement() {
                 </h2>
                 {/* Team management form or options */}
                 <form className="space-y-4">
-                    <input type="text" placeholder="Add new team member" className="w-full p-3 rounded-md bg-gray-800 text-white" />
-                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-md">Add Member</button>
+                    <input type="text" placeholder="Add new team member" className="w-full p-3 rounded-md bg-gray-600 text-white" />
+                    <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-md">Add Member</button>
                 </form>
             </div>
         </div>
