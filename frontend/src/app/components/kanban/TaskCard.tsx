@@ -30,7 +30,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="py-3 px-3 bg-gray-800 rounded shadow-md text-white hover:bg-gray-500 transition relative min-w-[275px] max-w-[350px] w-full animate-fade-in"
+            className="py-3 px-3 bg-gray-600 rounded shadow-md text-white hover:bg-gray-500 transition relative min-w-[275px] max-w-[350px] w-full animate-fade-in"
             onClick={handleCardClick}
         >
             {/* Edit icon top right */}
@@ -39,7 +39,8 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                 onClick={e => { e.stopPropagation(); if (onClick) onClick(); }}
                 aria-label="Edit task"
             >
-                <Pencil size={14} className="text-gray-300 hover:text-white" />
+                <Pencil size={14} className="text-gray-300 hover:text-white"
+                />
             </button>
             {/* Card content and drag icon centered */}
             <div className="flex flex-col items-center justify-center w-full h-full">

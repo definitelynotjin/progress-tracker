@@ -134,8 +134,8 @@ export default function Calendar({ tasks }: CalendarProps) {
                     eventClick={(info) => {
                         alert(`Clicked: ${info.event.title}`);
                     }}
-                    eventContent={renderEventContent}
                     editable={true}
+                    eventContent={renderEventContent}
                     selectable={true}
                     height="auto"
                     headerToolbar={{
@@ -147,5 +147,4 @@ export default function Calendar({ tasks }: CalendarProps) {
             </div>
         </div>
     );
-
 }
