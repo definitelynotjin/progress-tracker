@@ -3,7 +3,7 @@
 import Sidebar from "@/app/sidebar";
 import Header from "@/app/components/calendar/Header";
 import CalendarHeaderBar from "@/app/components/calendar/CalendarHeaderBar";
-import Calendar from "../components/calendar/Calendar";
+import BigCalendar from "../components/calendar/BigCalendar";
 import { useTasks } from "@/app/components/kanban/TaskContext";
 
 export default function CalendarPage() {
@@ -16,7 +16,7 @@ export default function CalendarPage() {
                 <Header />
                 <main className="p-10 bg-gray-900">
                     <CalendarHeaderBar />
-                    <Calendar tasks={tasks} />
+                    <BigCalendar tasks={tasks} />
                 </main>
             </div>
         </div>

@@ -1,158 +1,135 @@
-/* Force today cell background and text color using the actual DOM structure */
-.fc-day.fc-day-today {
-    background: #1e293b !important;
-}
+/* Only keep general layout and utility styles, remove FullCalendar-specific rules */
 
-.fc-day.fc-day-today .fc-daygrid-day-number {
-    color: #f3f4f6 !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Force custom event background and text color in FullCalendar */
-.fc-custom-event {
-    width: 100% !important;
-    display: block !important;
-    border-radius: 4px !important;
-    padding: 2px 4px !important;
-    cursor: pointer;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background: var(--fc-custom-bg) !important;
-    color: var(--fc-custom-color) !important;
-}
-
-/* Only target FullCalendar elements to avoid global style leakage */
-
-.fc {
+.calendarWrapper {
     background: #f3f4f6;
-    /* border-radius: 1rem; */
+    border-radius: 1rem;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
     font-family: inherit;
-}
-
-.fc-toolbar-title {
-    color: #f3f4f6;
-    font-weight: 600;
-    font-size: 1.25rem;
-}
-
-.fc-button {
-    background: #f3f4f6;
-    color: #222;
-    border: none;
-    /* border-radius: 0.375rem; */
-    box-shadow: none;
-    transition: background 0.2s;
-}
-
-.fc-button:hover,
-.fc-button:focus {
-    background: #e5e7eb;
-    color: #111;
-}
-
-.fc-daygrid-day {
-    background: #fff;
-    border: none;
-}
-
-/* Make today cell stand out with dark background and light text */
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-frame {
-    background: #1e293b !important;
-}
-
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-bg {
-    background: #1e293b !important;
-}
-
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-    color: #f3f4f6 !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
-}
-
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-frame,
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-bg {
-    background: #1e293b !important;
-}
-
-.fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
-    color: #f3f4f6 !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
-}
-
-
-.fc-event {
-    background: transparent !important;
-    color: inherit !important;
-    border: none !important;
-}
-
-.fc-daygrid-event-dot {
-    background: #2563eb !important;
-}
-
-.fc-col-header-cell-cushion,
-.fc-daygrid-day-number {
-    color: #64748b;
-    font-weight: 500;
-}
-
-.fc-button {
-    color: #fff !important;
-    font-weight: 500;
-}
-
-.fc-custom-event {
-    width: 100% !important;
-    display: block !important;
-    border-radius: 4px !important;
-    padding: 2px 4px !important;
-    cursor: pointer;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Make default event background transparent when using custom event rendering */
-.fc-daygrid-event-harness {
-    background: transparent !important;
-}
-
-td.fc-day.fc-day-today,
-td.fc-day.fc-day-today .fc-daygrid-day-frame,
-td.fc-day.fc-day-today .fc-daygrid-day-bg {
-    background: #1e293b !important;
-}
-
-td.fc-day.fc-day-today .fc-daygrid-day-number {
-    color: #f3f4f6 !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+    padding: 0;
 }
 
 .tippy-box {
     z-index: 99999 !important;
 }
 
-.fc .fc-event {
-    z-index: 1 !important;
-    position: relative !important;
+/* You can add more custom styles for react-big-calendar here as needed */
+
+/* react-big-calendar customizations */
+.rbc-calendar {
+    background: #f3f4f6;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+    font-family: inherit;
+    padding: 0.5rem;
 }
 
-.fc-col-header-cell {
-    background: #1e293b !important;
-    /* Change to your preferred color */
-    color: #f3f4f6 !important;
-    /* Text color */
+.rbc-month-view {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.07);
+}
+
+.rbc-header {
+    background: #1e293b;
+    color: #f3f4f6;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    padding: 1.1rem 0 1rem 0;
+    letter-spacing: 0.02em;
+}
+
+.rbc-date-cell {
+    padding: 0.75rem 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.rbc-row-bg {
+    min-height: 120px;
+    background: #f8fafc;
+}
+
+.rbc-today {
+    background: #dbeafe !important;
+    border-radius: 1.25rem;
+    box-shadow: 0 2px 8px 0 rgba(159, 191, 244, 0.08);
+}
+
+.rbc-off-range-bg {
+    background: #e5e7eb;
+    opacity: 0.7;
+}
+
+.rbc-event {
+    background: linear-gradient(90deg, #f3f4f6 60%, #e0e7ef 100%);
+    color: #1e293b;
     border: none !important;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 0.4rem;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.2s, background 0.2s;
 }
 
-.fc-col-header-cell-cushion {
-    color: #f3f4f6 !important;
-    /* Text color for the day names */
-    font-weight: 600 !important;
+.rbc-event:hover {
+    background: linear-gradient(90deg, #e0e7ef 60%, #f3f4f6 100%);
+    box-shadow: 0 4px 16px 0 rgba(30, 41, 59, 0.10);
+
+}
+
+.rbc-toolbar {
+    background: #1e293b;
+    color: #f3f4f6;
+    border-radius: 1.5rem 1.5rem 0 0;
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.rbc-toolbar button {
+    background: #f3f4f6;
+    color: #1e293b;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    margin: 0 0.4rem;
+    padding: 0.6rem 1.2rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+    background: #60a5fa;
+    color: #fff;
+}
+
+.rbc-toolbar button:focus {
+    outline: 2px solid #1e293b;
+}
+
+.rbc-event-content>span {
+    width: 100%;
+    display: block;
+}
+
+:global {
+    .rbc-event {
+        border: none !important;
+        box-shadow: none !important;
+        background-clip: padding-box !important;
+    }
+
+    .rbc-row-segment {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 }

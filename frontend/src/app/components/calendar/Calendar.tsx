@@ -15,6 +15,26 @@ type CalendarProps = {
 };
 
 export default function Calendar({ tasks }: CalendarProps) {
+    React.useEffect(() => {
+        function styleTodayCell() {
+            const todayCell = document.querySelector('td.fc-day.fc-day-today') as HTMLElement | null;
+            if (todayCell) {
+                todayCell.style.background = '#1e293b';
+                const dayNumber = todayCell.querySelector('.fc-daygrid-day-number') as HTMLElement | null;
+                if (dayNumber) {
+                    dayNumber.style.color = '#f3f4f6';
+                    dayNumber.style.fontWeight = '700';
+                    dayNumber.style.textShadow = '0 1px 2px rgba(0,0,0,0.15)';
+                }
+            }
+        }
+        styleTodayCell();
+        const calendarRoot = document.querySelector('.fc');
+        if (!calendarRoot) return;
+        const observer = new MutationObserver(styleTodayCell);
+        observer.observe(calendarRoot, { childList: true, subtree: true });
+        return () => observer.disconnect();
+    }, []);
     if (!tasks) return null;
 
     const columnColors: Record<string, string> = {
@@ -35,6 +55,8 @@ export default function Calendar({ tasks }: CalendarProps) {
         color: columnColors[task.column] || "#888888",
     }));
 
+    console.log('FullCalendar events:', events);
+
     function formatDate(dateStr?: string) {
         if (!dateStr) return "";
         const date = new Date(dateStr);
@@ -43,22 +65,36 @@ export default function Calendar({ tasks }: CalendarProps) {
             month: "short"
         });
     }
+
+    // Helper to get all tasks that are active on a given date
+    function getTasksForDate(dateStr: string) {
+        return allTasks.filter(task => {
+            const from = new Date(task.dueDate?.from).setHours(0, 0, 0, 0);
+            const to = new Date(task.dueDate?.to).setHours(0, 0, 0, 0);
+            const current = new Date(dateStr).setHours(0, 0, 0, 0);
+            return from <= current && current <= to;
+        });
+    }
+
+    // Custom event content: render the bar with Tippy, color, etc.
     function renderEventContent(arg: any) {
         const task = arg.event.extendedProps;
+        const columnColors: Record<string, string> = {
+            Backlog: "#BFDBFE",
+            "To Do": "#E9D5FF",
+            "In Progress": "#99F6E4",
+            Done: "#D9F99D"
+        };
         return (
             <Tippy
-                key={arg.event.id || arg.event._def?.publicId || arg.event.title}
                 content={
-                    <div className="p-4 text-left max-w-xs bg-gray-800">
+                    <div className="p-2 text-left max-w-xs bg-gray-800 text-white rounded">
                         <div><strong>Assignee:</strong> {task.assignee}</div>
                         <div className="flex items-center gap-2 mb-1">
                             <strong>Column:</strong>
                             <span
-                                className={`px-2 py-0.5 rounded text-xs font-semibold`}
-                                style={{
-                                    background: columnColors[task.column] || "#888",
-                                    color: "#1e293b"
-                                }}
+                                className="px-2 py-0.5 rounded text-xs font-semibold"
+                                style={{ background: columnColors[task.column] || "#888", color: "#1e293b" }}
                             >
                                 {task.column}
                             </span>
@@ -66,14 +102,13 @@ export default function Calendar({ tasks }: CalendarProps) {
                         <div className="flex items-center gap-2 mb-1">
                             <strong>Priority:</strong>
                             <span
-                                className={`px-2 py-0.5 rounded text-xs font-semibold`}
+                                className="px-2 py-0.5 rounded text-xs font-semibold"
                                 style={{
-                                    background:
-                                        task.priority === "High"
-                                            ? "#f87171"
-                                            : task.priority === "Medium"
-                                                ? "#fbbf24"
-                                                : "#6ee7b7",
+                                    background: task.priority === "High"
+                                        ? "#f87171"
+                                        : task.priority === "Medium"
+                                            ? "#fbbf24"
+                                            : "#6ee7b7",
                                     color: "#1e293b"
                                 }}
                             >
@@ -91,39 +126,28 @@ export default function Calendar({ tasks }: CalendarProps) {
                 zIndex={99999}
             >
                 <span
-                    className="fc-custom-event"
+                    className={`px-1 py-0.5 text-xs truncate font-semibold fc-custom-bar`}
                     style={{
-                        '--fc-custom-bg': arg.event.backgroundColor || arg.event.color || arg.event.extendedProps.color,
-                        '--fc-custom-color': arg.event.textColor,
-                    } as React.CSSProperties}
+                        background: columnColors[task.column] || '#888',
+                        color: '#1e293b',
+                        borderRadius: '1rem',
+                        border: '1px solid #fff',
+                        boxSizing: 'border-box',
+                        display: 'block',
+                        position: 'relative',
+                        left: '-8px',
+                        right: '-8px',
+                        width: 'auto',
+                        minWidth: 'calc(100% + 16px)',
+                        overflow: 'visible',
+                        pointerEvents: 'auto',
+                    }}
                 >
-                    <span className="font-bold text-gray-8  00">{arg.event.title}</span>
+                    {arg.event.title}
                 </span>
             </Tippy>
         );
     }
-
-    // Highlight today's date
-    React.useEffect(() => {
-        function styleTodayCell() {
-            const todayCell = document.querySelector('td.fc-day.fc-day-today');
-            if (todayCell) {
-                todayCell.style.background = '#1e293b';
-                const dayNumber = todayCell.querySelector('.fc-daygrid-day-number');
-                if (dayNumber) {
-                    dayNumber.style.color = '#f3f4f6';
-                    dayNumber.style.fontWeight = '700';
-                    dayNumber.style.textShadow = '0 1px 2px rgba(0,0,0,0.15)';
-                }
-            }
-        }
-        styleTodayCell();
-        const calendarRoot = document.querySelector('.fc');
-        if (!calendarRoot) return;
-        const observer = new MutationObserver(styleTodayCell);
-        observer.observe(calendarRoot, { childList: true, subtree: true });
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
@@ -132,10 +156,6 @@ export default function Calendar({ tasks }: CalendarProps) {
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     events={events}
-                    eventClick={(info) => {
-                        alert(`Clicked: ${info.event.title}`);
-                    }}
-                    editable={true}
                     eventContent={renderEventContent}
                     selectable={true}
                     height="auto"
