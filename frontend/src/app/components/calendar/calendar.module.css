@@ -133,3 +133,12 @@ td.fc-day.fc-day-today .fc-daygrid-day-number {
     font-weight: 700 !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
 }
+
+.tippy-box {
+    z-index: 99999 !important;
+}
+
+.fc .fc-event {
+    z-index: 1 !important;
+    position: relative !important;
+}

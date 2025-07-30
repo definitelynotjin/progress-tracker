@@ -86,7 +86,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                 interactive={true}
                 placement="top"
                 arrow={true}
-                theme="light"
+                appendTo={document.body}
                 zIndex={99999}
             >
                 <span
@@ -96,7 +96,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                         '--fc-custom-color': arg.event.textColor,
                     } as React.CSSProperties}
                 >
-                    <span className="font-bold">{arg.event.title}</span>
+                    <span className="font-bold text-gray-8  00">{arg.event.title}</span>
                 </span>
             </Tippy>
         );
@@ -126,7 +126,7 @@ export default function Calendar({ tasks }: CalendarProps) {
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
-            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-100 p-8 min-h-screen ${styles.calendarWrapper || ''}`}>
+            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 min-h-screen ${styles.calendarWrapper || ''}`}>
                 <FullCalendar
                     plugins={[dayGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
