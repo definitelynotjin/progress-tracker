@@ -4,6 +4,7 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid"; // for week/day views
 import styles from "./calendar.module.css";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -126,9 +127,9 @@ export default function Calendar({ tasks }: CalendarProps) {
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
-            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 min-h-screen ${styles.calendarWrapper || ''}`}>
+            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 ${styles.calendarWrapper || ''}`}>
                 <FullCalendar
-                    plugins={[dayGridPlugin, interactionPlugin]}
+                    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     events={events}
                     eventClick={(info) => {
@@ -139,9 +140,9 @@ export default function Calendar({ tasks }: CalendarProps) {
                     selectable={true}
                     height="auto"
                     headerToolbar={{
-                        left: 'prev,next today',
+                        left: 'prev,next',
                         center: 'title',
-                        right: 'dayGridMonth',
+                        right: 'dayGridMonth,dayGridWeek',
                     }}
                 />
             </div>

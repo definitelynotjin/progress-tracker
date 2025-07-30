@@ -142,3 +142,17 @@ td.fc-day.fc-day-today .fc-daygrid-day-number {
     z-index: 1 !important;
     position: relative !important;
 }
+
+.fc-col-header-cell {
+    background: #1e293b !important;
+    /* Change to your preferred color */
+    color: #f3f4f6 !important;
+    /* Text color */
+    border: none !important;
+}
+
+.fc-col-header-cell-cushion {
+    color: #f3f4f6 !important;
+    /* Text color for the day names */
+    font-weight: 600 !important;
+}
