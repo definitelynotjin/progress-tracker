@@ -10,11 +10,11 @@ import 'tippy.js/dist/tippy.css';
 
 
 type CalendarProps = {
-    tasks?: Record<string, any[]>; // Use your actual Task/ColumnType types if available
+    tasks?: Record<string, any[]>;
 };
 
 export default function Calendar({ tasks }: CalendarProps) {
-    if (!tasks) return null; // or show a loading/error state
+    if (!tasks) return null;
 
     const columnColors: Record<string, string> = {
         Backlog: "#BFDBFE",
@@ -40,8 +40,35 @@ export default function Calendar({ tasks }: CalendarProps) {
                 content={
                     <div className="p-4 text-left max-w-xs">
                         <div><strong>Assignee:</strong> {task.assignee}</div>
-                        <div><strong>Column:</strong> {task.column}</div>
-                        <div><strong>Priority:</strong> {task.priority}</div>
+                        <div className="flex items-center gap-2 mb-1">
+                            <strong>Column:</strong>
+                            <span
+                                className={`px-2 py-0.5 rounded text-xs font-semibold`}
+                                style={{
+                                    background: columnColors[task.column] || "#888",
+                                    color: "#1e293b"
+                                }}
+                            >
+                                {task.column}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-2 mb-1">
+                            <strong>Priority:</strong>
+                            <span
+                                className={`px-2 py-0.5 rounded text-xs font-semibold`}
+                                style={{
+                                    background:
+                                        task.priority === "High"
+                                            ? "#f87171"
+                                            : task.priority === "Medium"
+                                                ? "#fbbf24"
+                                                : "#6ee7b7",
+                                    color: "#1e293b"
+                                }}
+                            >
+                                {task.priority}
+                            </span>
+                        </div>
                         <div><strong>Due:</strong> {task.dueDate?.from} - {task.dueDate?.to}</div>
                         <div><strong>Tasks:</strong> <span dangerouslySetInnerHTML={{ __html: task.content }} /></div>
                     </div>
@@ -65,7 +92,7 @@ export default function Calendar({ tasks }: CalendarProps) {
         );
     }
 
-    {/* Highlight today's date */ }
+    // Highlight today's date
     React.useEffect(() => {
         function styleTodayCell() {
             const todayCell = document.querySelector('td.fc-day.fc-day-today');

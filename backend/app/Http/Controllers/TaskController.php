@@ -13,7 +13,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return view('tasks.index', [
+            'tasks' => Task::all(),
+        ]);
     }
 
     /**
@@ -27,10 +29,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request)
-    {
-        //
-    }
+    public function store(StoreTaskRequest $request) {}
 
     /**
      * Display the specified resource.
