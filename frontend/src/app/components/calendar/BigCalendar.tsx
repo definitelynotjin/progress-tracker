@@ -5,6 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import styles from './calendar.module.css';
+import CustomWeekView from './CustomWeekView';
 
 const localizer = momentLocalizer(moment);
 
@@ -126,7 +127,7 @@ export default function BigCalendar({ tasks }: CalendarProps) {
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: '100%', minHeight: 600, width: '100%' }}
-                    views={[Views.MONTH]}
+                    views={{ month: true, week: CustomWeekView, day: true }}
                     components={{
                         event: EventBar,
                     }}
