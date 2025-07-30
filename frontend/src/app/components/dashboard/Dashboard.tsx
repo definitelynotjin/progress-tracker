@@ -2,7 +2,6 @@
 
 import React from "react";
 import { KanbanProvider, useKanban } from "../kanban/KanbanContext";
-
 import { DashboardSectionCard } from "./DashboardSectionCard";
 
 const dashboardSections = [

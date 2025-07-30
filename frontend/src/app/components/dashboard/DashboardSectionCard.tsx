@@ -4,7 +4,7 @@ export function DashboardSectionCard(
     { title, color, content }: { title: string; color: string; content: React.ReactNode }
 ) {
     return (
-        <div className="min-w-80 justify-center relative rounded-t-lg flex flex-col">
+        <div className="min-w-80 justify-center relative rounded-t-lg flex flex-col overflow-x-auto">
             <div className={`h-1 rounded-t-lg ${color}`} />
             <div className="bg-gray-700 rounded-b flex flex-col">
                 <div className="py-4 px-4">

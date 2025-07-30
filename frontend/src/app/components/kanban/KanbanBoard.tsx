@@ -23,7 +23,6 @@ import { DragOverlay } from "@dnd-kit/core";
 import TaskCard from "./TaskCard";
 import { Task } from "./types";
 import TaskDetail from "./TaskDetail";
-
 import type { ColumnType } from "./types";
 
 export const initialTasks: Record<ColumnType, Task[]> = {

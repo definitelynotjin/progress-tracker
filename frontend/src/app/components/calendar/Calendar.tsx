@@ -25,6 +25,7 @@ export default function Calendar({ tasks }: CalendarProps) {
 
     const allTasks = Object.values(tasks).flat();
     const events = allTasks.map(task => ({
+        outerHeight: 20,
         title: task.title,
         textColor: "#1e293b",
         start: task.dueDate?.from,
@@ -38,7 +39,7 @@ export default function Calendar({ tasks }: CalendarProps) {
             <Tippy
                 key={arg.event.id || arg.event._def?.publicId || arg.event.title}
                 content={
-                    <div className="p-4 text-left max-w-xs">
+                    <div className="p-4 text-left max-w-xs bg-gray-800">
                         <div><strong>Assignee:</strong> {task.assignee}</div>
                         <div className="flex items-center gap-2 mb-1">
                             <strong>Column:</strong>
