@@ -107,5 +107,17 @@ body {
 .rbc-event {
     border: none !important;
     box-shadow: none !important;
-    background-clip: padding-box !important;
+    background: transparent !important;
+}
+
+/* Today text */
+.rbc-current {
+    color: #ffff !important;
+}
+
+/* Today box*/
+.rbc-today {
+    background: #1f2937 !important;
+    color: #ffff !important;
+    box-shadow: 0 2px 8px 0 rgba(159, 191, 244, 0.08);
 }

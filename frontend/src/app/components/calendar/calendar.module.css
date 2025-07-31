@@ -50,7 +50,7 @@
 }
 
 .rbc-today {
-    background: #dbeafe !important;
+    background: #036af1 !important;
     border-radius: 1.25rem;
     box-shadow: 0 2px 8px 0 rgba(159, 191, 244, 0.08);
 }
@@ -103,7 +103,7 @@
 
 .rbc-toolbar button:active,
 .rbc-toolbar button.rbc-active {
-    background: #60a5fa;
+    background: #f4f5f8;
     color: #fff;
 }
 
@@ -122,6 +122,11 @@
         box-shadow: none !important;
         background-clip: padding-box !important;
     }
+
+    .rbc-allday-cell {
+        display: none !important;
+    }
+
 
     .rbc-row-segment {
         border: none !important;

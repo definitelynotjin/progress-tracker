@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
-import { Navigate, TimeGrid, DateLocalizer, NavigateAction } from 'react-big-calendar';
+import { Navigate, DateLocalizer, NavigateAction } from 'react-big-calendar';
+import TimeGrid from 'react-big-calendar/lib/TimeGrid';
+
 
 interface CustomWeekViewProps {
     date: Date;

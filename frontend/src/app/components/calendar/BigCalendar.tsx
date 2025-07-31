@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Tippy from '@tippyjs/react';
@@ -94,18 +94,18 @@ export default function BigCalendar({ tasks }: CalendarProps) {
                 zIndex={99999}
             >
                 <span
-                    className="px-1 py-0.5 text-xs truncate font-semibold"
+                    className="px-1 py-0.5 text-xs truncate font-bold"
                     style={{
-                        background: `linear-gradient(90deg, ${columnColors[event.column]} 60%, #e0e7ef 100%)`,
+                        background: `${columnColors[event.column]}`,
                         color: '#1e293b',
-                        borderRadius: '999px',
+                        borderRadius: '5px',
                         display: 'block',
                         width: '100%',
                         minHeight: 32,
-                        margin: '4px 0',
+                        margin: '4px auto',
                         padding: '0.5rem 1.2rem',
                         fontWeight: 700,
-                        fontSize: '1rem',
+                        fontSize: '1',
                         boxShadow: '0 2px 8px 0 rgba(0,0,0,0.06)',
                         overflow: 'visible',
                         pointerEvents: 'auto',
@@ -120,7 +120,7 @@ export default function BigCalendar({ tasks }: CalendarProps) {
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
-            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 w-full h-full ${styles.calendarWrapper || ''}`} style={{ flex: 1, minWidth: 0, minHeight: 0 }}>
+            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-900 p-8 w-full h-full ${styles.calendarWrapper || ''}`} style={{ flex: 1, minWidth: 0, minHeight: 0 }}>
                 <Calendar
                     localizer={localizer}
                     events={events}
