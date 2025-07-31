@@ -112,12 +112,70 @@ body {
 
 /* Today text */
 .rbc-current {
-    color: #ffff !important;
+    color: #fff !important;
 }
 
 /* Today box*/
 .rbc-today {
     background: #1f2937 !important;
     color: #ffff !important;
-    box-shadow: 0 2px 8px 0 rgba(159, 191, 244, 0.08);
+}
+
+.rbc-toolbar {
+    background: #374151;
+    color: #ffffff;
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    font-size: 1.2rem;
+
+}
+
+.rbc-toolbar button {
+
+    background: #1f2937 !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    transition: background 0.2s, color 0.2s !important;
+    font-size: smaller !important;
+}
+
+.rbc-toolbar .rbc-btn-group:first-of-type>button:first-child {
+    display: none !important;
+}
+
+/* Back button*/
+.rbc-toolbar .rbc-btn-group:first-of-type>button:nth-child(2) {
+    font-size: 0 !important;
+    position: relative;
+
+}
+
+/*Chevron left*/
+.rbc-toolbar .rbc-btn-group:first-of-type>button:nth-child(2)::before {
+    content: '<' !important;
+    font-size: 13px !important;
+
+}
+
+/* Next button*/
+.rbc-toolbar .rbc-btn-group:first-of-type>button:last-child {
+    font-size: 0 !important;
+    position: relative;
+}
+
+/*Chevron Next*/
+.rbc-toolbar .rbc-btn-group:first-of-type>button:last-child::before {
+    content: '>' !important;
+    font-size: 13px !important;
+
+}
+
+/* Button focus */
+.rbc-toolbar button:focus {
+    outline: 2px solid #ffffff;
+}
+
+/* Self explanatory */
+.rbc-month-header {
+    border-bottom: none !important;
+    color: #535964;
 }
