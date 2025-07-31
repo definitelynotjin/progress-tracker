@@ -4,7 +4,7 @@ import React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid"; // for week/day views
+import timeGridPlugin from "@fullcalendar/timegrid";
 import styles from "./calendar.module.css";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -22,7 +22,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                 todayCell.style.background = '#1e293b';
                 const dayNumber = todayCell.querySelector('.fc-daygrid-day-number') as HTMLElement | null;
                 if (dayNumber) {
-                    dayNumber.style.color = '#f3f4f6';
+                    dayNumber.style.color = '#fffff';
                     dayNumber.style.fontWeight = '700';
                     dayNumber.style.textShadow = '0 1px 2px rgba(0,0,0,0.15)';
                 }
@@ -63,16 +63,6 @@ export default function Calendar({ tasks }: CalendarProps) {
         return date.toLocaleDateString("en-US", {
             day: "2-digit",
             month: "short"
-        });
-    }
-
-    // Helper to get all tasks that are active on a given date
-    function getTasksForDate(dateStr: string) {
-        return allTasks.filter(task => {
-            const from = new Date(task.dueDate?.from).setHours(0, 0, 0, 0);
-            const to = new Date(task.dueDate?.to).setHours(0, 0, 0, 0);
-            const current = new Date(dateStr).setHours(0, 0, 0, 0);
-            return from <= current && current <= to;
         });
     }
 
@@ -131,14 +121,14 @@ export default function Calendar({ tasks }: CalendarProps) {
                         background: columnColors[task.column] || '#888',
                         color: '#1e293b',
                         borderRadius: '1rem',
-                        border: '1px solid #fff',
+                        border: '10px solid #fff',
                         boxSizing: 'border-box',
                         display: 'block',
                         position: 'relative',
                         left: '-8px',
                         right: '-8px',
                         width: 'auto',
-                        minWidth: 'calc(100% + 16px)',
+                        minWidth: 'calc(20% + 16px)',
                         overflow: 'visible',
                         pointerEvents: 'auto',
                     }}

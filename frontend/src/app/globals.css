@@ -118,7 +118,6 @@ body {
 /* Today box*/
 .rbc-today {
     background: #1f2937 !important;
-    color: #ffff !important;
 }
 
 .rbc-toolbar {
@@ -136,8 +135,10 @@ body {
     font-weight: 700 !important;
     transition: background 0.2s, color 0.2s !important;
     font-size: smaller !important;
+    border: none !important;
 }
 
+/* Getting rid of today */
 .rbc-toolbar .rbc-btn-group:first-of-type>button:first-child {
     display: none !important;
 }
@@ -153,7 +154,6 @@ body {
 .rbc-toolbar .rbc-btn-group:first-of-type>button:nth-child(2)::before {
     content: '<' !important;
     font-size: 13px !important;
-
 }
 
 /* Next button*/
@@ -178,4 +178,9 @@ body {
 .rbc-month-header {
     border-bottom: none !important;
     color: #535964;
+}
+
+/* Date cell */
+.rbc-date-cell {
+    font-size: 14px !important;
 }

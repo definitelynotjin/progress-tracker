@@ -73,7 +73,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                 )}
 
                 {/* Footer: Assigned to avatar and grip icon */}
-                <div className="flex items-center w-full mt-2">
+                <div className="flex items-center  bg-red-900 rounded-xl w-full mt-2">
                     <div className="flex-1"></div>
                     {task.assignee ? (
                         <span
@@ -84,6 +84,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                         </span>
                     ) : null}
                 </div>
+
                 <div
                     data-handle="dot"
                     {...attributes}
@@ -94,6 +95,6 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                     <GripVertical size={24} className="text-gray-400 hover:text-gray-900 rotate-90" />
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
