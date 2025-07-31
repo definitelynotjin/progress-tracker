@@ -73,7 +73,7 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
                 )}
 
                 {/* Footer: Assigned to avatar and grip icon */}
-                <div className="flex items-center  bg-red-900 rounded-xl w-full mt-2">
+                <div className="flex items-right bg-gray-700 rounded-xl w-full mt-2 min-w-0">
                     <div className="flex-1"></div>
                     {task.assignee ? (
                         <span

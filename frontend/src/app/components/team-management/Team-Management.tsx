@@ -15,11 +15,11 @@ export default function TeamManagement() {
                     {/* Example team member */}
                     <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">John Doe</span>
-                        <button className="text-red-400 hover:text-red-300">Remove</button>
+                        <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>
                     <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">Jane Doe</span>
-                        <button className="text-red-400 hover:text-red-300">Remove</button>
+                        <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>
                 </ul>
             </div>

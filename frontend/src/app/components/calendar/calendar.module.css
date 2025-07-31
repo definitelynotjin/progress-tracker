@@ -38,10 +38,12 @@
 }
 
 .rbc-date-cell {
-    padding: 0.75rem 0.5rem;
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: #64748b;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    /* Makes cells square if supported */
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
 }
 
 .rbc-row-bg {
@@ -79,4 +81,13 @@
     background: linear-gradient(90deg, #e0e7ef 60%, #f3f4f6 100%);
     box-shadow: 0 4px 16px 0 rgba(30, 41, 59, 0.10);
 
+}
+
+.rbc-calendar {
+    height: 900px !important;
+}
+
+.rbc-month-row {
+    flex: 1 1 0 !important;
+    height: 16.66% !important;
 }

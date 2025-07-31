@@ -116,7 +116,7 @@ export default function Calendar({ tasks }: CalendarProps) {
                 zIndex={99999}
             >
                 <span
-                    className={`px-1 py-0.5 text-xs truncate font-semibold fc-custom-bar`}
+                    className={`px-1 py-0.5 text-xs truncate font-semibold min-h-[200px] fc-custom-bar`}
                     style={{
                         background: columnColors[task.column] || '#888',
                         color: '#1e293b',
@@ -141,14 +141,16 @@ export default function Calendar({ tasks }: CalendarProps) {
 
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
-            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 ${styles.calendarWrapper || ''}`}>
+            <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 ${styles.calendarWrapper || ''}`}
+                style={{ height: '900px', minHeight: '900px' }} // Set a tall container for squarer cells
+            >
                 <FullCalendar
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
                     initialView="dayGridMonth"
                     events={events}
                     eventContent={renderEventContent}
                     selectable={true}
-                    height="auto"
+                    height={800} // Set calendar height for squarer cells
                     headerToolbar={{
                         left: 'prev,next',
                         center: 'title',

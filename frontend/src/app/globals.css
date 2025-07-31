@@ -125,6 +125,8 @@ body {
     color: #ffffff;
     padding: 1.2rem 1.5rem 1rem 1.5rem;
     font-size: 1.2rem;
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
 
 }
 
@@ -183,4 +185,28 @@ body {
 /* Date cell */
 .rbc-date-cell {
     font-size: 14px !important;
+    height: 100% !important;
+    /* min-height: 40px !important; */
+}
+
+.rbc-calendar {
+    height: 1000px !important;
+    background: #ffffff;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+    font-family: inherit;
+    padding: 0.5rem !important;
+    border: 1px solid #e5e7eb !important;
+    border-bottom: 1rem !important;
+    border-bottom-right-radius: 1rem !important;
+    border-bottom-left-radius: 1rem !important;
+}
+
+.rbc-month-row {
+    flex: 1 1 0 !important;
+    height: 16.66% !important;
+}
+
+.rbc-month-header {
+    color: #ffff !important;
+    background: rgb(63, 63, 63) !important;
 }
