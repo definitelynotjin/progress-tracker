@@ -24,6 +24,7 @@ import TaskCard from "./TaskCard";
 import { Task } from "./types";
 import TaskDetail from "./TaskDetail";
 import type { ColumnType } from "./types";
+import { extractChecklistFromHTML } from "./TaskCard";
 
 export const initialTasks: Record<ColumnType, Task[]> = {
     "Backlog": [
@@ -36,6 +37,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Identify all connected devices</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Document the current network layout</li>
+                    <li>Identify all connected devices</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "Backlog",
             priority: "Low",
@@ -51,6 +58,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Plan for new subnets</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Design an efficient IP addressing scheme</li>
+                    <li>Plan for new subnets</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "Backlog",
             priority: "Medium",
@@ -68,6 +81,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Improve network security</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Set up VLANs for department separation</li>
+                    <li>Improve network security</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "To Do",
             priority: "High",
@@ -83,6 +102,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Monitor network health</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Deploy Zabbix or Nagios</li>
+                    <li>Monitor network health</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "To Do",
             priority: "Medium",
@@ -100,6 +125,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Resolve office connectivity problems</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Investigate intermittent connection drops</li>
+                    <li>Resolve office connectivity problems</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "In Progress",
             priority: "High",
@@ -117,6 +148,12 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                     <li>Verify successful upgrade</li>
                 </ul>
             `,
+            checklist: extractChecklistFromHTML(`
+                <ul>
+                    <li>Update firmware on all core routers</li>
+                    <li>Verify successful upgrade</li>
+                </ul>
+            `),
             updatedAt: new Date().toISOString(),
             column: "Done",
             priority: "Low",

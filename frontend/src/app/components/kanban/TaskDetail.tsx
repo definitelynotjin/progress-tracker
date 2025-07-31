@@ -20,6 +20,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
     const [content, setContent] = useState(task.content || '');
     const [priority, setPriority] = useState(task.priority || 'Medium');
     const [assignee, setAssignee] = useState(task.assignee || "");
+    const [checklist, setChecklist] = useState(task.checklist ?? []);
     // Support range selection for due date
     const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
         task.dueDate && typeof task.dueDate === 'object' && task.dueDate.from && task.dueDate.to
@@ -34,6 +35,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
             content,
             priority,
             assignee,
+            checklist,
             dueDate: dueDateRange
                 ? {
                     from: dueDateRange.from ? dueDateRange.from.toISOString() : undefined,
@@ -105,6 +107,7 @@ export default function TaskDetail({ task, onSave, onCancel }: TaskDetailProps) 
                 <TiptapEditor
                     value={content}
                     onChange={setContent}
+                    onChecklistChange={setChecklist}
                 />
 
                 {/* Assignee input */}

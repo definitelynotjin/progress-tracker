@@ -5,16 +5,24 @@ import './tiptap-animations.css';
 import { useEditor, EditorContent } from '@tiptap/react';
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
+import { extractChecklistFromHTML } from "./TaskCard";
+
+export interface ChecklistItem {
+    id: string;
+    text: string;
+    done: boolean;
+}
 
 export interface TiptapBulletEditorProps {
     value: string;
     onChange: (content: string) => void;
+    onChecklistChange?: (checklist: ChecklistItem[]) => void;
     className?: string;
 }
 
-export default function TiptapBulletEditor({ value, onChange }: TiptapBulletEditorProps) {
+export default function TiptapBulletEditor({ value, onChange, onChecklistChange }: TiptapBulletEditorProps) {
     const [mounted, setMounted] = useState(false);
-    const [fadeIn, setFadeIn] = useState(false);
+    const [, setFadeIn] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -58,6 +66,10 @@ export default function TiptapBulletEditor({ value, onChange }: TiptapBulletEdit
         onUpdate({ editor }) {
             const html = editor.getHTML();
             onChange(html);
+            if (typeof onChecklistChange === 'function') {
+                const checklist = extractChecklistFromHTML(html);
+                onChecklistChange(checklist);
+            }
         },
         immediatelyRender: false,
     });

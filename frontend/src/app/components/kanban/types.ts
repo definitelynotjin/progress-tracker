@@ -13,4 +13,12 @@ export interface Task {
     priority?: PriorityType;
     assignee?: string;
     dueDate?: string | { from?: string; to?: string }; // ISO date string or range object
+
+    checklist?: ChecklistItem[];
+}
+
+export type ChecklistItem = {
+    id: string;
+    text: string;
+    done: boolean;
 }
