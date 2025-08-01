@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { LayoutDashboard, Kanban, Settings, Users, CalendarDays } from "lucide-react";
 import Image from "next/image";

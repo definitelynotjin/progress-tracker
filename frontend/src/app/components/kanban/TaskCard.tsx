@@ -109,7 +109,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
 
                 {/* Footer: Assigned to avatar , progress bar and grip icon */}
                 {checklist.length > 0 && (
-                    <div className="flex items-center justify-between  rounded-xl w-11/12 mt-10 px-2 py-1 min-w-0 gap-2 ">
+                    <div className="flex items-center justify-between  rounded-xl mt-10 px-2 py-1 min-w-0 gap-2 ">
                         {/* Progress bar */}
                         <div className="flex-1">
                             <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">

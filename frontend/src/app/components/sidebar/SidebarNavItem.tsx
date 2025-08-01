@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface SidebarNavItemProps {
     href: string;
@@ -9,16 +11,46 @@ interface SidebarNavItemProps {
     labelClassName?: string;
 }
 
-export default function SidebarNavItem({ href, icon, label, collapsedLabelClass, labelClassName }: SidebarNavItemProps) {
+export default function SidebarNavItem({
+    href,
+    icon,
+    label,
+    collapsedLabelClass,
+    labelClassName,
+}: SidebarNavItemProps) {
+    const pathname = usePathname();
+    const isActive = pathname === href;
+
     return (
         <Link
             href={href}
-            className="flex items-center gap-2 px-4 py-4 rounded-md hover:bg-gray-900 transition duration-150 transform hover:scale-95 group"
+            className="group flex items-center gap-2 px-4 py-4 rounded-md transition duration-150 transform hover:bg-gray-900 hover:scale-95"
         >
-            <span className="flex items-center justify-center w-8 h-8 shrink-0 group-hover:shadow-inner group-hover:shadow-black/60 group-hover:bg-gray-800 rounded-full transition duration-150 ease-in-out">
+            <motion.span
+                className={`relative flex items-center justify-center w-8 h-8 shrink-0 rounded-full transition duration-150 ease-in-out
+          ${isActive ? "bg-gray-700 shadow-inner shadow-black/60" : "group-hover:bg-gray-800 group-hover:shadow-inner group-hover:shadow-black/60"}
+        `}
+                whileHover="hover"
+                initial="initial"
+                animate={isActive ? "hover" : "initial"}
+            >
                 {icon}
+
+                <motion.div
+                    variants={{
+                        initial: { scaleX: 0 },
+                        hover: { scaleX: 1 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute bottom-0 -mb-2 w-6 h-[2px] bg-gray-300 rounded-full origin-center"
+                />
+            </motion.span>
+
+            <span
+                className={`${collapsedLabelClass || "ml-3"} ${labelClassName || "text-sm"}`}
+            >
+                {label}
             </span>
-            <span className={`${collapsedLabelClass || "ml-3"} ${labelClassName || "text-sm"}`}>{label}</span>
         </Link>
     );
 }
