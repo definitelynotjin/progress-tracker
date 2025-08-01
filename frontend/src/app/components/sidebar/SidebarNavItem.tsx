@@ -4,11 +4,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 interface SidebarNavItemProps {
-    href: string;
-    icon: React.ReactNode;
-    label: string;
-    collapsedLabelClass?: string;
-    labelClassName?: string;
 }
 
 export default function SidebarNavItem({

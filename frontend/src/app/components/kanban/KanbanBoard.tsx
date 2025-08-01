@@ -288,7 +288,7 @@ export default function KanbanBoard() {
                 onDragEnd={handleDragEnd}
             >
                 <SortableContext items={columnOrder} strategy={horizontalListSortingStrategy}>
-                    <div className="flex flex-row  gap-4 rounded-xl overflow-auto bg-gray-800 p-16 min-h-screen">
+                    <div className="flex flex-row  gap-4 rounded-xl w-full bg-gray-800 p-16 min-h-screen overflow-x-auto">
                         {columnOrder.map((column) => (
                             <SortableColumn key={column} id={column}>
                                 <Column
