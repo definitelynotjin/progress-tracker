@@ -34,6 +34,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
                 <ul>
                     <li>Document the current network layout</li>
                     <li>Identify all connected devices</li>
+                    <li>Checking the caches</li>
                 </ul>
             `,
             updatedAt: new Date().toISOString(),

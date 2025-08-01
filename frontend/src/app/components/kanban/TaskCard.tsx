@@ -25,14 +25,6 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
         transition: transition ?? "transform 250ms ease",
     };
 
-    // // Only open modal when clicking the card, not the dot
-    // const handleCardClick = (e: React.MouseEvent) => {
-    //     // Prevent modal if clicking the dot
-    //     if ((e.target as HTMLElement).dataset.handle === "dot") return;
-    //     if (onClick) onClick();
-    // };
-
-    // Toggle checklist item done state
     const handleToggle = (id: string) => {
         setLocalChecklist(prev => {
             const updated = prev.map(item =>
@@ -63,34 +55,41 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                 />
             </button>
             {/* Card content and drag icon centered */}
-            <div className="flex flex-col items-center justify-center w-full h-full">
+            <div className="flex flex-col justify-center w-full h-full">
                 {/* Header: Priority badge and title */}
                 <div className="flex flex-col items-start gap-1 w-full">
-                    <div className="flex items-center w-full">
+                    <div className="flex items-left w-full">
                         {task.priority && <PriorityBadge priority={task.priority} />}
                     </div>
-                    <span className="text-sm font-semibold">{task.title}</span>
+                    <span className="text-sm font-semibold pb-2">{task.title}</span>
                 </div>
+
                 {/* Scrollable text body */}
-                <div className="w-full overflow-y-auto max-h-24">
+                <div className="w-full overflow-y-auto max-h-24 ">
                     {checklist.length > 0 ? (
                         <ul className="flex flex-col gap-1 mt-1">
                             {checklist.map(item => (
-                                <li key={item.id} className="flex items-center gap-2 text-xs text-gray-200 justify-left">
+                                <li key={item.id} className="flex items-left gap-4 text-xs text-gray-200 ">
                                     <input
                                         type="checkbox"
                                         checked={item.done}
                                         onChange={() => handleToggle(item.id)}
                                         className="accent-green-500 w-3.5 h-3.5 rounded border-gray-400 bg-gray-800 cursor-pointer"
                                     />
-                                    <span className={item.done ? "line-through opacity-60" : ""}>{item.text}</span>
+                                    <span
+                                        className={item.done ? "line-through gap-4 opacity-60 truncate text-left" : "truncate text-left"}
+                                        style={{ maxWidth: "200px", wordBreak: "break-word", whiteSpace: "normal" }}
+                                    >
+                                        {item.text}
+                                    </span>
                                 </li>
                             ))}
                         </ul>
                     ) : (
                         task.content && (
                             <span
-                                className="tiptap-taskcard prose max-w-none text-xs text-left text-gray-200 mt-1 gap-2 flex flex-col [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
+                                className="tiptap-taskcard prose max-w-none text-xs text-left text-red-800 mt-1 gap-2 flex flex-col [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
+                                style={{ wordBreak: "break-word", whiteSpace: "normal" }}
                                 dangerouslySetInnerHTML={{ __html: task.content }}
                             />
                         )
@@ -98,7 +97,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                 </div>
                 {/* Due date range display */}
                 {task.dueDate && typeof task.dueDate === 'object' && 'from' in task.dueDate && 'to' in task.dueDate && task.dueDate.from && task.dueDate.to && (
-                    <div className="w-full mt-2 text-xs text-muted-foreground flex items-center justify-between">
+                    <div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
                         <span className="flex items-center gap-1 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3M16 7V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -108,7 +107,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                     </div>
                 )}
 
-                {/* Footer: Assigned to avatar and grip icon */}
+                {/* Footer: Assigned to avatar , progress bar and grip icon */}
                 {checklist.length > 0 && (
                     <div className="flex items-center justify-between  rounded-xl w-11/12 mt-10 px-2 py-1 min-w-0 gap-2 ">
                         {/* Progress bar */}
