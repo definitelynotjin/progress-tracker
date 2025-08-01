@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { GripVertical, Pencil } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
@@ -5,9 +7,9 @@ import { CSS } from "@dnd-kit/utilities";
 import { Task } from "./types";
 import PriorityBadge from "./PriorityBadge";
 
-type TaskCardProps = { task: Task; onClick?: () => void };
+type TaskCardProps = { task: Task; onClick?: () => void; onChecklistChange?: (taskId: string, checklist: Task["checklist"]) => void };
 
-export default function TaskCard({ task, onClick }: TaskCardProps) {
+export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardProps) {
     // Use local state for checklist to allow toggling
     const [localChecklist, setLocalChecklist] = useState(task.checklist ?? []);
 
@@ -32,9 +34,13 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
 
     // Toggle checklist item done state
     const handleToggle = (id: string) => {
-        setLocalChecklist(prev => prev.map(item =>
-            item.id === id ? { ...item, done: !item.done } : item
-        ));
+        setLocalChecklist(prev => {
+            const updated = prev.map(item =>
+                item.id === id ? { ...item, done: !item.done } : item
+            );
+            if (onChecklistChange) onChecklistChange(task.id, updated);
+            return updated;
+        });
     };
 
     const checklist = localChecklist;
@@ -104,12 +110,12 @@ export default function TaskCard({ task, onClick }: TaskCardProps) {
 
                 {/* Footer: Assigned to avatar and grip icon */}
                 {checklist.length > 0 && (
-                    <div className="flex items-center justify-between bg-gray-700 rounded-xl w-11/12 mt-2 px-2 py-1 min-w-0 gap-2">
+                    <div className="flex items-center justify-between  rounded-xl w-11/12 mt-2 px-2 py-1 min-w-0 gap-2">
                         {/* Progress bar */}
                         <div className="flex-1">
-                            <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
+                            <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">
                                 <div
-                                    className="bg-green-500 h-full transition-all duration-300"
+                                    className="bg-green-500 h-full transition-all duration-500 ease-in-out"
                                     style={{ width: `${progress}%` }}
                                 ></div>
                             </div>

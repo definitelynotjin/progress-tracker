@@ -47,7 +47,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "Backlog",
             priority: "Low",
             assignee: "Ali",
-            dueDate: { from: "2025-07-01", to: "2025-07-03" }
+            dueDate: { from: "2025-08-01", to: "2025-08-03" }
         },
         {
             id: "task-b",
@@ -68,7 +68,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "Backlog",
             priority: "Medium",
             assignee: "Burhan",
-            dueDate: { from: "2025-07-04", to: "2025-07-07" }
+            dueDate: { from: "2025-08-04", to: "2025-08-07" }
         },
     ],
     "To Do": [
@@ -91,7 +91,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "To Do",
             priority: "High",
             assignee: "Coki",
-            dueDate: { from: "2025-07-08", to: "2025-07-10" }
+            dueDate: { from: "2025-08-08", to: "2025-08-10" }
         },
         {
             id: "task-d",
@@ -112,7 +112,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "To Do",
             priority: "Medium",
             assignee: "Dennis",
-            dueDate: { from: "2025-07-11", to: "2025-07-13" }
+            dueDate: { from: "2025-08-11", to: "2025-08-13" }
         },
     ],
     "In Progress": [
@@ -135,7 +135,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "In Progress",
             priority: "High",
             assignee: "Erfan",
-            dueDate: { from: "2025-07-14", to: "2025-07-16" }
+            dueDate: { from: "2025-08-14", to: "2025-08-16" }
         },
     ],
     Done: [
@@ -150,7 +150,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             `,
             checklist: extractChecklistFromHTML(`
                 <ul>
-                    <li>Update firmware on all core routers</li>
+                <li>Update firmware on all core routers</li>
                     <li>Verify successful upgrade</li>
                 </ul>
             `),
@@ -158,7 +158,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
             column: "Done",
             priority: "Low",
             assignee: "Frank",
-            dueDate: { from: "2025-07-17", to: "2025-07-18" }
+            dueDate: { from: "2025-08-17", to: "2025-08-18" }
         },
     ],
 };
@@ -170,12 +170,6 @@ export default function KanbanBoard() {
     const [modalColumn, setModalColumn] = useState<ColumnType | null>(null);
     const [activeId, setActiveId] = useState<string | null>(null);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-    // Removed unused activeColumnId state
-    if (!tasks) return null;
-    const activeTask = Object.values(tasks)
-        .flat()
-        .find((task) => task.id === activeId);
-
     const handleAddCard = (column: ColumnType) => {
         setModalColumn(column);
         setModalOpen(true);
@@ -215,6 +209,18 @@ export default function KanbanBoard() {
             setModalOpen(false);
             setModalColumn(null);
         }
+    };
+
+    const handleChecklistChange = (taskId: string, checklist: Task["checklist"]) => {
+        setTasks(prev => {
+            const updated = { ...prev };
+            for (const col of Object.keys(updated) as ColumnType[]) {
+                updated[col] = updated[col].map(task =>
+                    task.id === taskId ? { ...task, checklist } : task
+                );
+            }
+            return updated;
+        });
     };
 
     const sensors = useSensors(useSensor(PointerSensor));
@@ -304,6 +310,10 @@ export default function KanbanBoard() {
         );
     }
 
+    const activeTask = Object.values(tasks)
+        .flat()
+        .find((task) => task.id === activeId);
+
     return (
         <>
             {/* Unified DndContext for columns and cards */}
@@ -322,6 +332,7 @@ export default function KanbanBoard() {
                                     items={tasks[column]}
                                     onAddCard={handleAddCard}
                                     onTaskClick={handleTaskClick}
+                                    onChecklistChange={handleChecklistChange}
                                 />
                             </SortableColumn>
                         ))}

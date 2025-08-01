@@ -24,10 +24,11 @@ interface ColumnProps {
     items: Task[];
     onAddCard: (column: ColumnType) => void;
     onTaskClick: (task: Task) => void;
+    onChecklistChange: (taskId: string, checklist: Task["checklist"]) => void;
 }
 
 
-export default function Column({ column, items, onAddCard, onTaskClick }: ColumnProps) {
+export default function Column({ column, items, onAddCard, onTaskClick, onChecklistChange }: ColumnProps) {
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
 
     return (
@@ -56,7 +57,12 @@ export default function Column({ column, items, onAddCard, onTaskClick }: Column
                                 <EmptyCard id={`placeholder-${column}`} />
                             ) : (
                                 items.map((task) => (
-                                    <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
+                                    <TaskCard
+                                        key={task.id}
+                                        task={task}
+                                        onClick={() => onTaskClick(task)}
+                                        onChecklistChange={onChecklistChange}
+                                    />
                                 ))
                             )}
                         </div>
