@@ -114,7 +114,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                         <div className="flex-1">
                             <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">
                                 <div
-                                    className="bg-green-500 h-full transition-all duration-500 ease-in-out"
+                                    className="bg-green-300 h-full transition-all duration-700 ease-in-out"
                                     style={{ width: `${progress}%` }}
                                 ></div>
                             </div>

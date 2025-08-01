@@ -6,7 +6,7 @@ import { ColumnType, Task } from "./types";
 import { useSortable } from "@dnd-kit/sortable";
 import { Plus } from "lucide-react";
 
-function EmptyCard({ id }: { id: string }) {
+ function EmptyCard({ id }: { id: string }) {
     const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
     return (
         <div
@@ -37,7 +37,7 @@ export default function Column({ column, items, onAddCard, onTaskClick, onCheckl
             {/* Colored bar at the very top of the column, static position */}
             {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-xl bg-blue-200" />}
             {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-xl bg-purple-200" />}
-            {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-t-lg bg-teal-200" />}
+            {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-xl bg-teal-200" />}
             {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-xl bg-lime-200" />}
             {/* Main column background container */}
             <div className="bg-gray-700 rounded-xl flex-row flex-col h-full ">
