@@ -76,7 +76,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                     {checklist.length > 0 ? (
                         <ul className="flex flex-col gap-1 mt-1">
                             {checklist.map(item => (
-                                <li key={item.id} className="flex items-center gap-2 text-xs text-gray-200">
+                                <li key={item.id} className="flex items-center gap-2 text-xs text-gray-200 justify-left">
                                     <input
                                         type="checkbox"
                                         checked={item.done}
@@ -110,7 +110,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
 
                 {/* Footer: Assigned to avatar and grip icon */}
                 {checklist.length > 0 && (
-                    <div className="flex items-center justify-between  rounded-xl w-11/12 mt-2 px-2 py-1 min-w-0 gap-2">
+                    <div className="flex items-center justify-between  rounded-xl w-11/12 mt-10 px-2 py-1 min-w-0 gap-2 ">
                         {/* Progress bar */}
                         <div className="flex-1">
                             <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">

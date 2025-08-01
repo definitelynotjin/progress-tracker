@@ -179,8 +179,10 @@ body {
 /* Self explanatory */
 .rbc-month-header {
     border-bottom: none !important;
-    color: #535964;
+    color: #fff;
+    background: #1f2937 !important;
 }
+
 
 /* Date cell */
 .rbc-date-cell {
@@ -204,9 +206,4 @@ body {
 .rbc-month-row {
     flex: 1 1 0 !important;
     height: 16.66% !important;
-}
-
-.rbc-month-header {
-    color: #ffff !important;
-    background: rgb(63, 63, 63) !important;
 }
