@@ -31,12 +31,12 @@ function DashboardContent() {
         <div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
             {/* Kanban Data Table */}
             <section className="mb-8">
-                <h2 className="text-2xl font-extrabold text-white mb-4 tracking-wide drop-shadow">Kanban Board Data</h2>
+                <h2 className="text-2xl font-extrabold text-white mb-4 tracking-wide drop-shadow rounded-xl ">Kanban Board Data</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg shadow-lg">
                         <thead>
-                            <tr className="bg-gray-900/80">
-                                <th className="px-4 py-3 text-left text-lg font-semibold text-blue-300 tracking-wide">Title</th>
+                            <tr className="rounded-xl bg-gray-800/80">
+                                <th className="px-4 py-3 rounded-t-xl   text-left text-lg font-semibold text-blue-300 tracking-wide">Title</th>
                                 <th className="px-4 py-3 text-left text-lg font-semibold text-purple-300 tracking-wide">Column</th>
                                 <th className="px-4 py-3 text-left text-lg font-semibold text-pink-300 tracking-wide">Priority</th>
                                 <th className="px-4 py-3 text-left text-lg font-semibold text-teal-300 tracking-wide">Assignee</th>
