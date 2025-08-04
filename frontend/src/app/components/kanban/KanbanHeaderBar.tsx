@@ -56,7 +56,7 @@ export default function KanbanHeaderBar() {
                                     {member.avatar && typeof member.avatar === "string" ? member.avatar : null}
                                 </div>
                             ))}
-                            {boardMembers.length > 3 && (
+                            {boardMembers.length > 1 && (
                                 <div
                                     className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-gray-200 font-bold text-xs border-2 border-gray-700 shadow -ml-3"
                                     style={{ zIndex: 6 }}

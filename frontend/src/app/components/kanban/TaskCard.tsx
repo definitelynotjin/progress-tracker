@@ -74,7 +74,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                                         type="checkbox"
                                         checked={item.done}
                                         onChange={() => handleToggle(item.id)}
-                                        className="accent-green-500 w-3.5 h-3.5 rounded border-gray-400 bg-gray-800 cursor-pointer"
+                                        className="accent-green-300 w-3.5 h-3.5 rounded border-gray-400 bg-gray-800 cursor-pointer"
                                     />
                                     <span
                                         className={item.done ? "line-through gap-4 opacity-60 truncate text-left" : "truncate text-left"}

@@ -110,6 +110,11 @@ body {
     background: transparent !important;
 }
 
+.rbc-event-content
+{
+    height: 50px;
+}
+
 /* Today text */
 .rbc-current {
     color: #fff !important;

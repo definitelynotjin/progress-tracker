@@ -20,7 +20,6 @@ export default function TeamManagement() {
                         <span className="text-white">Jane Doe</span>
                         <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>
-
                         <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">Jane Doe</span>
                         <button className="text-red-400 hover:text-red-200">Remove</button>
@@ -39,7 +38,10 @@ export default function TeamManagement() {
                 {/* Team management form or options */}
                 <form className="space-y-4">
                     <input type="text" placeholder="Add new team member" className="w-full p-3 rounded-md bg-gray-600 text-white" />
-                    <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-md">Add Member</button>
+                    <button type="submit" className="w-full bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-md"
+                    >
+                        Add Member
+                    </button>
                 </form>
             </div>
         </div>

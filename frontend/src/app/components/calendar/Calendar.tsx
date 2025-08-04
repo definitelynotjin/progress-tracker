@@ -142,7 +142,7 @@ export default function Calendar({ tasks }: CalendarProps) {
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-8 min-h-screen">
             <div className={`flex flex-row gap-4 rounded-xl overflow-auto bg-gray-300 p-8 ${styles.calendarWrapper || ''}`}
-                style={{ height: '900px', minHeight: '900px' }} // Set a tall container for squarer cells
+                style={{ height: '800px', minHeight: '900px' }} // Set a tall container for squarer cells
             >
                 <FullCalendar
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
