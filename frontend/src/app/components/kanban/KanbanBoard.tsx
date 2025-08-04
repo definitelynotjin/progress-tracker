@@ -25,6 +25,7 @@ import { Task } from "./types";
 import TaskDetail from "./TaskDetail";
 import type { ColumnType } from "./types";
 
+
 export const initialTasks: Record<ColumnType, Task[]> = {
     "Backlog": [
         {
