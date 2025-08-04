@@ -1,8 +1,11 @@
 "use client";
 
 import React from "react";
-import { KanbanProvider, useKanban } from "../kanban/KanbanContext";
 import { DashboardSectionCard } from "./DashboardSectionCard";
+import { TaskProvider } from "../kanban/TaskContext";
+import { useTasks } from "../kanban/TaskContext";
+
+
 
 const dashboardSections = [
     { title: "Overview", color: "bg-blue-500", content: "Project summary, stats, and quick links." },
@@ -11,16 +14,17 @@ const dashboardSections = [
     { title: "Deadlines", color: "bg-lime-500", content: "Upcoming deadlines and milestones." },
 ];
 
+
 export default function Dashboard() {
     return (
-        <KanbanProvider>
+        <TaskProvider>
             <DashboardContent />
-        </KanbanProvider>
+        </TaskProvider>
     );
 }
 
 function DashboardContent() {
-    const { tasks } = useKanban();
+    const { tasks } = useTasks();
     // Flatten all tasks
     const allTasks = Object.values(tasks).flat();
     return (

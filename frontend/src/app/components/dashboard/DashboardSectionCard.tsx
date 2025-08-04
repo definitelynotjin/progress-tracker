@@ -1,4 +1,5 @@
 import React from "react";
+import { TaskProvider } from "../kanban/TaskContext";
 
 export function DashboardSectionCard(
     { title, color, content }: { title: string; color: string; content: React.ReactNode }

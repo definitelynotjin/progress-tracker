@@ -19,45 +19,49 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         Done: [],
     });
     // Hydrate initialTasks on client only, and generate checklists client-side
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            import("./TaskCard").then(({ extractChecklistFromHTML }) => {
-                const hydrated: Record<ColumnType, Task[]> = {
-                    Backlog: [],
-                    "To Do": [],
-                    "In Progress": [],
-                    Done: [],
-                };
-                for (const col of Object.keys(initialTasks) as ColumnType[]) {
-                    hydrated[col] = initialTasks[col].map(task => ({
-                        ...task,
-                        checklist: extractChecklistFromHTML(task.content || "")
-                    }));
-                }
-                setTasks(hydrated);
-            });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (typeof window !== "undefined") {
+    //         import("./TaskCard").then(({ extractChecklistFromHTML }) => {
+    //             const hydrated: Record<ColumnType, Task[]> = {
+    //                 Backlog: [],
+    //                 "To Do": [],
+    //                 "In Progress": [],
+    //                 Done: [],
+    //             };
+    //             for (const col of Object.keys(initialTasks) as ColumnType[]) {
+    //                 hydrated[col] = initialTasks[col].map(task => ({
+    //                     ...task,
+    //                     checklist: extractChecklistFromHTML(task.content || "")
+    //                 }));
+    //             }
+    //             setTasks(hydrated);
+    //         });
+    //     }
+    // }, []);
 
     useEffect(() => {
         fetch("http://localhost:8000/api/tasks")
             .then(res => res.json())
             .then(data => {
-                // Transform data if needed to match your state shape
-                // Example assumes API returns an array of tasks
-                const grouped: Record<ColumnType, Task[]> = {
-                    Backlog: [],
-                    "To Do": [],
-                    "In Progress": [],
-                    Done: [],
-                };
-                data.forEach((task: Task) => {
-                    grouped[task.column].push(task);
-                });
-                setTasks(grouped);
+                if (Array.isArray(data) && data.length > 0) {
+                    const grouped: Record<ColumnType, Task[]> = {
+                        Backlog: [],
+                        "To Do": [],
+                        "In Progress": [],
+                        Done: [],
+                    };
+                    data.forEach((task: Task) => {
+                        grouped[task.column].push(task);
+                    });
+                    setTasks(grouped);
+                } else {
+                    // Fallback to mock data
+                    setTasks(initialTasks);
+                }
             })
             .catch(err => {
                 console.error("Failed to fetch tasks:", err);
+                setTasks(initialTasks); // Fallback on error
             });
     }, []);
 

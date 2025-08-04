@@ -1,5 +1,5 @@
-
 'use client';
+
 import React, { createContext, useContext, useState } from "react";
 
 import { Task } from "./types";
@@ -35,4 +35,5 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
 
 export function useKanban() {
     return useContext(KanbanContext);
+    console.log(tasks)
 }
