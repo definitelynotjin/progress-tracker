@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-
+import { AssigneeType } from "../kanban/types";
 export default function TeamManagement() {
     return (
         <div className="flex flex-row gap-4 rounded-xl overflow-auto bg-gray-800 p-16 min-h-screen">
@@ -20,11 +20,11 @@ export default function TeamManagement() {
                         <span className="text-white">Jane Doe</span>
                         <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>
-                        <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
+                    <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">Jane Doe</span>
                         <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>
-                        <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
+                    <li className="flex items-center justify-between bg-gray-800 p-3 rounded-md">
                         <span className="text-white">Jan Hoe</span>
                         <button className="text-red-400 hover:text-red-200">Remove</button>
                     </li>

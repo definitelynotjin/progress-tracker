@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import type { Task, ColumnType } from "./types";
+import type { Task, ColumnType, AssigneeType } from "./types";
 import { initialTasks } from "./KanbanBoard";
 
 type TaskContextType = {
