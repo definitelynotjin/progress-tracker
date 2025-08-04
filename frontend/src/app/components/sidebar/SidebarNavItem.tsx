@@ -23,7 +23,6 @@ export default function SidebarNavItem({
         >
             <motion.span
                 className={`relative flex items-center justify-center w-8 h-8 shrink-0 rounded-full transition duration-150 ease-in-out
-          ${isActive ? "bg-gray-700 shadow-inner shadow-black/60" : "group-hover:bg-gray-800 group-hover:shadow-inner group-hover:shadow-black/60"}
         `}
                 whileHover="hover"
                 initial="initial"
