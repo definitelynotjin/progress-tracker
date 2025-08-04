@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface InviteModalProps {
     open: boolean;
@@ -7,7 +8,10 @@ interface InviteModalProps {
 }
 
 export default function InviteModal({ open, onClose, onInvite }: InviteModalProps) {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState('');
+    function handleChange(e) {
+        setEmail(e.target.value);
+    }
 
     if (!open) return null;
 
@@ -20,6 +24,7 @@ export default function InviteModal({ open, onClose, onInvite }: InviteModalProp
                         e.preventDefault();
                         if (email) {
                             onInvite(email);
+                            toast.success(`${email} has been invited`);
                             setEmail("");
                             onClose();
                         }
@@ -34,12 +39,10 @@ export default function InviteModal({ open, onClose, onInvite }: InviteModalProp
                         className="px-3 py-2 rounded bg-gray-700 text-white flex-1"
                         autoFocus
                     />
-                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded">
-                        Invite
-                    </button>
+                    <button type="submit" className="bg-teal-500 text-white px-4 py-2 rounded">Invite </button >
                 </form>
                 <button onClick={onClose} className="mt-4 text-gray-300 hover:text-white text-sm">Cancel</button>
             </div>
-        </div>
+        </div >
     );
 }

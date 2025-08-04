@@ -18,6 +18,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         "In Progress": [],
         Done: [],
     });
+
     // Hydrate initialTasks on client only, and generate checklists client-side
     useEffect(() => {
         if (typeof window !== "undefined") {
