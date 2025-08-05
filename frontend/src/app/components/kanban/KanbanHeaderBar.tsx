@@ -38,7 +38,7 @@ export default function KanbanHeaderBar() {
                                     key={member.name}
                                     title={member.name}
                                     className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
-                                    style={{ zIndex: 10 - idx, marginLeft: idx === 0 ? 0 : '-0.75rem' }}
+                                    style={{ zIndex: 20 - idx, marginLeft: idx === 0 ? 0 : '-0.75rem' }}
                                 >
                                     {member.avatar && typeof member.avatar === "string" ? member.avatar : null}
                                 </div>
