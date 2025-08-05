@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
 import { CircleQuestionMark } from 'lucide-react';
-
+import { Button } from '@/components/ui/button';
 
 
 export default function ProfileButton() {
@@ -15,8 +15,8 @@ export default function ProfileButton() {
                 setDropdownOpen(false);
             }
         }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [dropdownOpen]);
 
     return (
@@ -37,8 +37,22 @@ export default function ProfileButton() {
                     </TooltipContent>
                 </Tooltip>
                 {dropdownOpen && (
-                    <div className="absolute right-0 top-12  w-96 bg-gray-700 rounded-lg shadow-2xl border-gray-200 z-20 p-6">
-                        <div className="pb-4 font-bold text-gray-100 text-sm border-b">Profile</div>
+                    <div className="absolute right-0 top-12  w-80  bg-gray-700 rounded-lg shadow-2xl border-gray-200 z-20 p-6">
+                        <div className="bg-red-200 p-2"></div>
+                        <div className="pb-4 text-center font-bold text-gray-100 text-sm border-b">?</div>
+                        <div className="flex flex-col gap-y-2 text-center">
+                            <Button className=
+                                "p-5 mt-5  w-full rounded-md  bg-gray-800 text-gray-200">
+                                View Profile
+                            </Button>
+                            <Button className=
+                                "p-5 w-full rounded-md  bg-gray-800 text-gray-200">
+                                Logout
+                            </Button>
+                            <div className="bg-red-500">
+                            </div>
+                        </div>
+
                     </div>
                 )}
             </div>
