@@ -8,34 +8,14 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import styles from "./calendar.module.css";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-
+import { useStyleTodayCell } from "./useStyleTodayCell";
 
 type CalendarProps = {
     tasks?: Record<string, any[]>;
 };
 
 export default function Calendar({ tasks }: CalendarProps) {
-    React.useEffect(() => {
-        function styleTodayCell() {
-            const todayCell = document.querySelector('td.fc-day.fc-day-today') as HTMLElement | null;
-            if (todayCell) {
-                todayCell.style.background = '#1e293b';
-                const dayNumber = todayCell.querySelector('.fc-daygrid-day-number') as HTMLElement | null;
-                if (dayNumber) {
-                    dayNumber.style.color = '#fffff';
-                    dayNumber.style.fontWeight = '700';
-                    dayNumber.style.textShadow = '0 1px 2px rgba(0,0,0,0.15)';
-                }
-            }
-        }
-        styleTodayCell();
-        const calendarRoot = document.querySelector('.fc');
-        if (!calendarRoot) return;
-        const observer = new MutationObserver(styleTodayCell);
-        observer.observe(calendarRoot, { childList: true, subtree: true });
-        return () => observer.disconnect();
-    }, []);
-    if (!tasks) return null;
+    useStyleTodayCell();
 
     const columnColors: Record<string, string> = {
         Backlog: "#BFDBFE",

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import NotificationButton from "../notification/NotificationButton";
+import ProfileButton from "../profile/ProfileButton";
 
 
 export default function Header() {
@@ -11,9 +12,7 @@ export default function Header() {
             </h1>
             <div className="flex items-center gap-4 relative">
                 <NotificationButton />
-                <div className="w-12 h-12 rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative flex items-center justify-center text-gray-300 text-xl font-bold">
-                    <span>?</span>
-                </div>
+                <ProfileButton />
             </div>
         </div>
     );

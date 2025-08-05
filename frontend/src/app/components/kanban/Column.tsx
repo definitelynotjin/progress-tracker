@@ -1,12 +1,12 @@
 import React from "react";
 import { SortableContext, verticalListSortingStrategy } from
-"@dnd-kit/sortable";
+    "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
 import { useSortable } from "@dnd-kit/sortable";
 import { Plus } from "lucide-react";
 
- function EmptyCard({ id }: { id: string }) {
+function EmptyCard({ id }: { id: string }) {
     const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
     return (
         <div
@@ -33,14 +33,14 @@ export default function Column({ column, items, onAddCard, onTaskClick, onCheckl
     const sortableItems = items.length > 0 ? items.map(task => task.id) : [`placeholder-${column}`];
 
     return (
-        <div className="flex-1 overflow-auto min-w-0 w-full relative rounded-t-lg flex flex-col">
+        <div className="flex-1 overflow-auto min-w-full w-full relative rounded-t-lg flex flex-col">
             {/* Colored bar at the very top of the column, static position */}
             {column.trim().toLowerCase() === "backlog" && <div className="h-1 rounded-xl bg-blue-200" />}
             {column.trim().toLowerCase() === "to do" && <div className="h-1 rounded-xl bg-purple-200" />}
             {column.trim().toLowerCase() === "in progress" && <div className="h-1 rounded-xl bg-teal-200" />}
             {column.trim().toLowerCase() === "done" && <div className="h-1 rounded-xl bg-lime-200" />}
             {/* Main column background container */}
-            <div className="bg-gray-700 rounded-xl flex-row flex-col h-full ">
+            <div className="bg-gray-700 rounded-xl flex-row h-full ">
                 {/* Title fixed at the top */}
                 <div className="py-4 px-4 rounded-xl ">
                     <div className="flex items-center justify-between mb-4">
