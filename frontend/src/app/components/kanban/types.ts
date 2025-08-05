@@ -5,6 +5,7 @@ export type ColumnType = typeof COLUMN_TYPES[number];
 export type PriorityType = typeof PRIORITIES[number];
 export type AssigneeType = typeof ASSIGNEE[number];
 
+
 export interface Task {
     id: string;
     title: string;
@@ -12,9 +13,8 @@ export interface Task {
     column: ColumnType;
     updatedAt?: string;
     priority?: PriorityType;
-    assignee?: string;
-    dueDate?: string | { from?: string; to?: string }; // ISO date string or range object
-
+    assignee?: AssigneeType;
+    dueDate?: string | { from?: string; to?: string };
     checklist?: ChecklistItem[];
 }
 
