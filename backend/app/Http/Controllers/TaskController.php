@@ -28,14 +28,30 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTaskRequest $request) {}
+    public function store(StoreTaskRequest $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'board_column_id' => 'required|integer',
+            'priority' => 'nullable|string',
+            'assignee' => 'nullable|string',
+            'due_date' => 'nullable|array',
+            'due_date.from' => 'nullable|date',
+            'due_date.to' => 'nullable|date',
+            'order' => 'nullable|integer',
+        ]);
+
+        $task = Task::create($data);
+        return response::json($task, 201);
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Task $task)
     {
-        //
+        return response::json($task);
     }
 
     /**
@@ -51,7 +67,20 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'board_column_id' => 'required|integer',
+            'priority' => 'nullable|string',
+            'assignee' => 'nullable|string',
+            'due_date' => 'nullable|array',
+            'due_date.from' => 'nullable|date',
+            'due_date.to' => 'nullable|date',
+            'order' => 'nullable|integer',
+        ]);
+
+        $task->update($data);
+        return response::json($task, 200);
     }
 
     /**

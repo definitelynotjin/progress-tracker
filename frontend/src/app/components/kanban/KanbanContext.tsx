@@ -13,6 +13,13 @@ const initialTasks: KanbanTasks = {
   Done: [],
 };
 
+const columnToIdMap: Record<string, number> = {
+  Backlog: 1,
+  'To Do': 2,
+  'In Progress': 3,
+  Done: 4,
+};
+
 type KanbanContextType = {
   tasks: KanbanTasks;
   setTasks: React.Dispatch<React.SetStateAction<KanbanTasks>>;
@@ -59,12 +66,16 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
         ),
       };
     });
+    const taskForBackend = {
+      ...updatedTask,
+      board_column_id: columnToIdMap[updatedTask.column],
+    };
 
     // Then send update to backend
     await fetch(`http://localhost:8000/api/tasks/${updatedTask.id}`, {
       method: 'PUT', // or PATCH depending on your API
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedTask),
+      body: JSON.stringify(taskForBackend),
     });
   }
 
@@ -75,11 +86,16 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       [column]: [...(prev[column] ?? []), newTask],
     }));
 
+    const taskForBackend = {
+      ...newTask,
+      board_column_id: columnToIdMap[column],
+    };
+
     // Save to backend
     await fetch('http://localhost:8000/api/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newTask),
+      body: JSON.stringify(taskForBackend),
     });
   }
 

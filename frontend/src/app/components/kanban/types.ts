@@ -1,6 +1,5 @@
-// components/kanban/types.ts
-
 import { ASSIGNEE, COLUMN_TYPES, PRIORITIES } from "./kanbanConfig";
+
 export type ColumnType = typeof COLUMN_TYPES[number];
 export type PriorityType = typeof PRIORITIES[number];
 export type AssigneeType = typeof ASSIGNEE[number];
@@ -14,7 +13,7 @@ export interface Task {
     updatedAt?: string;
     priority?: PriorityType;
     assignee?: AssigneeType;
-    dueDate?: string | { from?: string; to?: string };
+    dueDate?: string | { from: string; to: string };
     checklist?: ChecklistItem[];
 }
 

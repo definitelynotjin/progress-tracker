@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useKanban } from './KanbanContext';
+import toast from 'react-hot-toast';
 import {
   DndContext,
   closestCenter,
@@ -128,7 +129,7 @@ export const initialTasks: Record<ColumnType, Task[]> = {
 };
 
 export default function KanbanBoard() {
-  const { tasks, setTasks } = useKanban();
+  const { tasks, setTasks, updateTask } = useKanban();
   const [columnOrder, setColumnOrder] = useState<ColumnType[]>(
     Object.keys(tasks ?? {}) as ColumnType[],
   );
@@ -145,9 +146,8 @@ export default function KanbanBoard() {
     setSelectedTask(task);
   };
 
-  const handleTaskSave = (updatedTask: Task) => {
+  const handleTaskSave = async (updatedTask: Task) => {
     setTasks((prev) => {
-      // fallback to empty array to avoid error
       const columnTasks = prev[updatedTask.column] ?? [];
       return {
         ...prev,
@@ -156,6 +156,12 @@ export default function KanbanBoard() {
         ),
       };
     });
+
+    try {
+      await updateTask(updatedTask);
+    } catch (error) {
+      toast.error('Failed to update task');
+    }
     setSelectedTask(null);
   };
 
