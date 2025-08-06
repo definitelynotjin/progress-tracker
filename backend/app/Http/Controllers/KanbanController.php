@@ -6,7 +6,6 @@ use App\Models\BoardColumn;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Database\Eloquent\Model;
 
-
 class KanbanController extends Controller
 {
     public function index()
