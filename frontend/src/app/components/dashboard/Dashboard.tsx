@@ -23,16 +23,9 @@ const dashboardSections = [
   },
 ];
 
-const emptyTasks = {
-  Backlog: [],
-  'To Do': [],
-  'In Progress': [],
-  Done: [],
-};
-
-export default function Dashboard() {
+export default function Dashboard({ initialTasks }) {
   return (
-    <KanbanProvider initialTasks={emptyTasks}>
+    <KanbanProvider initialTasks={initialTasks}>
       <DashboardContent />
     </KanbanProvider>
   );
