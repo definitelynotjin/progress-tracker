@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Support\Facades\Response;
 
 class TaskController extends Controller
 {
@@ -13,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all());
+        return response::json(Task::all());
     }
 
     /**

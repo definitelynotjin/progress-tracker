@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BoardColumn;
+
 
 class Task extends Model
 {
-    /** @use HasFactory<\Database\Factories\TaskFactory> */
-    use HasFactory;
+    public function boardColumn()
+    {
+        return $this->belongsTo(BoardColumn::class);
+    }
 }
