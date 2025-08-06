@@ -19,114 +19,12 @@ import Column from './Column';
 import { GripVertical } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import Modal from './Modal';
+// import Modal from './Modal';
 import { DragOverlay } from '@dnd-kit/core';
 import TaskCard from './TaskCard';
 import { Task } from './types';
 import TaskDetail from './TaskDetail';
 import type { ColumnType } from './types';
-
-export const initialTasks: Record<ColumnType, Task[]> = {
-  Backlog: [
-    {
-      id: 'task-a',
-      title: 'Survey network topology',
-      content: `
-                <ul>
-                    <li>Document the current network layout</li>
-                    <li>Identify all connected devices</li>
-                    <li>Checking the caches</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'Backlog',
-      priority: 'Low',
-      assignee: 'Ali',
-      dueDate: { from: '2025-08-01', to: '2025-08-03' },
-    },
-    {
-      id: 'task-b',
-      title: 'Plan IP address allocation',
-      content: `
-                <ul>
-                    <li>Design an efficient IP addressing scheme</li>
-                    <li>Plan for new subnets</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'Backlog',
-      priority: 'Medium',
-      assignee: 'Burhan',
-      dueDate: { from: '2025-08-04', to: '2025-08-07' },
-    },
-  ],
-  'To Do': [
-    {
-      id: 'task-c',
-      title: 'Configure VLANs on switches',
-      content: `
-                <ul>
-                    <li>Set up VLANs for department separation</li>
-                    <li>Improve network security</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'To Do',
-      priority: 'High',
-      assignee: 'Coki',
-      dueDate: { from: '2025-08-08', to: '2025-08-10' },
-    },
-    {
-      id: 'task-d',
-      title: 'Install network monitoring tools',
-      content: `
-                <ul>
-                    <li>Deploy Zabbix or Nagios</li>
-                    <li>Monitor network health</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'To Do',
-      priority: 'Medium',
-      assignee: 'Dennis',
-      dueDate: { from: '2025-08-11', to: '2025-08-13' },
-    },
-  ],
-  'In Progress': [
-    {
-      id: 'task-e',
-      title: 'Troubleshoot connectivity issues',
-      content: `
-                <ul>
-                    <li>Investigate intermittent connection drops</li>
-                    <li>Resolve office connectivity problems</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'In Progress',
-      priority: 'High',
-      assignee: 'Erfan',
-      dueDate: { from: '2025-08-14', to: '2025-08-16' },
-    },
-  ],
-  Done: [
-    {
-      id: 'task-f',
-      title: 'Upgrade router firmware',
-      content: `
-                <ul>
-                    <li>Update firmware on all core routers</li>
-                    <li>Verify successful upgrade</li>
-                </ul>
-            `,
-      updatedAt: new Date().toISOString(),
-      column: 'Done',
-      priority: 'Low',
-      assignee: 'Frank',
-      dueDate: { from: '2025-08-17', to: '2025-08-18' },
-    },
-  ],
-};
 
 export default function KanbanBoard() {
   const { tasks, setTasks, updateTask } = useKanban();
@@ -351,11 +249,6 @@ export default function KanbanBoard() {
           {activeTask ? <TaskCard task={activeTask} /> : null}
         </DragOverlay>
       </DndContext>
-      <Modal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={handleModalSubmit}
-      />
       {selectedTask && (
         <TaskDetail
           task={selectedTask}

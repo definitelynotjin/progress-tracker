@@ -23,9 +23,16 @@ const dashboardSections = [
   },
 ];
 
+const emptyTasks = {
+  Backlog: [],
+  'To Do': [],
+  'In Progress': [],
+  Done: [],
+};
+
 export default function Dashboard() {
   return (
-    <KanbanProvider>
+    <KanbanProvider initialTasks={emptyTasks}>
       <DashboardContent />
     </KanbanProvider>
   );
@@ -34,7 +41,7 @@ export default function Dashboard() {
 function DashboardContent() {
   const { tasks } = useKanban();
   // Flatten all tasks
-  const allTasks = Object.values(tasks).flat();
+  const allTasks = Object.values(tasks ?? {}).flat();
   return (
     <div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
       {/* Kanban Data Table */}

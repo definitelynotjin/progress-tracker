@@ -3,6 +3,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { Task } from './types';
 import { COLUMN_TYPES } from './kanbanConfig';
+import { addTaskAPI, updateTaskAPI } from './kanbanApi';
+import toast from 'react-hot-toast';
 
 export type KanbanTasks = Record<(typeof COLUMN_TYPES)[number], Task[]>;
 
@@ -11,13 +13,6 @@ const initialTasks: KanbanTasks = {
   'To Do': [],
   'In Progress': [],
   Done: [],
-};
-
-const columnToIdMap: Record<string, number> = {
-  Backlog: 1,
-  'To Do': 2,
-  'In Progress': 3,
-  Done: 4,
 };
 
 type KanbanContextType = {
@@ -34,29 +29,16 @@ export const KanbanContext = createContext<KanbanContextType>({
   addTask: async () => {},
 });
 
-export function KanbanProvider({ children }: { children: React.ReactNode }) {
-  const [tasks, setTasks] = useState<KanbanTasks>(initialTasks);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/kanban')
-      .then((res) => res.json())
-      .then((data) => {
-        const grouped: KanbanTasks = {
-          Backlog: [],
-          'To Do': [],
-          'In Progress': [],
-          Done: [],
-        };
-        data.forEach((col: { name: keyof KanbanTasks; tasks: Task[] }) => {
-          grouped[col.name] = col.tasks;
-        });
-        setTasks(grouped);
-      })
-      .catch(() => setTasks(initialTasks));
-  }, []);
+export function KanbanProvider({
+  children,
+  initialTasks: incomingTasks,
+}: {
+  children: React.ReactNode;
+  initialTasks: KanbanTasks;
+}) {
+  const [tasks, setTasks] = useState<KanbanTasks>(incomingTasks);
 
   async function updateTask(updatedTask: Task) {
-    // Update locally
     setTasks((prev) => {
       const columnTasks = prev[updatedTask.column] ?? [];
       return {
@@ -66,17 +48,12 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
         ),
       };
     });
-    const taskForBackend = {
-      ...updatedTask,
-      board_column_id: columnToIdMap[updatedTask.column],
-    };
 
-    // Then send update to backend
-    await fetch(`http://localhost:8000/api/tasks/${updatedTask.id}`, {
-      method: 'PUT', // or PATCH depending on your API
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskForBackend),
-    });
+    try {
+      await updateTaskAPI(updatedTask);
+    } catch (error) {
+      toast.error('failed to update task');
+    }
   }
 
   async function addTask(column: keyof KanbanTasks, newTask: Task) {
@@ -86,19 +63,12 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       [column]: [...(prev[column] ?? []), newTask],
     }));
 
-    const taskForBackend = {
-      ...newTask,
-      board_column_id: columnToIdMap[column],
-    };
-
-    // Save to backend
-    await fetch('http://localhost:8000/api/tasks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(taskForBackend),
-    });
+    try {
+      await addTaskAPI(newTask);
+    } catch (error) {
+      toast.error('failed to add new task');
+    }
   }
-
   return (
     <KanbanContext.Provider value={{ tasks, setTasks, updateTask, addTask }}>
       {children}
