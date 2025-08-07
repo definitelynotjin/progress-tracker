@@ -1,84 +1,86 @@
 // app/(board)/kanban/kanbanApi.ts
 import { id } from 'date-fns/locale';
-import { Task } from './types';
 import React from 'react';
+import { Task } from './types';
 
 const columnToIdMap: Record<string, number> = {
-  Backlog: 1,
-  'To Do': 2,
-  'In Progress': 3,
-  Done: 4,
+    Backlog: 1,
+    'To Do': 2,
+    'In Progress': 3,
+    Done: 4,
 };
 
 export async function fetchKanbanData() {
-  const res = await fetch('http://127.0.0.1:8000/api/kanban');
-  if (!res.ok) throw new Error('Failed to fetch kanban data');
-  const data = await res.json();
+    const res = await fetch('http://127.0.0.1:8000/api/kanban');
+    if (!res.ok) throw new Error('Failed to fetch kanban data');
+    const data = await res.json();
 
-  const normalizedData = {
-    Backlog: [],
-    'To Do': [],
-    'In Progress': [],
-    Done: [],
-  };
-  const idToColumnMap = {
-    1: 'Backlog',
-    2: 'To Do',
-    3: 'In Progress',
-    4: 'Done',
-  };
+    const normalizedData = {
+        Backlog: [],
+        'To Do': [],
+        'In Progress': [],
+        Done: [],
+    };
+    const idToColumnMap = {
+        1: 'Backlog',
+        2: 'To Do',
+        3: 'In Progress',
+        4: 'Done',
+    };
 
-  data.forEach((column) => {
-    column.tasks.forEach((task) => {
-      const ColumnName = idToColumnMap[task.board_column_id];
+    data.forEach((column) => {
+        column.tasks.forEach((task) => {
+            const ColumnName = idToColumnMap[task.board_column_id];
 
-      const dueDate = task.due_date;
+            const dueDate = task.due_date;
 
-      let dueDateString;
+            let dueDateString;
 
-      if (dueDate) {
-        dueDateString = dueDate.from + '-' + dueDate.to;
-      } else {
-        dueDateString = '';
-      }
+            if (dueDate) {
+                dueDateString = dueDate.from + '-' + dueDate.to;
+            } else {
+                dueDateString = '';
+            }
 
-      const smallTask = {
-        title: task.title,
-        column: ColumnName,
-        priority: task.priority,
-        assignee: task.assignee,
-        dueDate: dueDateString,
-      };
-      normalizedData[ColumnName].push(smallTask);
+            const smallTask = {
+                id: task.id,
+                title: task.title,
+                column: ColumnName,
+                priority: task.priority,
+                assignee: task.assignee,
+                dueDate: dueDateString,
+            };
+
+            normalizedData[ColumnName].push(smallTask);
+        });
     });
-  });
 
-  // console.log('here it is', normalizedData);
-  return normalizedData;
+    // console.log('here it is', normalizedData);
+    return normalizedData;
 }
 
 export async function updateTaskAPI(task: Task) {
-  const taskForBackend = {
-    ...task,
-    board_column_id: columnToIdMap[task.column],
-  };
+    const taskForBackend = {
+        ...task,
+        board_column_id: columnToIdMap[task.column],
+    };
 
-  return await fetch(`http://127.0.0.1/api/tasks/${task.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(taskForBackend),
-  });
+    return await fetch(`http://127.0.0.1/api/tasks/${task.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(taskForBackend),
+    });
 }
 
 export async function addTaskAPI(task: Task) {
-  const taskForBackend = {
-    ...task,
-    board_column_id: columnToIdMap[task.column],
-  };
+    const taskForBackend = {
+        ...task,
+        board_column_id: columnToIdMap[task.column],
+    };
 
-  return await fetch('http://127.0.0.1/api/tasks', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(taskForBackend),
-  });
+    return await fetch('http://127.0.0.1/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(taskForBackend),
+    });
 }
