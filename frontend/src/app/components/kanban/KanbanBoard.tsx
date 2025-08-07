@@ -19,7 +19,6 @@ import Column from './Column';
 import { GripVertical } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-// import Modal from './Modal';
 import { DragOverlay } from '@dnd-kit/core';
 import TaskCard from './TaskCard';
 import { Task } from './types';
@@ -43,7 +42,6 @@ export default function KanbanBoard() {
   const handleTaskClick = (task: Task) => {
     setSelectedTask(task);
   };
-
   const handleTaskSave = async (updatedTask: Task) => {
     setTasks((prev) => {
       const columnTasks = prev[updatedTask.column] ?? [];

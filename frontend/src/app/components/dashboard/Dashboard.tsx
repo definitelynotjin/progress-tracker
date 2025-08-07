@@ -59,7 +59,7 @@ function DashboardContent() {
                   Assignee
                 </th>
                 <th className="px-4 py-3 text-left text-lg font-semibold text-lime-300 tracking-wide">
-                  Updated
+                  Due Date
                 </th>
               </tr>
             </thead>

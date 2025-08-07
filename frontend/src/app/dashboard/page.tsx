@@ -9,7 +9,12 @@ export default async function DashboardPage() {
 
   try {
     kanbanData = await fetchKanbanData();
+    console.log(
+      '✅ fetchKanbanData returned:',
+      JSON.stringify(kanbanData, null, 2),
+    );
   } catch (error) {
+    console.error('❌ fetchKanbanData failed:', error);
     kanbanData = {
       Backlog: [],
       'To Do': [],
