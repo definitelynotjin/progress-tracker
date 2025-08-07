@@ -3,16 +3,10 @@
 A sleek and minimal **Kanban Board** application built with **Next.js**, **Tailwind CSS**, and **React DnD**. Designed to manage tasks efficiently with drag-and-drop, sortable columns, and smart due date formatting.
 
 ---
-
-## 🌐 Live Preview
-
-
----
-
 ## 🖼️ Screenshots / Previews
-
-
-
+<img width="2540" height="1382" alt="image" src="https://github.com/user-attachments/assets/09c5cb4e-2c67-4106-8f2b-6b7a8344221f" />
+---
+<img width="2540" height="1382" alt="image" src="https://github.com/user-attachments/assets/e38c0ccd-8a87-4250-87b8-c18244b734d8" /
 ---
 
 ## 🚀 Features
