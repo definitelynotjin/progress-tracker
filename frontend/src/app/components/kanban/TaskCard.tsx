@@ -163,3 +163,13 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
     );
 }
 
+// Utility: Parse checklist from Tiptap HTML
+export function extractChecklistFromHTML(html: string) {
+    const doc = new window.DOMParser().parseFromString(html, 'text/html');
+    const items = Array.from(doc.querySelectorAll('ul li, ol li'));
+    return items.map((li, i) => ({
+        id: String(i + 1),
+        text: li.textContent || '',
+        done: false
+    }));
+}
