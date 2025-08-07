@@ -1,4 +1,5 @@
 // app/(board)/kanban/kanbanApi.ts
+import { normalizeDisabled } from "@dnd-kit/sortable/dist/utilities";
 import { id } from 'date-fns/locale';
 import React from 'react';
 import { Task } from './types';
@@ -14,6 +15,8 @@ export async function fetchKanbanData() {
     const res = await fetch('http://127.0.0.1:8000/api/kanban');
     if (!res.ok) throw new Error('Failed to fetch kanban data');
     const data = await res.json();
+    console.log(JSON.stringify(data, null, 2));
+
 
     const normalizedData = {
         Backlog: [],
@@ -48,14 +51,13 @@ export async function fetchKanbanData() {
                 column: ColumnName,
                 priority: task.priority,
                 assignee: task.assignee,
-                dueDate: dueDateString,
+                dueDate: dueDateString || null,
             };
 
             normalizedData[ColumnName].push(smallTask);
         });
     });
 
-    // console.log('here it is', normalizedData);
     return normalizedData;
 }
 
