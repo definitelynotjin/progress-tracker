@@ -1,5 +1,5 @@
 // app/(board)/kanban/kanbanApi.ts
-import { id } from "date-fns/locale";
+import { id } from 'date-fns/locale';
 import { Task } from './types';
 import React from 'react';
 
@@ -15,38 +15,45 @@ export async function fetchKanbanData() {
   if (!res.ok) throw new Error('Failed to fetch kanban data');
   const data = await res.json();
 
-  const normalizedData ={
+  const normalizedData = {
     Backlog: [],
-    "To Do": [],
-    "In Progress": [],
+    'To Do': [],
+    'In Progress': [],
     Done: [],
+  };
+  const idToColumnMap = {
+    1: 'Backlog',
+    2: 'To Do',
+    3: 'In Progress',
+    4: 'Done',
+  };
 
-  }
-  const idToColumnMap ={
-        1: "Backlog",
-        2: "To Do",
-        3: "In Progress",
-        4: "Done",
-    };
+  data.forEach((column) => {
+    column.tasks.forEach((task) => {
+      const ColumnName = idToColumnMap[task.board_column_id];
 
+      const dueDate = task.due_date;
 
-    data.forEach((column) =>{
-        column.tasks.forEach((task) =>{
+      let dueDateString;
 
-        const ColumnName = idToColumnMap[task.board_column_id];
+      if (dueDate) {
+        dueDateString = dueDate.from + '-' + dueDate.to;
+      } else {
+        dueDateString = '';
+      }
 
-        const smallTask ={
-            title: task.title,
-            column:ColumnName,
-            priority: task.priority,
-            assignee: task.assignee,
-            dueDate: task.dueDate,
-        }
-        normalizedData[ColumnName].push(smallTask);
-    })
-});
+      const smallTask = {
+        title: task.title,
+        column: ColumnName,
+        priority: task.priority,
+        assignee: task.assignee,
+        dueDate: dueDateString,
+      };
+      normalizedData[ColumnName].push(smallTask);
+    });
+  });
 
-console.log('here it is', normalizedData);
+  // console.log('here it is', normalizedData);
   return normalizedData;
 }
 
