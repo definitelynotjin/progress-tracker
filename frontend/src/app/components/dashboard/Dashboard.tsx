@@ -119,7 +119,7 @@ function DashboardContent() {
                 </div>
             </section>
             {/* Existing dashboard sections */}
-            <div className="flex flex-row gap-4 overflow-x-auto">
+            <div className="flex flex-row gap-4 min-w-full overflow-x-auto">
                 {dashboardSections.map((section) => (
                     <DashboardSectionCard key={section.title} {...section} />
                 ))}

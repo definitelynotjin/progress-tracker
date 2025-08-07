@@ -1,5 +1,5 @@
 // app/(board)/kanban/kanbanApi.ts
-import { normalizeDisabled } from "@dnd-kit/sortable/dist/utilities";
+import { normalizeDisabled } from '@dnd-kit/sortable/dist/utilities';
 import { id } from 'date-fns/locale';
 import React from 'react';
 import { Task } from './types';
@@ -16,7 +16,6 @@ export async function fetchKanbanData() {
     if (!res.ok) throw new Error('Failed to fetch kanban data');
     const data = await res.json();
     console.log(JSON.stringify(data, null, 2));
-
 
     const normalizedData = {
         Backlog: [],
@@ -53,7 +52,6 @@ export async function fetchKanbanData() {
                 assignee: task.assignee,
                 dueDate: dueDateString || null,
             };
-
             normalizedData[ColumnName].push(smallTask);
         });
     });

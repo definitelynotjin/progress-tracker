@@ -1,16 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import { GripVertical, Pencil } from "lucide-react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Task } from "./types";
+import { GripVertical, Pencil } from "lucide-react";
+import React, { useState } from "react";
 import PriorityBadge from "./PriorityBadge";
+import { Task } from "./types";
 
-type TaskCardProps = { task: Task; onClick?: () => void; onChecklistChange?: (taskId: string, checklist: Task["checklist"]) => void };
+type TaskCardProps = {
+    task: Task;
+    onClick?: () => void;
+    onChecklistChange?: (taskId: string, checklist: Task["checklist"]) => void;
+};
 
 export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardProps) {
-    // Use local state for checklist to allow toggling
     const [localChecklist, setLocalChecklist] = useState(task.checklist ?? []);
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -48,15 +51,18 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
             {/* Edit icon top right */}
             <button
                 className="absolute top-2 right-2 z-20 p-2 rounded hover:bg-gray-500"
-                onClick={e => { e.stopPropagation(); if (onClick) onClick(); }}
+                onClick={e => {
+                    e.stopPropagation();
+                    if (onClick) onClick();
+                }}
                 aria-label="Edit task"
             >
-                <Pencil size={14} className="text-gray-300 hover:text-white"
-                />
+                <Pencil size={14} className="text-gray-300 hover:text-white" />
             </button>
-            {/* Card content and drag icon centered */}
+
+            {/* Card content and drag icon */}
             <div className="flex flex-col justify-center w-full h-full">
-                {/* Header: Priority badge and title */}
+                {/* Priority and title */}
                 <div className="flex flex-col items-start gap-1 w-full">
                     <div className="flex items-left w-full">
                         {task.priority && <PriorityBadge priority={task.priority} />}
@@ -64,7 +70,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                     <span className="text-sm font-semibold pb-2">{task.title}</span>
                 </div>
 
-                {/* Scrollable text body */}
+                {/* Checklist or content */}
                 <div className="w-full overflow-y-auto max-h-24 ">
                     {checklist.length > 0 ? (
                         <ul className="flex flex-col gap-1 mt-1">
@@ -95,31 +101,30 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                         )
                     )}
                 </div>
-                {/* Due date range display */}
-                {task.dueDate && typeof task.dueDate === 'object' && 'from' in task.dueDate && 'to' in task.dueDate && task.dueDate.from && task.dueDate.to && (
+
+                {/* Due Date */}
+                {task.dueDate && typeof task.dueDate === "object" && "from" in task.dueDate && "to" in task.dueDate && task.dueDate.from && task.dueDate.to && (
                     <div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
                         <span className="flex items-center gap-1 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3M16 7V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            <span>{new Date(task.dueDate.from).toLocaleDateString("default", { month: "short", day: "numeric" })} - {new Date(task.dueDate.to).toLocaleDateString("default", { month: "short", day: "numeric" })}</span>
+                            <span>
+                                {new Date(task.dueDate.from).toLocaleDateString("default", { month: "short", day: "numeric" })} -{" "}
+                                {new Date(task.dueDate.to).toLocaleDateString("default", { month: "short", day: "numeric" })}
+                            </span>
                         </span>
                     </div>
                 )}
 
-                {/* Footer: Assigned to avatar , progress bar and grip icon */}
+                {/* Progress bar & assignee */}
                 {checklist.length > 0 && (
-                    <div className="flex items-center justify-between  rounded-xl mt-10 px-2 py-1 min-w-0 gap-2 ">
-                        {/* Progress bar */}
+                    <div className="flex items-center justify-between rounded-xl mt-10 px-2 py-1 min-w-0 gap-2">
                         <div className="flex-1">
                             <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">
-                                <div
-                                    className="bg-green-300 h-full transition-all duration-700 ease-in-out"
-                                    style={{ width: `${progress}%` }}
-                                ></div>
+                                <div className="bg-green-300 h-full transition-all duration-700 ease-in-out" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
-                        {/* Assignee avatar */}
                         {task.assignee && (
                             <span
                                 className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-100 font-bold text-xs border-2 border-gray-600 shadow shrink-0"
@@ -130,7 +135,8 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                         )}
                     </div>
                 )}
-                {/* If no checklist, show assignee avatar below */}
+
+                {/* Assignee if no checklist */}
                 {checklist.length === 0 && task.assignee && (
                     <div className="flex items-center justify-end w-full mt-2">
                         <span
@@ -141,6 +147,7 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
                         </span>
                     </div>
                 )}
+
                 {/* Drag handle */}
                 <div
                     data-handle="dot"
@@ -156,13 +163,3 @@ export default function TaskCard({ task, onClick, onChecklistChange }: TaskCardP
     );
 }
 
-// Utility: Parse checklist from Tiptap HTML
-export function extractChecklistFromHTML(html: string) {
-    const doc = new window.DOMParser().parseFromString(html, 'text/html');
-    const items = Array.from(doc.querySelectorAll('ul li, ol li'));
-    return items.map((li, i) => ({
-        id: String(i + 1),
-        text: li.textContent || '',
-        done: false
-    }));
-}

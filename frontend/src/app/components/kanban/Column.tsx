@@ -1,10 +1,8 @@
+import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { Plus } from "lucide-react";
 import React from "react";
-import { SortableContext, verticalListSortingStrategy } from
-    "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 import { ColumnType, Task } from "./types";
-import { useSortable } from "@dnd-kit/sortable";
-import { Plus } from "lucide-react";
 
 function EmptyCard({ id }: { id: string }) {
     const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
