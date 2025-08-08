@@ -44,11 +44,8 @@ function formattedDate(dueDate) {
 
 };
 
-
-
 function DashboardContent() {
     const { tasks } = useKanban();
-    // Flatten all tasks
     const allTasks = Object.values(tasks ?? {}).flat();
     return (
         <div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">

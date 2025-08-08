@@ -1,17 +1,16 @@
 'use client';
 
-import { KanbanProvider } from './KanbanContext';
 import KanbanBoard from './KanbanBoard';
-import { KanbanTasks } from './KanbanContext';
+import { KanbanProvider, KanbanTasks } from './KanbanContext';
 
 export default function ClientKanbanBoard({
-  initialTasks,
+    initialTasks,
 }: {
-  initialTasks: KanbanTasks;
+    initialTasks: KanbanTasks;
 }) {
-  return (
-    <KanbanProvider initialTasks={initialTasks}>
-      <KanbanBoard />
-    </KanbanProvider>
-  );
+    return (
+        <KanbanProvider initialTasks={initialTasks}>
+            <KanbanBoard />
+        </KanbanProvider>
+    );
 }

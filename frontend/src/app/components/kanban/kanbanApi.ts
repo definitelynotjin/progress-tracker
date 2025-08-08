@@ -1,4 +1,6 @@
 // app/(board)/kanban/kanbanApi.ts
+// this is where the dashboard gets its data
+
 import React from 'react';
 import { Task } from './types';
 
@@ -13,7 +15,7 @@ export async function fetchKanbanData() {
     const res = await fetch('http://127.0.0.1:8000/api/kanban');
     if (!res.ok) throw new Error('Failed to fetch kanban data');
     const data = await res.json();
-    // console.log(JSON.stringify(data, null, 2));
+    console.log(JSON.stringify(data, null, 2));
 
     const normalizedData = {
         Backlog: [],

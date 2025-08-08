@@ -38,9 +38,11 @@ export default function ProfileButton() {
                     <TooltipContent>View Profile</TooltipContent>
                 </Tooltip>
                 {dropdownOpen && (
-                    <div className="absolute right-0 top-12  w-80 bg-gray-700 rounded-lg shadow-2xl z-20 p-6">
-                        <div className="text-gray-200 absolute right-20  bg-red-500">Budiaman Anjay</div>
-                        <div className="w-20 h-20 bg-red-200 mb-4">
+                    <div className="absolute right-0 top-12 w-80 bg-gray-700 rounded-lg shadow-2xl z-20 p-6">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="w-20 h-20 rounded-full bg-red-200">
+                            </div>
+                            <div className="text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">Budiaman Anjay</div>
                         </div>
                         <div className="flex flex-col gap-y-2 border-t">
                             <Button className="p-5 mt-5  w-full rounded-md  bg-gray-800 text-gray-200">
