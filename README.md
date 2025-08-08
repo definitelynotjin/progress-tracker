@@ -15,7 +15,6 @@ A sleek and minimal **Kanban Board** application built with **Next.js**, **Tailw
 - 🧲 Drag and drop tasks between columns
 - 🔄 Sortable columns (To Do, In Progress, Done)
 - 👤 Assign tasks to team members
-- 📆 Formatted due dates (e.g., `14 Aug - 16 Aug`)
 - 📱 Responsive UI with smooth UX
 
 ## 🛠️ Tech Stack
