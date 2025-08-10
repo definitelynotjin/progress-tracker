@@ -11,11 +11,14 @@ const columnToIdMap: Record<string, number> = {
     Done: 4,
 };
 
+const BASE_URL = 'http://127.0.0.1:8000/api/kanban';
+
+
 export async function fetchKanbanData() {
-    const res = await fetch('http://127.0.0.1:8000/api/kanban');
+    const res = await fetch(BASE_URL);
     if (!res.ok) throw new Error('Failed to fetch kanban data');
     const data = await res.json();
-    console.log(JSON.stringify(data, null, 2));
+    // console.log(JSON.stringify(data, null, 2));
 
     const normalizedData = {
         Backlog: [],
@@ -65,7 +68,7 @@ export async function updateTaskAPI(task: Task) {
         board_column_id: columnToIdMap[task.column],
     };
 
-    return await fetch(`http://127.0.0.1:8000/api/tasks/${task.id}`, {
+   return await fetch(`${BASE_URL}/${task.id}`,{
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskForBackend),
@@ -78,7 +81,7 @@ export async function addTaskAPI(task: Task) {
         board_column_id: columnToIdMap[task.column],
     };
 
-    return await fetch('http://127.0.0.1:8000/api/tasks', {
+    return await fetch(BASE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskForBackend),

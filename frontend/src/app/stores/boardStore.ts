@@ -1,36 +1,24 @@
 import { create } from 'zustand';
+import { boardType, Task } from '../components/kanban/types';
 
+const useBoardStore = create<boardType>((set) => ({
 
-type Task = {
-    id: number;
-    board_column_id: number;
-    title: string;
-    content: string;
-    priority: string;
-    assignee: string;
-    due_date: {
-        from: string;
-        to: string;
-    }
-    order: number;
-};
+  tasks: [],
 
-const useBoardStore = create((set) => ({
+  newTask: async (newTask: Task) => set((state) => ({
+    tasks: [...state.tasks, { ...newTask, id: Date.now() }],
+  })),
 
-    tasks: [],
+  updateTask: async (updatedTask) => set((state) => ({
+    tasks: state.tasks.map(task =>
+      task.id === updatedTask.id ? updatedTask : task
+    )
+  })),
 
+  deleteTask: async (id) => set((state) => ({
+    tasks: state.tasks.filter((task) => task.id !== id),
 
-
-
-    newTask: (task) => {
-
-    },
-
-    updateTask: {
-
-    },
-
-
+  })),
 }));
 
 export default useBoardStore;
