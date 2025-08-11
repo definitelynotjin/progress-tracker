@@ -104,7 +104,7 @@ function DashboardContent() {
                         <span className="italic text-gray-400">Unassigned</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-lime-200 font-semibold text-base">
+                    <td className="px-4 py-3 text-lime-200 font-semibold text base">
                       {formattedDate(task.dueDate)}
                     </td>
                   </tr>
