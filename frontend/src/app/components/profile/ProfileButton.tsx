@@ -40,11 +40,14 @@ export default function ProfileButton() {
         {dropdownOpen && (
           <div className="absolute right-0 top-12 w-80 bg-gray-700 rounded-lg shadow-2xl z-20 p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-20 h-20 rounded-full bg-red-200">
+              <div className="w-20 h-20 rounded-full bg-red-200"></div>
+              <div className="text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">
+                Budiaman Anjay
               </div>
-              <div className="text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">Budiaman Anjay</div>
             </div>
-            <div className="bg-gray-500  relative p-4 mb-2">                what the fuck</div>
+            <div className="bg-gray-500 inset-0  relative p-4 mb-2">
+              what the fuck
+            </div>
             <div className="flex flex-col gap-y-2 border-t">
               <Button className="p-5 mt-5  w-full rounded-md  bg-gray-800 text-gray-200">
                 View Profile
@@ -56,6 +59,6 @@ export default function ProfileButton() {
           </div>
         )}
       </div>
-    </TooltipProvider >
+    </TooltipProvider>
   );
 }

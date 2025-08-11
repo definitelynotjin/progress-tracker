@@ -2,7 +2,7 @@ import Dashboard from '@/app/components/dashboard/Dashboard';
 import Header from '@/app/components/dashboard/Header';
 import Sidebar from '@/app/sidebar';
 import DashboardHeaderBar from '../components/dashboard/DashboardHeaderBar';
-import { fetchKanbanData } from '../components/kanban/kanbanApi';
+import { fetchKanbanData } from '../api/kanbanApi';
 
 export default async function DashboardPage() {
   let kanbanData;
