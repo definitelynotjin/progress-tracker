@@ -3,7 +3,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { KanbanProvider, useKanban } from '../kanban/KanbanContext';
-import PriorityBadge from '../kanban/PriorityBadge';
+// import PriorityBadge from '../kanban/PriorityBadge';
 import { DashboardSectionCard } from './DashboardSectionCard';
 
 const dashboardSections = [

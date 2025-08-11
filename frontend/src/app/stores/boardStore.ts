@@ -16,19 +16,19 @@ const useBoardStore = create<boardType>((set) => ({
     }
   },
 
-  newTask: async (newTask: Task) =>
+  newTask: (newTask: Task) =>
     set((state) => ({
       tasks: [...state.tasks, { ...newTask, id: Date.now() }],
     })),
 
-  updateTask: async (updatedTask) =>
+  updateTask: (updatedTask: Task) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>
         task.id === updatedTask.id ? updatedTask : task,
       ),
     })),
 
-  deleteTask: async (id) =>
+  deleteTask: (id: number) =>
     set((state) => ({
       tasks: state.tasks.filter((task) => task.id !== id),
     })),

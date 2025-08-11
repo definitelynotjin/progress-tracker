@@ -1,5 +1,5 @@
 import React from 'react';
-import { PriorityType } from './types';
+import { PriorityType } from '.../dashboard';
 
 const priorityColors: Record<PriorityType, string> = {
   High: 'bg-red-400',
