@@ -1,7 +1,5 @@
 // app/(board)/kanban/kanbanApi.ts
 // this is where the dashboard gets its data
-
-import React from 'react';
 import { Task } from '../types/types';
 
 const columnToIdMap: Record<string, number> = {
@@ -19,6 +17,7 @@ export async function fetchKanbanData() {
   const data = await res.json();
   // console.log(JSON.stringify(data, null, 2));
 
+  // normalizing for the dashboard
   const normalizedData = {
     Backlog: [],
     'To Do': [],

@@ -25,7 +25,7 @@ export default async function DashboardPage() {
         <Header />
         <main className="p-10 bg-gray-900">
           <DashboardHeaderBar />
-          <Dashboard initialTasks={kanbanData} />
+          // <Dashboard initialTasks={kanbanData} />
         </main>
       </div>
     </div>

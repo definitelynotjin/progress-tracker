@@ -1,8 +1,20 @@
 import { create } from 'zustand';
 import { boardType, Task } from '../types/types';
+import { fetchKanbanData } from '../api/kanbanApi';
 
 const useBoardStore = create<boardType>((set) => ({
   tasks: [],
+
+  loadTasks: async () => {
+    try {
+      const data = await fetchKanbanData();
+      console.log(JSON.stringify(data, null, 2));
+
+      set({ tasks: data });
+    } catch (e) {
+      return (e as Error).message;
+    }
+  },
 
   newTask: async (newTask: Task) =>
     set((state) => ({

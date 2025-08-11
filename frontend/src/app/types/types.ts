@@ -1,4 +1,8 @@
-import { ASSIGNEE, COLUMN_TYPES, PRIORITIES } from './kanbanConfig';
+import {
+  ASSIGNEE,
+  COLUMN_TYPES,
+  PRIORITIES,
+} from '../components/kanban/kanbanConfig';
 
 export type ColumnType = (typeof COLUMN_TYPES)[number];
 export type PriorityType = (typeof PRIORITIES)[number];
