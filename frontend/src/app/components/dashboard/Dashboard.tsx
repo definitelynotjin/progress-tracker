@@ -1,10 +1,9 @@
 'use client';
-
+// app/components/dashboard/Dashboard.tsx
 import { format } from 'date-fns';
-import React from 'react';
-import { KanbanProvider, useKanban } from '../kanban/KanbanContext';
-// import PriorityBadge from '../kanban/PriorityBadge';
+import { useEffect } from 'react';
 import { DashboardSectionCard } from './DashboardSectionCard';
+import useDashboardStore from '../../stores/dashboardStore';
 
 const dashboardSections = [
   {
@@ -25,14 +24,6 @@ const dashboardSections = [
   },
 ];
 
-export default function Dashboard({ initialTasks }) {
-  return (
-    <KanbanProvider initialTasks={initialTasks}>
-      <DashboardContent />
-    </KanbanProvider>
-  );
-}
-
 function formattedDate(dueDate) {
   const startDate = new Date(dueDate.slice(0, 10));
   const endDate = new Date(dueDate.slice(11));
@@ -43,9 +34,26 @@ function formattedDate(dueDate) {
   return `${formattedStart} - ${formattedEnd}`;
 }
 
-function DashboardContent() {
-  const { tasks } = useKanban();
-  const allTasks = Object.values(tasks ?? {}).flat();
+export default function Dashboard({ initialTasks }) {
+  console.log('Dashboard received initialTasks:', initialTasks);
+  const { tasks, loadTasks } = useDashboardStore();
+  // console.log('maybe it will show up here', useDashboardStore);
+  useEffect(() => {
+    if (initialTasks) {
+      // set store directly
+      useDashboardStore.setState({ tasks: initialTasks });
+    } else {
+      loadTasks();
+    }
+  }, [initialTasks, loadTasks]);
+
+  const allTasks = [
+    ...tasks.Backlog,
+    ...tasks['To Do'],
+    ...tasks['In Progress'],
+    ...tasks.Done,
+  ];
+  // console.log('maybe this?', allTasks);
   return (
     <div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
       {/* Kanban Data Table */}

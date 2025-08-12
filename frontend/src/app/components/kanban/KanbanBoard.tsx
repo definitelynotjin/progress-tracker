@@ -22,8 +22,8 @@ import Column from './Column';
 import { useKanban } from './KanbanContext';
 import TaskCard from './TaskCard';
 import TaskDetail from './TaskDetail';
-// import type { ColumnType } from './types';
-// import { Task } from './types';
+import type { ColumnType } from '../../types/types';
+import { Task } from '../../types/types';
 
 export default function KanbanBoard() {
   const { tasks, setTasks, updateTask } = useKanban();
@@ -61,25 +61,27 @@ export default function KanbanBoard() {
 
   const handleTaskCancel = () => setSelectedTask(null);
 
-  // const handleModalSubmit = (taskName: string) => {
-  //     if (modalColumn && taskName.trim()) {
-  //         setTasks((prev) => ({
-  //             ...prev,
-  //             [modalColumn]: [
-  //                 ...prev[modalColumn],
-  //                 {
-  //                     id: crypto.randomUUID(),
-  //                     title: taskName.trim(),
-  //                     content: '',
-  //                     updatedAt: new Date().toISOString(),
-  //                     column: modalColumn,
-  //                 },
-  //             ],
-  //         }));
-  //         setModalColumn(null);
-  //     }
-  // };
+  const handleModalSubmit = (taskName: string) => {
+    if (modalColumn && taskName.trim()) {
+      setTasks((prev) => ({
+        ...prev,
+        [modalColumn]: [
+          ...prev[modalColumn],
+          {
+            id: crypto.randomUUID(),
+            title: taskName.trim(),
+            content: '',
+            updatedAt: new Date().toISOString(),
+            column: modalColumn,
+          },
+        ],
+      }));
+      setModalColumn(null);
+    }
+  };
 
+  //
+  // possibly the checklist thingy,i forgot
   const handleChecklistChange = (
     taskId: string,
     checklist: Task['checklist'],

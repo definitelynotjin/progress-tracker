@@ -12,52 +12,11 @@ const columnToIdMap: Record<string, number> = {
 const BASE_URL = 'http://127.0.0.1:8000/api/kanban';
 
 export async function fetchKanbanData() {
-  const res = await fetch(BASE_URL);
-  if (!res.ok) throw new Error('Failed to fetch kanban data');
-  const data = await res.json();
+  const response = await fetch(BASE_URL);
+  if (!response.ok) throw new Error('Failed to fetch kanban data');
+  const data = await response.json();
   // console.log(JSON.stringify(data, null, 2));
-
-  // normalizing for the dashboard
-  const normalizedData = {
-    Backlog: [],
-    'To Do': [],
-    'In Progress': [],
-    Done: [],
-  };
-  const idToColumnMap = {
-    1: 'Backlog',
-    2: 'To Do',
-    3: 'In Progress',
-    4: 'Done',
-  };
-
-  data.forEach((column) => {
-    column.tasks.forEach((task) => {
-      const ColumnName = idToColumnMap[task.board_column_id];
-
-      const dueDate = task.due_date;
-
-      let dueDateString;
-
-      if (dueDate) {
-        dueDateString = dueDate.from + '-' + dueDate.to;
-      } else {
-        dueDateString = '';
-      }
-
-      const smallTask = {
-        id: task.id,
-        title: task.title,
-        column: ColumnName,
-        priority: task.priority,
-        assignee: task.assignee,
-        dueDate: dueDateString || null,
-      };
-      normalizedData[ColumnName].push(smallTask);
-    });
-  });
-
-  return normalizedData;
+  // console.log('if you can see this, the kanbanapi is working', data);
 }
 
 export async function updateTaskAPI(task: Task) {

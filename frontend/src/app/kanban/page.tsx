@@ -4,16 +4,16 @@ import Sidebar from '@/app/sidebar';
 import KanbanBoardWrapper from '../components/kanban/KanbanBoardWrapper';
 
 export default function KanbanPage() {
-    return (
-        <div className="bg-repeat-round min-h-screen relative">
-            <Sidebar className="sidebar" />
-            <div className="content min-h-screen">
-                <Header />
-                <main className="p-10 bg-gray-900">
-                    <KanbanHeaderBar />
-                    <KanbanBoardWrapper />
-                </main>
-            </div>
-        </div>
-    );
+  return (
+    <div className="bg-repeat-round min-h-screen relative">
+      <Sidebar className="sidebar" />
+      <div className="content min-h-screen">
+        <Header />
+        <main className="p-10 bg-gray-900">
+          <KanbanHeaderBar />
+          <KanbanBoardWrapper />
+        </main>
+      </div>
+    </div>
+  );
 }
