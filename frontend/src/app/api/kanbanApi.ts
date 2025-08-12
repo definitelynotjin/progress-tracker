@@ -15,8 +15,7 @@ export async function fetchKanbanData() {
   const response = await fetch(BASE_URL);
   if (!response.ok) throw new Error('Failed to fetch kanban data');
   const data = await response.json();
-  // console.log(JSON.stringify(data, null, 2));
-  // console.log('if you can see this, the kanbanapi is working', data);
+  return data;
 }
 
 export async function updateTaskAPI(task: Task) {

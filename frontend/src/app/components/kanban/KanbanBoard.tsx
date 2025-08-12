@@ -22,8 +22,7 @@ import Column from './Column';
 import { useKanban } from './KanbanContext';
 import TaskCard from './TaskCard';
 import TaskDetail from './TaskDetail';
-import type { ColumnType } from '../../types/types';
-import { Task } from '../../types/types';
+import type { ColumnType, Task } from '../../types/types';
 
 export default function KanbanBoard() {
   const { tasks, setTasks, updateTask } = useKanban();
@@ -211,9 +210,9 @@ export default function KanbanBoard() {
     );
   }
 
-  const activeTask = Object.values(tasks)
-    .flat()
-    .find((task) => task.id === activeId);
+  // const activeTask = Object.values(tasks)
+  //   .flat()
+  //   .find((task) => task.id === activeId);
 
   return (
     <>

@@ -34,18 +34,11 @@ function formattedDate(dueDate) {
   return `${formattedStart} - ${formattedEnd}`;
 }
 
-export default function Dashboard({ initialTasks }) {
-  console.log('Dashboard received initialTasks:', initialTasks);
+export default function Dashboard() {
   const { tasks, loadTasks } = useDashboardStore();
-  // console.log('maybe it will show up here', useDashboardStore);
   useEffect(() => {
-    if (initialTasks) {
-      // set store directly
-      useDashboardStore.setState({ tasks: initialTasks });
-    } else {
-      loadTasks();
-    }
-  }, [initialTasks, loadTasks]);
+    loadTasks();
+  }, [loadTasks]);
 
   const allTasks = [
     ...tasks.Backlog,

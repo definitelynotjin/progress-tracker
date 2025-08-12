@@ -22,7 +22,7 @@ const useDashboardStore = create<DashboardStore>((set) => ({
   loadTasks: async () => {
     try {
       const data = await fetchKanbanData();
-      console.log('if you can see this , the dashboardstore is working', data);
+      // console.log('if you can see this , the dashboardstore is working', data);
 
       const normalizedData: TaskByColumn = {
         Backlog: [],
@@ -55,6 +55,7 @@ const useDashboardStore = create<DashboardStore>((set) => ({
             id: task.id,
             title: task.title,
             column: ColumnName,
+            priority: task.priority,
             assignee: task.assignee,
             dueDate: dueDateString,
           };
@@ -63,16 +64,16 @@ const useDashboardStore = create<DashboardStore>((set) => ({
         });
       });
 
-      console.log(
-        'if you can see this, the normalizeddata is working!',
-        normalizedData,
-      );
+      // console.log(
+      //   'if you can see this, the normalizeddata is working!',
+      //   normalizedData,
+      // );
       set({ tasks: normalizedData });
 
-      console.log(
-        'if you can see this, the normalizeddata is working!',
-        normalizedData,
-      );
+      // console.log(
+      //   'if you can see this, the normalizeddata is working!',
+      //   normalizedData,
+      // );
       return normalizedData;
     } catch (e) {
       console.error((e as Error).message);

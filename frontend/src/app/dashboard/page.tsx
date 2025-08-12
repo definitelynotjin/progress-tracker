@@ -3,11 +3,8 @@ import Dashboard from '@/app/components/dashboard/Dashboard';
 import Header from '@/app/components/dashboard/Header';
 import Sidebar from '@/app/sidebar';
 import DashboardHeaderBar from '../components/dashboard/DashboardHeaderBar';
-import { fetchKanbanData } from '../api/kanbanApi';
 
 export default async function DashboardPage() {
-  const kanbanData = await fetchKanbanData();
-
   return (
     <div className="relative bg-repeat-round min-h-screen ">
       <Sidebar className="sidebar" />
@@ -15,8 +12,7 @@ export default async function DashboardPage() {
         <Header />
         <main className="p-10 bg-gray-900">
           <DashboardHeaderBar />
-
-          <Dashboard initialTasks={kanbanData} />
+          <Dashboard />
         </main>
       </div>
     </div>
