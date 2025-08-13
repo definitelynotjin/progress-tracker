@@ -4,12 +4,11 @@ import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'tippy.js/dist/tippy.css';
-import { KanbanTasks } from '../kanban/KanbanContext';
 import styles from './calendar.module.css';
 import CustomWeekView from './CustomWeekView';
+import useCalendarStore from '../../stores/calendarStore';
 
 const localizer = momentLocalizer(moment);
-
 const columnColors = {
   Backlog: '#BFDBFE',
   'To Do': '#E9D5FF',
@@ -17,43 +16,10 @@ const columnColors = {
   Done: '#D9F99D',
 };
 
-interface Task {
-  id: string | number;
-  title: string;
-  dueDate: { from: string; to: string };
-  assignee: string;
-  column: keyof typeof columnColors;
-  priority: 'High' | 'Medium' | 'Low';
-  content: string;
-}
-
-interface CalendarProps {
-  tasks?: KanbanTasks;
-}
-
-interface EventBarProps {
-  event: Task & {
-    start: Date;
-    end: Date;
-  };
-}
-
-export default function BigCalendar({ tasks }: CalendarProps) {
-  if (!tasks) return null;
-  const allTasks = Object.values(tasks).flat();
-  const events = allTasks.map((task) => ({
-    id: task.id,
-    title: task.title,
-    start: new Date(task.dueDate?.from),
-    end: new Date(task.dueDate?.to),
-    assignee: task.assignee,
-    column: task.column,
-    priority: task.priority,
-    content: task.content,
-    dueDate: task.dueDate,
-  }));
-
-  function EventBar({ event }: EventBarProps) {
+export default function BigCalendar() {
+  const events = useCalendarStore((state) => state.events);
+  console.log('does the calendar actually get data', events);
+  function EventBar({ event }) {
     return (
       <Tippy
         content={
