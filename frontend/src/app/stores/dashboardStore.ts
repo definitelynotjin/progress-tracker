@@ -70,10 +70,10 @@ const useDashboardStore = create<DashboardStore>((set) => ({
       // );
       set({ tasks: normalizedData });
 
-      // console.log(
-      //   'if you can see this, the normalizeddata is working!',
-      //   normalizedData,
-      // );
+      console.log(
+        'if you can see this, the normalizeddata is working!',
+        normalizedData,
+      );
       return normalizedData;
     } catch (e) {
       console.error((e as Error).message);

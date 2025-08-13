@@ -2,6 +2,7 @@ import Header from '@/app/components/kanban/Header';
 import KanbanHeaderBar from '@/app/components/kanban/KanbanHeaderBar';
 import Sidebar from '@/app/sidebar';
 import KanbanBoardWrapper from '../components/kanban/KanbanBoardWrapper';
+import KanbanBoard from '../components/kanban/KanbanBoard';
 
 export default function KanbanPage() {
   return (
@@ -11,7 +12,7 @@ export default function KanbanPage() {
         <Header />
         <main className="p-10 bg-gray-900">
           <KanbanHeaderBar />
-          <KanbanBoardWrapper />
+          <KanbanBoard />
         </main>
       </div>
     </div>

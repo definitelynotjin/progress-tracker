@@ -16,16 +16,23 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Column from './Column';
-import { useKanban } from './KanbanContext';
+// import { useKanban } from './KanbanContext';
 import TaskCard from './TaskCard';
 import TaskDetail from './TaskDetail';
 import type { ColumnType, Task } from '../../types/types';
+import useBoardStore from '@/app/stores/boardStore';
 
 export default function KanbanBoard() {
-  const { tasks, setTasks, updateTask } = useKanban();
+  const { tasks, loadTasks, updateTask, newTask, deleteTask, setTasks } =
+    useBoardStore();
+
+  useEffect(() => {
+    loadTasks();
+  }, [loadTasks]);
+
   const [columnOrder, setColumnOrder] = useState<ColumnType[]>(
     Object.keys(tasks ?? {}) as ColumnType[],
   );
@@ -62,19 +69,12 @@ export default function KanbanBoard() {
 
   const handleModalSubmit = (taskName: string) => {
     if (modalColumn && taskName.trim()) {
-      setTasks((prev) => ({
-        ...prev,
-        [modalColumn]: [
-          ...prev[modalColumn],
-          {
-            id: crypto.randomUUID(),
-            title: taskName.trim(),
-            content: '',
-            updatedAt: new Date().toISOString(),
-            column: modalColumn,
-          },
-        ],
-      }));
+      newTask({
+        id: Date.now(),
+        title: taskName.trim(),
+        content: '',
+        column: modalColumn,
+      });
       setModalColumn(null);
     }
   };
@@ -210,9 +210,9 @@ export default function KanbanBoard() {
     );
   }
 
-  // const activeTask = Object.values(tasks)
-  //   .flat()
-  //   .find((task) => task.id === activeId);
+  const activeTask = Object.values(tasks ?? {})
+    .flat()
+    .find((task) => task.id === activeId);
 
   return (
     <>
