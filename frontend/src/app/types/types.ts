@@ -21,10 +21,10 @@ export type Task = {
 };
 
 export type boardType = {
-  tasks: Task[];
-  newTask: (task: Omit<Task, 'id'>) => void;
-  updateTask: (task: Task) => void;
-  deleteTask: (id: number) => void;
+  tasks: Record<ColumnType, Task[]>;
+  // newTask: (task: Omit<Task, 'id'>) => void;
+  // updateTask: (task: Task) => void;
+  // deleteTask: (id: number) => void;
 };
 
 export type ChecklistItem = {

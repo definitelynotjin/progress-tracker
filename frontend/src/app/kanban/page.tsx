@@ -1,7 +1,7 @@
 import Header from '@/app/components/kanban/Header';
 import KanbanHeaderBar from '@/app/components/kanban/KanbanHeaderBar';
 import Sidebar from '@/app/sidebar';
-import KanbanBoardWrapper from '../components/kanban/KanbanBoardWrapper';
+// import KanbanBoardWrapper from '../components/kanban/KanbanBoardWrapper';
 import KanbanBoard from '../components/kanban/KanbanBoard';
 
 export default function KanbanPage() {

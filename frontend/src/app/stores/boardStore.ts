@@ -1,43 +1,49 @@
 import { create } from 'zustand';
-import { boardType, Task } from '../types/types';
+import type { boardType, ColumnType, Task } from '../types/types';
 import { fetchKanbanData } from '../api/kanbanApi';
+import toast from 'react-hot-toast';
+
+type TaskByColumn = {
+  [key in ColumnType]: Task[];
+};
 
 const useBoardStore = create<boardType>((set) => ({
-  tasks: [],
+  tasks: {
+    Backlog: [],
+    'To Do': [],
+    'In Progress': [],
+    Done: [],
+  },
 
   loadTasks: async () => {
     try {
       const data = await fetchKanbanData();
-      // console.log(JSON.stringify(data, null, 2));
-      console.log('if you can see this, the board store is workin', data);
 
-      set({ tasks: data });
-      return data;
+      const normalizedData: TaskByColumn = {
+        Backlog: [],
+        'To Do': [],
+        'In Progress': [],
+        Done: [],
+      };
+      const idToColumnMap: Record<number, ColumnType> = {
+        1: 'Backlog',
+        2: 'To Do',
+        3: 'In Progress',
+        4: 'Done',
+      };
+
+      data.forEach((column) => {
+        column.tasks.forEach((task) => {
+          const columnName = idToColumnMap[task.board_column_id];
+          normalizedData[columnName].push(task);
+        });
+      });
+      // console.log('boardstore wee wee', normalizedData);
+      set({ tasks: normalizedData });
     } catch (e) {
-      return (e as Error).message;
+      toast.error((e as Error).message);
     }
   },
-
-  newTask: (newTask: Omit<Task, 'id'>) =>
-    set((state) => ({
-      tasks: [...state.tasks, { ...newTask, id: Date.now() }],
-    })),
-
-  updateTask: (updatedTask: Task) =>
-    set((state) => ({
-      tasks: state.tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task,
-      ),
-    })),
-
-  deleteTask: (id: number) =>
-    set((state) => ({
-      tasks: state.tasks.filter((task) => task.id !== id),
-    })),
-
-  setTasks: (newTasks: Task[]) => ({
-    tasks: newTasks,
-  }),
 }));
 
 export default useBoardStore;

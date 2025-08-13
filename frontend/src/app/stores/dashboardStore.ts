@@ -45,7 +45,6 @@ const useDashboardStore = create<DashboardStore>((set) => ({
           const dueDate = task.due_date;
 
           let dueDateString;
-
           if (dueDate) {
             dueDateString = dueDate.from + '-' + dueDate.to;
           } else {

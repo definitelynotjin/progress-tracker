@@ -58,7 +58,7 @@ export default function KanbanBoard() {
     });
 
     try {
-      await updateTask(updatedTask);
+      updateTask(updatedTask);
     } catch (error) {
       toast.error('Failed to update task');
     }

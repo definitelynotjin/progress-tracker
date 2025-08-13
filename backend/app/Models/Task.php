@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\BoardColumn;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
@@ -19,7 +20,7 @@ class Task extends Model
         'due_date',
         'order',
     ];
-    public function boardColumn()
+    public function boardColumn(): BelongsTo
     {
         return $this->belongsTo(BoardColumn::class);
     }
