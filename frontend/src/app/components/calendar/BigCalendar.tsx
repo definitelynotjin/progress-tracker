@@ -20,15 +20,15 @@ const columnColors = {
 };
 
 export default function BigCalendar() {
-  const { loadEvents, events } = useCalendarStore();
-
+  const { loadEvents, event } = useCalendarStore();
+  const allEvents = Object.values(event).flat();
   useEffect(() => {
     loadEvents();
   }, [loadEvents]);
 
   // console.log('does the calendar actually get data', loadEvents);
 
-  function EventBar({ event: event }) {
+  function EventBar({ event }) {
     return (
       <Tippy
         content={
@@ -116,7 +116,7 @@ export default function BigCalendar() {
       >
         <Calendar
           localizer={localizer}
-          events={events}
+          events={allEvents}
           startAccessor="start"
           endAccessor="end"
           style={{ height: '100%', minHeight: 600, width: '100%' }}

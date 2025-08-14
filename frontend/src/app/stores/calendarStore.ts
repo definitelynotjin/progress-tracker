@@ -11,18 +11,18 @@ export type CalendarEvent = {
   updatedAt?: string;
   priority?: string;
   assignee?: string;
-  dueDate?: string | { from: string; to: string };
+  dueDate?: { from: string; to: string };
   start?: Date;
   end?: Date;
 };
 
-export type TaskByColumn = {
+export type EventByColumn = {
   [key in ColumnType]: CalendarEvent[];
 };
 
 type CalendarStoreType = {
-  event: TaskByColumn;
-  loadEvents: () => Promise<TaskByColumn | void>;
+  event: EventByColumn;
+  loadEvents: () => Promise<EventByColumn | void>;
 };
 
 const useCalendarStore = create<CalendarStoreType>((set) => ({
@@ -39,19 +39,46 @@ const useCalendarStore = create<CalendarStoreType>((set) => ({
 
       console.log('is the calendarstore actually working', data);
 
+      const normalizedData: EventByColumn = {
+        Backlog: [],
+        'To Do': [],
+        'In Progress': [],
+        Done: [],
+      };
+      const idToColumnMap: Record<number, ColumnType> = {
+        1: 'Backlog',
+        2: 'To Do',
+        3: 'In Progress',
+        4: 'Done',
+      };
+
       data.forEach((column) => {
-        column.tasks.forEach((tasks) => {
-          const dueDate = tasks.due_date;
-          //          if (dueDate){
-          //            const start = {dueDate?.from};
-          // const end = {dueDate?.to};
-          //          } else{
-          //            const start = '',
-          //            const end = '',
-          //            }
+        column.tasks.forEach((task) => {
+          const dueDate = task.due_date;
+
+          const ColumnName = idToColumnMap[task.board_column_id];
+          let start;
+          let end;
+          if (dueDate) {
+            start = new Date(dueDate.from);
+            end = new Date(dueDate.to);
+          }
+          const calendarEvent = {
+            title: task.title,
+            assignee: task.assignee,
+            start,
+            end,
+            content: task.content,
+            column: ColumnName,
+            priority: task.priority,
+          };
+
+          normalizedData[ColumnName].push(calendarEvent);
         });
       });
-      return data;
+
+      set({ event: normalizedData });
+      return normalizedData;
     } catch (e) {
       toast.error((e as Error).message);
     }
