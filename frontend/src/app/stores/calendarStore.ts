@@ -22,7 +22,7 @@ export type TaskByColumn = {
 
 type CalendarStoreType = {
   event: TaskByColumn;
-  loadtasks: () => Promise<void>;
+  loadEvents: () => Promise<TaskByColumn | void>;
 };
 
 const useCalendarStore = create<CalendarStoreType>((set) => ({
@@ -33,38 +33,25 @@ const useCalendarStore = create<CalendarStoreType>((set) => ({
     Done: [],
   },
 
-  loadtasks: async () => {
+  loadEvents: async () => {
     try {
       const data = await fetchKanbanData();
-      console.log('does the calendarstore actually working', data);
-      const normalizedData: TaskByColumn = {
-        Backlog: [],
-        'To Do': [],
-        'In Progress': [],
-        Done: [],
-      };
 
-      const idToColumnMap: Record<number, ColumnType> = {
-        1: 'Backlog',
-        2: 'To Do',
-        3: 'In Progress',
-        4: 'Done',
-      };
+      console.log('is the calendarstore actually working', data);
 
       data.forEach((column) => {
-        column.tasks.forEach((task) => {
-          const columnName = idToColumnMap[task.board_column_id];
-          normalizedData[columnName].push(task);
+        column.tasks.forEach((tasks) => {
+          const dueDate = tasks.due_date;
+          //          if (dueDate){
+          //            const start = {dueDate?.from};
+          // const end = {dueDate?.to};
+          //          } else{
+          //            const start = '',
+          //            const end = '',
+          //            }
         });
       });
-
-      set({ event: normalizedData });
-      console.log(
-        'if you can see this, the normalizeddata from calendarstore is working!',
-        normalizedData,
-      );
-
-      return normalizedData;
+      return data;
     } catch (e) {
       toast.error((e as Error).message);
     }

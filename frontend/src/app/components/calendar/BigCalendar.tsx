@@ -1,6 +1,8 @@
+'use client';
+
 import Tippy from '@tippyjs/react';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'tippy.js/dist/tippy.css';
@@ -9,6 +11,7 @@ import CustomWeekView from './CustomWeekView';
 import useCalendarStore from '../../stores/calendarStore';
 
 const localizer = momentLocalizer(moment);
+
 const columnColors = {
   Backlog: '#BFDBFE',
   'To Do': '#E9D5FF',
@@ -17,9 +20,15 @@ const columnColors = {
 };
 
 export default function BigCalendar() {
-  const events = useCalendarStore((state) => state.events);
-  console.log('does the calendar actually get data', events);
-  function EventBar({ event }) {
+  const { loadEvents, events } = useCalendarStore();
+
+  useEffect(() => {
+    loadEvents();
+  }, [loadEvents]);
+
+  // console.log('does the calendar actually get data', loadEvents);
+
+  function EventBar({ event: event }) {
     return (
       <Tippy
         content={

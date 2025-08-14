@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { fetchKanbanData } from '../api/kanbanApi';
 import type { ColumnType, Task } from '../types/types';
+import toast from 'react-hot-toast';
 
 type TaskByColumn = {
   [key in ColumnType]: Task[];
@@ -69,13 +70,13 @@ const useDashboardStore = create<DashboardStore>((set) => ({
       // );
       set({ tasks: normalizedData });
 
-      console.log(
-        'if you can see this, the normalizeddata is working!',
-        normalizedData,
-      );
+      // console.log(
+      //   'if you can see this, the normalizeddata in the dashboard store is working!',
+      //   normalizedData,
+      // );
       return normalizedData;
     } catch (e) {
-      console.error((e as Error).message);
+      toast.error((e as Error).message);
     }
   },
 }));

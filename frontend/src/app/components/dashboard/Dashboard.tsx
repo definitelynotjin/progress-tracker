@@ -24,7 +24,7 @@ const dashboardSections = [
   },
 ];
 
-function formattedDate(dueDate) {
+function formattedDate(dueDate: string) {
   const startDate = new Date(dueDate.slice(0, 10));
   const endDate = new Date(dueDate.slice(11));
 

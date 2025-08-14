@@ -46,7 +46,7 @@ export default function ProfileButton() {
               </div>
             </div>
             <div className="bg-gray-500 inset-0  relative p-4 mb-2">
-              what the fuck
+              wow wee wee
             </div>
             <div className="flex flex-col gap-y-2 border-t">
               <Button className="p-5 mt-5  w-full rounded-md  bg-gray-800 text-gray-200">
