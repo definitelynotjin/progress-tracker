@@ -1,25 +1,25 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-} from '@/components/ui/breadcrumb';
-import { ChevronRight, ArrowDownToLine, Plus } from 'lucide-react';
+} from "@/components/ui/breadcrumb";
+import { ChevronRight, ArrowDownToLine, Plus } from "lucide-react";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 const boardMembers = [
-  { name: 'Ali', avatar: 'A' },
-  { name: 'Burhan', avatar: 'B' },
-  { name: 'Coki', avatar: 'C' },
-  { name: 'Dennis', avatar: 'D' },
-  { name: 'Erfan', avatar: 'E' },
-  { name: 'Frank', avatar: 'F' },
+  { name: "Ali", avatar: "A" },
+  { name: "Burhan", avatar: "B" },
+  { name: "Coki", avatar: "C" },
+  { name: "Dennis", avatar: "D" },
+  { name: "Erfan", avatar: "E" },
+  { name: "Frank", avatar: "F" },
 ];
 
 export default function KanbanHeaderBar() {
@@ -58,10 +58,10 @@ export default function KanbanHeaderBar() {
                   className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
                   style={{
                     zIndex: 20 - idx,
-                    marginLeft: idx === 0 ? 0 : '-0.75rem',
+                    marginLeft: idx === 0 ? 0 : "-0.75rem",
                   }}
                 >
-                  {member.avatar && typeof member.avatar === 'string'
+                  {member.avatar && typeof member.avatar === "string"
                     ? member.avatar
                     : null}
                 </div>
@@ -76,10 +76,10 @@ export default function KanbanHeaderBar() {
                   className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-700 shadow"
                   style={{
                     zIndex: 10 - idx,
-                    marginLeft: idx === 0 ? 0 : '-0.75rem',
+                    marginLeft: idx === 0 ? 0 : "-0.75rem",
                   }}
                 >
-                  {member.avatar && typeof member.avatar === 'string'
+                  {member.avatar && typeof member.avatar === "string"
                     ? member.avatar
                     : null}
                 </div>

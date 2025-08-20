@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import type { ColumnType } from '../types/types';
-import toast from 'react-hot-toast';
-import { fetchKanbanData } from '../api/kanbanApi';
+import { create } from "zustand";
+import type { ColumnType } from "../types/types";
+import toast from "react-hot-toast";
+import { fetchKanbanData } from "../api/kanbanApi";
 
 export type CalendarEvent = {
   id: number;
@@ -28,34 +28,30 @@ type CalendarStoreType = {
 const useCalendarStore = create<CalendarStoreType>((set) => ({
   event: {
     Backlog: [],
-    'To Do': [],
-    'In Progress': [],
+    "To Do": [],
+    "In Progress": [],
     Done: [],
   },
 
   loadEvents: async () => {
     try {
       const data = await fetchKanbanData();
-
-      console.log('is the calendarstore actually working', data);
-
       const normalizedData: EventByColumn = {
         Backlog: [],
-        'To Do': [],
-        'In Progress': [],
+        "To Do": [],
+        "In Progress": [],
         Done: [],
       };
       const idToColumnMap: Record<number, ColumnType> = {
-        1: 'Backlog',
-        2: 'To Do',
-        3: 'In Progress',
-        4: 'Done',
+        1: "Backlog",
+        2: "To Do",
+        3: "In Progress",
+        4: "Done",
       };
 
       data.forEach((column) => {
         column.tasks.forEach((task) => {
           const dueDate = task.due_date;
-
           const ColumnName = idToColumnMap[task.board_column_id];
           let start;
           let end;
@@ -72,11 +68,9 @@ const useCalendarStore = create<CalendarStoreType>((set) => ({
             column: ColumnName,
             priority: task.priority,
           };
-
           normalizedData[ColumnName].push(calendarEvent);
         });
       });
-
       set({ event: normalizedData });
       return normalizedData;
     } catch (e) {

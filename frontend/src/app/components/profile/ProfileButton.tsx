@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { CircleQuestionMark } from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+} from "@/components/ui/tooltip";
+import { CircleQuestionMark } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function ProfileButton() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -19,8 +19,8 @@ export default function ProfileButton() {
         setDropdownOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [dropdownOpen]);
 
   return (

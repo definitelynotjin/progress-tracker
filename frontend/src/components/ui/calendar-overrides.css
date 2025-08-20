@@ -1,12 +1,11 @@
 .rdp-day_button[data-range-middle="true"] {
-    background: #1f2937 !important;
-    /* Tailwind's bg-gray-800 */
-    color: #fff !important;
-
+  background: #1f2937 !important;
+  /* Tailwind's bg-gray-800 */
+  color: #fff !important;
 }
 
 .rdp-day_range_middle {
-    background: #1f2937 !important;
-    /* Tailwind's bg-gray-800 */
-    color: #fff !important;
+  background: #1f2937 !important;
+  /* Tailwind's bg-gray-800 */
+  color: #fff !important;
 }

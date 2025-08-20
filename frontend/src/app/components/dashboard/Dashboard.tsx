@@ -1,26 +1,30 @@
-'use client';
-// app/components/dashboard/Dashboard.tsx
-import { format } from 'date-fns';
-import { useEffect } from 'react';
-import { DashboardSectionCard } from './DashboardSectionCard';
-import useDashboardStore from '../../stores/dashboardStore';
+"use client";
+
+import { format } from "date-fns";
+import "tippy.js/dist/tippy.css";
+import { useEffect } from "react";
+import { DashboardSectionCard } from "./DashboardSectionCard";
+import useDashboardStore from "../../stores/dashboardStore";
+import tippy from "tippy.js";
+import Tippy from "@tippyjs/react";
+import useCalendarStore from "@/app/stores/calendarStore";
 
 const dashboardSections = [
   {
-    title: 'Overview',
-    color: 'bg-blue-500',
-    content: 'Project summary, stats, and quick links.',
+    title: "Overview",
+    color: "bg-blue-500",
+    content: "Project summary, stats, and quick links.",
   },
   {
-    title: 'Recent Activity',
-    color: 'bg-purple-500',
-    content: 'Latest updates and changes.',
+    title: "Recent Activity",
+    color: "bg-purple-500",
+    content: "Latest updates and changes.",
   },
-  { title: 'Team', color: 'bg-teal-500', content: 'Team members and roles.' },
+  { title: "Team", color: "bg-teal-500", content: "Team members and roles." },
   {
-    title: 'Deadlines',
-    color: 'bg-lime-500',
-    content: 'Upcoming deadlines and milestones.',
+    title: "Deadlines",
+    color: "bg-lime-500",
+    content: "Upcoming deadlines and milestones.",
   },
 ];
 
@@ -28,25 +32,32 @@ function formattedDate(dueDate: string) {
   const startDate = new Date(dueDate.slice(0, 10));
   const endDate = new Date(dueDate.slice(11));
 
-  const formattedStart = format(startDate, 'd MMM');
-  const formattedEnd = format(endDate, 'd MMM');
+  const formattedStart = format(startDate, "d MMM");
+  const formattedEnd = format(endDate, "d MMM");
 
   return `${formattedStart} - ${formattedEnd}`;
 }
 
 export default function Dashboard() {
   const { tasks, loadTasks } = useDashboardStore();
+  // const [ event, loadEvents] = useCalendarStore();
+  // const allEvents = Object.values(event).flat();
+
   useEffect(() => {
     loadTasks();
   }, [loadTasks]);
 
+  //  useEffect(() = >{
+  //    loadEvents();
+  // }, [loadEvents]);
+
   const allTasks = [
     ...tasks.Backlog,
-    ...tasks['To Do'],
-    ...tasks['In Progress'],
+    ...tasks["To Do"],
+    ...tasks["In Progress"],
     ...tasks.Done,
   ];
-  // console.log('maybe this?', allTasks);
+
   return (
     <div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
       {/* Kanban Data Table */}
@@ -91,7 +102,7 @@ export default function Dashboard() {
                     key={task.id}
                     className="border-b border-gray-700 hover:bg-gray-700/40 transition"
                   >
-                    <td className="px-4 py-3 text-gray-100 font-medium text-base">
+                    <td className=" px-4 py-3 text-gray-100 font-medium text-base">
                       {task.title}
                     </td>
                     <td className="px-4 py-3 text-purple-200 font-semibold text-base">

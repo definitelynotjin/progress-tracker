@@ -2,7 +2,7 @@ import {
   ASSIGNEE,
   COLUMN_TYPES,
   PRIORITIES,
-} from '../components/kanban/kanbanConfig';
+} from "../components/kanban/kanbanConfig";
 
 export type ColumnType = (typeof COLUMN_TYPES)[number];
 export type PriorityType = (typeof PRIORITIES)[number];
@@ -16,15 +16,15 @@ export type Task = {
   updatedAt?: string;
   priority?: PriorityType;
   assignee?: AssigneeType;
-  dueDate?: string | { from: string; to: string };
+  dueDate?: string;
   checklist?: ChecklistItem[];
 };
 
 export type boardType = {
   tasks: Record<ColumnType, Task[]>;
-  // newTask: (task: Omit<Task, 'id'>) => void;
-  // updateTask: (task: Task) => void;
-  // deleteTask: (id: number) => void;
+  newTask: (task: Omit<Task, "id">) => void;
+  updateTask: (task: Task) => void;
+  deleteTask: (id: number) => void;
 };
 
 export type ChecklistItem = {

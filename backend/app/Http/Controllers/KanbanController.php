@@ -15,14 +15,14 @@ class KanbanController extends Controller
             ->orderBy('order')
             ->get();
 
-        return Response::json($columns);
+        return response()->json($columns);
     }
 
     // GET /kanban/{id} - show a single column (optional)
     public function show($id)
     {
         $column = BoardColumn::with(['tasks' => fn($q) => $q->orderBy('order')])->findOrFail($id);
-        return Response::json($column);
+        return response()->json($column);
     }
 
     // POST /kanban - create a new column
@@ -35,7 +35,7 @@ class KanbanController extends Controller
 
         $column = BoardColumn::create($data);
 
-        return Response::json($column, 201);
+        return response()->json($column, 201);
     }
 
     // PUT/PATCH /kanban/{id} - update a column
@@ -50,7 +50,7 @@ class KanbanController extends Controller
 
         $column->update($data);
 
-        return Response::json($column);
+        return response()->json($column);
     }
 
     // DELETE /kanban/{id} - delete a column
@@ -59,6 +59,6 @@ class KanbanController extends Controller
         $column = BoardColumn::findOrFail($id);
         $column->delete();
 
-        return Response::json(null, 204);
+        return response()->json(null, 204);
     }
 }

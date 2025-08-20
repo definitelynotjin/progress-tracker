@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import CalendarHeaderBar from '@/app/components/calendar/CalendarHeaderBar';
-import Header from '@/app/components/calendar/Header';
-import Sidebar from '@/app/sidebar';
-import BigCalendar from '../components/calendar/BigCalendar';
+import CalendarHeaderBar from "@/app/components/calendar/CalendarHeaderBar";
+import Header from "@/app/components/calendar/Header";
+import Sidebar from "@/app/sidebar";
+import BigCalendar from "../components/calendar/BigCalendar";
 
 export default function CalendarPage() {
   return (

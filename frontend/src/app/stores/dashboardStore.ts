@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { fetchKanbanData } from '../api/kanbanApi';
-import type { ColumnType, Task } from '../types/types';
-import toast from 'react-hot-toast';
+import { create } from "zustand";
+import { fetchKanbanData } from "../api/kanbanApi";
+import type { ColumnType, Task } from "../types/types";
+import toast from "react-hot-toast";
 
 type TaskByColumn = {
   [key in ColumnType]: Task[];
@@ -15,8 +15,8 @@ interface DashboardStore {
 const useDashboardStore = create<DashboardStore>((set) => ({
   tasks: {
     Backlog: [],
-    'To Do': [],
-    'In Progress': [],
+    "To Do": [],
+    "In Progress": [],
     Done: [],
   },
 
@@ -27,29 +27,28 @@ const useDashboardStore = create<DashboardStore>((set) => ({
 
       const normalizedData: TaskByColumn = {
         Backlog: [],
-        'To Do': [],
-        'In Progress': [],
+        "To Do": [],
+        "In Progress": [],
         Done: [],
       };
 
       const idToColumnMap: Record<number, ColumnType> = {
-        1: 'Backlog',
-        2: 'To Do',
-        3: 'In Progress',
-        4: 'Done',
+        1: "Backlog",
+        2: "To Do",
+        3: "In Progress",
+        4: "Done",
       };
 
       data.forEach((column) => {
         column.tasks.forEach((task) => {
           const ColumnName = idToColumnMap[task.board_column_id];
-
           const dueDate = task.due_date;
 
           let dueDateString;
           if (dueDate) {
-            dueDateString = dueDate.from + '-' + dueDate.to;
+            dueDateString = dueDate.from + "-" + dueDate.to;
           } else {
-            dueDateString = '';
+            dueDateString = "";
           }
           const smallTask = {
             id: task.id,
@@ -63,17 +62,7 @@ const useDashboardStore = create<DashboardStore>((set) => ({
           normalizedData[ColumnName].push(smallTask);
         });
       });
-
-      // console.log(
-      //   'if you can see this, the normalizeddata is working!',
-      //   normalizedData,
-      // );
       set({ tasks: normalizedData });
-
-      // console.log(
-      //   'if you can see this, the normalizeddata in the dashboard store is working!',
-      //   normalizedData,
-      // );
       return normalizedData;
     } catch (e) {
       toast.error((e as Error).message);

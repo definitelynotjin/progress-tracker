@@ -6,9 +6,8 @@ A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tipta
 
 <img width="2539" height="1381" alt="image" src="https://github.com/user-attachments/assets/f817c5d4-913d-4504-ae6c-4382953b47e7" />
 
-
-
 ## Features
+
 - Kanban board with draggable/reorderable columns and cards
 - Rich text editor for task details (Tiptap)
 - Sidebar navigation
@@ -16,6 +15,7 @@ A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tipta
 - Demo data for quick start
 
 ## Tech Stack
+
 - [Next.js](https://nextjs.org/) 15
 - [React](https://react.dev/) 18
 - [Tailwind CSS](https://tailwindcss.com/)
@@ -42,6 +42,7 @@ A modern Kanban board web app built with Next.js, React, Tailwind CSS, and Tipta
    Visit [http://localhost:3000](http://localhost:3000)
 
 ## Usage
+
 - Drag columns by their handlebar to reorder
 - Drag cards between columns
 - Click a card to edit details with rich text

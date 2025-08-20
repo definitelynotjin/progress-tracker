@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import NotificationButton from '../notification/NotificationButton';
-import ProfileButton from '../profile/ProfileButton';
+import React from "react";
+import NotificationButton from "../notification/NotificationButton";
+import ProfileButton from "../profile/ProfileButton";
 
 export default function Header() {
   return (

@@ -1,10 +1,10 @@
-import React from 'react';
-import { PriorityType } from '.../dashboard';
+import React from "react";
+import { PriorityType } from ".../dashboard";
 
 const priorityColors: Record<PriorityType, string> = {
-  High: 'bg-red-400',
-  Medium: 'bg-yellow-500',
-  Low: 'bg-green-400',
+  High: "bg-red-400",
+  Medium: "bg-yellow-500",
+  Low: "bg-green-400",
 };
 
 export default function PriorityBadge({

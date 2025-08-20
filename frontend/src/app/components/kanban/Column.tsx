@@ -2,11 +2,11 @@ import {
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { Plus } from 'lucide-react';
-import React from 'react';
-import TaskCard from './TaskCard';
-import { ColumnType, Task } from '../../types/types';
+} from "@dnd-kit/sortable";
+import { Plus } from "lucide-react";
+import React from "react";
+import TaskCard from "./TaskCard";
+import { ColumnType, Task } from "../../types/types";
 
 function EmptyCard({ id }: { id: string }) {
   const { setNodeRef, attributes, listeners, isDragging } = useSortable({ id });
@@ -15,7 +15,7 @@ function EmptyCard({ id }: { id: string }) {
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={`min-h-[60px] min-w-[275px] w-full text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? ' opacity-50' : ''}`}
+      className={`min-h-[60px] min-w-[275px] w-full text-xs flex items-center justify-center bg-gray-700/30 text-gray-300 border-gray-900${isDragging ? " opacity-50" : ""}`}
     >
       Drop the card here
     </div>
@@ -27,7 +27,7 @@ interface ColumnProps {
   items: Task[];
   onAddCard: (column: ColumnType) => void;
   onTaskClick: (task: Task) => void;
-  onChecklistChange: (taskId: string, checklist: Task['checklist']) => void;
+  onChecklistChange: (taskId: string, checklist: Task["checklist"]) => void;
 }
 
 export default function Column({
@@ -43,16 +43,16 @@ export default function Column({
   return (
     <div className="flex-1 overflow-auto min-w-full w-full relative rounded-t-lg flex flex-col">
       {/* Colored bar at the very top of the column, static position */}
-      {column.trim().toLowerCase() === 'backlog' && (
+      {column.trim().toLowerCase() === "backlog" && (
         <div className="h-1 rounded-xl bg-blue-200" />
       )}
-      {column.trim().toLowerCase() === 'to do' && (
+      {column.trim().toLowerCase() === "to do" && (
         <div className="h-1 rounded-xl bg-purple-200" />
       )}
-      {column.trim().toLowerCase() === 'in progress' && (
+      {column.trim().toLowerCase() === "in progress" && (
         <div className="h-1 rounded-xl bg-teal-200" />
       )}
-      {column.trim().toLowerCase() === 'done' && (
+      {column.trim().toLowerCase() === "done" && (
         <div className="h-1 rounded-xl bg-lime-200" />
       )}
       {/* Main column background container */}

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { ColumnType } from './types';
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { ColumnType } from "./types";
 
 interface DraggableCardProps {
   id: string;

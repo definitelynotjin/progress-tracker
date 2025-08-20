@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { DateRange } from 'react-day-picker';
+import { useState } from "react";
+import type { DateRange } from "react-day-picker";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
-import TiptapEditor from './TiptapEditor';
-import { Task } from './types';
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import TiptapEditor from "./TiptapEditor";
+import { Task } from "../../types/types";
 
 type TaskDetailProps = {
   task: Task;
@@ -25,14 +25,14 @@ export default function TaskDetail({
   onCancel,
 }: TaskDetailProps) {
   const [title, setTitle] = useState(task.title);
-  const [content, setContent] = useState(task.content || '');
-  const [priority, setPriority] = useState(task.priority || 'Medium');
-  const [assignee, setAssignee] = useState(task.assignee || '');
+  const [content, setContent] = useState(task.content || "");
+  const [priority, setPriority] = useState(task.priority || "Medium");
+  const [assignee, setAssignee] = useState(task.assignee || "");
   const [checklist, setChecklist] = useState(task.checklist ?? []);
   // Support range selection for due date
   const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
     task.dueDate &&
-      typeof task.dueDate === 'object' &&
+      typeof task.dueDate === "object" &&
       task.dueDate.from &&
       task.dueDate.to
       ? { from: new Date(task.dueDate.from), to: new Date(task.dueDate.to) }
@@ -76,9 +76,9 @@ export default function TaskDetail({
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-300">Priority:</span>
           {[
-            { label: 'Low', color: 'bg-green-400' },
-            { label: 'Medium', color: 'bg-yellow-500' },
-            { label: 'High', color: 'bg-red-400' },
+            { label: "Low", color: "bg-green-400" },
+            { label: "Medium", color: "bg-yellow-500" },
+            { label: "High", color: "bg-red-400" },
           ].map((opt) => (
             <button
               key={opt.label}
@@ -87,11 +87,11 @@ export default function TaskDetail({
                 opt.color
               } ${
                 priority === opt.label
-                  ? 'ring-2 ring-white'
-                  : 'opacity-70 hover:opacity-100'
+                  ? "ring-2 ring-white"
+                  : "opacity-70 hover:opacity-100"
               }`}
               onClick={() =>
-                setPriority(opt.label as 'Low' | 'Medium' | 'High')
+                setPriority(opt.label as "Low" | "Medium" | "High")
               }
             >
               {opt.label}
@@ -110,13 +110,13 @@ export default function TaskDetail({
                 className="text-xs text-gray-600 rounded-md bg-gray-100 px-2 py-1"
               >
                 {dueDateRange?.from && dueDateRange?.to
-                  ? `${format(dueDateRange.from, 'MMM dd, yyyy')} - ${format(
+                  ? `${format(dueDateRange.from, "MMM dd, yyyy")} - ${format(
                       dueDateRange.to,
-                      'MMM dd, yyyy',
+                      "MMM dd, yyyy",
                     )}`
                   : dueDateRange?.from
-                  ? format(dueDateRange.from, 'MMM dd, yyyy')
-                  : 'Pick range'}
+                    ? format(dueDateRange.from, "MMM dd, yyyy")
+                    : "Pick range"}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="p-0 w-auto">

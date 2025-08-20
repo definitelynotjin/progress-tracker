@@ -1,45 +1,52 @@
-// app/(board)/kanban/kanbanApi.ts
-// this is where the dashboard gets its data
 import { Task } from '../types/types';
 
 const columnToIdMap: Record<string, number> = {
-  Backlog: 1,
-  'To Do': 2,
-  'In Progress': 3,
-  Done: 4,
+	Backlog: 1,
+	'To Do': 2,
+	'In Progress': 3,
+	Done: 4,
 };
 
-const BASE_URL = 'http://127.0.0.1:8000/api/kanban';
+const BASE_URL = '/api/kanban';
 
 export async function fetchKanbanData() {
-  const response = await fetch(BASE_URL);
-  if (!response.ok) throw new Error('Failed to fetch kanban data');
-  const data = await response.json();
-  return data;
+	const response = await fetch(BASE_URL);
+	if (!response.ok) throw new Error('Failed to fetch kanban data');
+	const data = await response.json();
+	return data;
 }
 
 export async function updateTaskAPI(task: Task) {
-  const taskForBackend = {
-    ...task,
-    board_column_id: columnToIdMap[task.column],
-  };
+	const taskForBackend = {
+		...task,
+		board_column_id: columnToIdMap[task.column],
+	};
 
-  return await fetch(`${BASE_URL}/${task.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(taskForBackend),
-  });
+	const res = await fetch(`api/tasks/${task.id}`, {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(taskForBackend),
+	});
+	if (!res.ok) throw new Error('Failed to update kanban data');
+	return await res.json();
 }
 
-export async function addTaskAPI(task: Task) {
-  const taskForBackend = {
-    ...task,
-    board_column_id: columnToIdMap[task.column],
-  };
+export async function addTaskAPI(task: Omit<Task, 'id'>) {
+	const taskForBackend = {
+		...task,
+		board_column_id: columnToIdMap[task.column],
+	};
+	const res = await fetch('api/tasks', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(taskForBackend),
+	});
+	if (!res.ok) throw new Error('Failed to add a new kanban task');
+	return await res.json();
+}
 
-  return await fetch(BASE_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(taskForBackend),
-  });
+export async function deleteTaskAPI(id: number) {
+	const res = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+	if (!res.ok) throw new Error('Failed to delete kanban data');
+	return await res.json();
 }

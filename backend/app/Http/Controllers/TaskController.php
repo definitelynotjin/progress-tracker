@@ -22,7 +22,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -32,7 +32,7 @@ class TaskController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'board_column_id' => 'required|integer',
             'priority' => 'nullable|string',
             'assignee' => 'nullable|string',
@@ -43,7 +43,7 @@ class TaskController extends Controller
         ]);
 
         $task = Task::create($data);
-        return response::json($task, 201);
+        return response()->json($task, 201);
     }
 
     /**
@@ -80,7 +80,7 @@ class TaskController extends Controller
         ]);
 
         $task->update($data);
-        return response::json($task, 200);
+        return response()->json($task, 200);
     }
 
     /**
