@@ -13,13 +13,15 @@ type TaskByColumn = {
 	[key in ColumnType]: Task[];
 };
 
+const initialTasks: Record<ColumnType, Task[]> = {
+	Backlog: [],
+	'To Do': [],
+	'In Progress': [],
+	Done: [],
+};
+
 const useBoardStore = create<boardType>((set, get) => ({
-	tasks: {
-		Backlog: [],
-		'To Do': [],
-		'In Progress': [],
-		Done: [],
-	},
+	tasks: initialTasks,
 
 	loadTasks: async () => {
 		try {
@@ -40,7 +42,14 @@ const useBoardStore = create<boardType>((set, get) => ({
 			data.forEach((column) => {
 				column.tasks.forEach((task) => {
 					const columnName = idToColumnMap[task.board_column_id];
-					normalizedData[columnName].push(task);
+					const dueDate = task.due_date
+						? { from: task.due_date.from, to: task.due_date.to }
+						: undefined;
+					normalizedData[columnName].push({
+						...task,
+						column: columnName,
+						dueDate,
+					});
 				});
 			});
 			// console.log('boardstore wee wee', normalizedData);
@@ -56,6 +65,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 		const optimisticTask = {
 			...task,
 			id: tempId,
+			column: task.column,
 		};
 		// setting / merging the previous state of the tasks, with a new one that has the task.column as its way of identifiying it, and then including the optimistictask with temp id in it
 		set((prev) => ({
@@ -70,8 +80,8 @@ const useBoardStore = create<boardType>((set, get) => ({
 			set((prev) => ({
 				tasks: {
 					...prev.tasks,
-					[task.column]: prev.tasks[task.column].map((task) =>
-						task.id === tempId ? savedTask : task,
+					[savedTask.column]: prev.tasks[savedTask.column].map((task) =>
+						task.id === tempId ? { ...savedTask, column: task.column } : task,
 					),
 				},
 			}));
@@ -91,6 +101,15 @@ const useBoardStore = create<boardType>((set, get) => ({
 	updateTask: async (task: Task) => {
 		const prevTasks = get().tasks;
 
+		console.log('boardstore update task :', task);
+		console.log('boardstore previous task :', prevTasks);
+
+		if (!prevTasks[task.column]) {
+			console.error(`Column "${task.column}" does not exist in tasks`);
+			toast.error(`Cannot update task: invalid column "${task.column}"`);
+			return;
+		}
+
 		set((prev) => ({
 			tasks: {
 				...prev.tasks,
@@ -99,11 +118,23 @@ const useBoardStore = create<boardType>((set, get) => ({
 				),
 			},
 		}));
+		const columnToIdMap: Record<string, number> = {
+			Backlog: 1,
+			'To Do': 2,
+			'In Progress': 3,
+			Done: 4,
+		};
 
+		type TaskAPIUpdate = Omit<Task, 'board_column_id'> & {
+			board_column_id: number;
+		};
 		try {
-			await updateTaskAPI(task);
+			const res = await updateTaskAPI({
+				...task,
+				board_column_id: columnToIdMap[task.column],
+			} as TaskAPIUpdate);
+			console.log('it succee', res);
 		} catch (e) {
-			toast.error('failed to update task');
 			set({ tasks: prevTasks });
 		}
 	},

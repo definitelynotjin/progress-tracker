@@ -33,6 +33,12 @@ export default function KanbanBoard() {
 		loadTasks();
 	}, [loadTasks]);
 
+	useEffect(() => {
+		if (tasks) {
+			setColumnOrder(Object.keys(tasks) as ColumnType[]);
+		}
+	}, [tasks]);
+
 	const [columnOrder, setColumnOrder] = useState<ColumnType[]>(
 		Object.keys(tasks ?? {}) as ColumnType[],
 	);
@@ -44,14 +50,16 @@ export default function KanbanBoard() {
 	};
 
 	const handleTaskClick = (task: Task) => {
+		console.log('selected task:', task);
 		setSelectedTask(task);
 	};
 	const handleTaskSave = async (updatedTask: Task) => {
 		try {
 			await updateTask(updatedTask);
 			setSelectedTask(null);
-		} catch (error) {
-			toast.error('Failed to update task');
+		} catch (error: any) {
+			console.error('someting wrong:', error);
+			toast.error('Failed to update task, this is from kanbanboard');
 		}
 	};
 
@@ -91,7 +99,6 @@ export default function KanbanBoard() {
 	const handleDragStart = (event: DragEndEvent) => {
 		setActiveId(event.active.id as string);
 	};
-
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
 		setActiveId(null);
@@ -114,7 +121,9 @@ export default function KanbanBoard() {
 
 		// Card drag
 		const sourceCol = active.data?.current?.column as ColumnType;
-		let targetCol = over.data?.current?.column as ColumnType | undefined;
+		let targetCol = over.data?.current?.column as ColumnType;
+
+		// Try to get targetCol from placeholder id
 		if (
 			!targetCol &&
 			typeof over.id === 'string' &&
@@ -122,43 +131,40 @@ export default function KanbanBoard() {
 		) {
 			targetCol = over.id.replace('placeholder-', '') as ColumnType;
 		}
-		if (!sourceCol || !targetCol) return;
-		if (sourceCol === targetCol) {
-			const oldIndex = tasks[sourceCol].findIndex(
-				(task) => task.id === active.id,
-			);
-			const newIndex = tasks[targetCol].findIndex(
-				(task) => task.id === over.id,
-			);
-			const updated = [...tasks[sourceCol]];
-			const [moved] = updated.splice(oldIndex, 1);
-			updated.splice(newIndex, 0, moved);
-			setTasks((prev) => ({
-				...prev,
-				[sourceCol]: updated,
-			}));
-		} else {
-			setTasks((prev) => {
-				const newSourceTasks = prev[sourceCol].filter(
-					(task) => task.id !== active.id,
-				);
-				const movedTask = prev[sourceCol].find((task) => task.id === active.id);
-				if (!movedTask) return prev;
-				const updatedMovedTask = { ...movedTask, column: targetCol };
-				const newTargetTasks = [...prev[targetCol]];
-				const overIndex = newTargetTasks.findIndex(
-					(task) => task.id === over.id,
-				);
-				newTargetTasks.splice(overIndex, 0, updatedMovedTask);
-				return {
-					...prev,
-					[sourceCol]: newSourceTasks,
-					[targetCol]: newTargetTasks,
-				};
-			});
-		}
-	};
 
+		if (!sourceCol || !targetCol) {
+			console.error('Drag failed: source or target column undefined', {
+				sourceCol,
+				targetCol,
+			});
+			return;
+		}
+
+		setTasks((prev) => {
+			const movedTask = prev[sourceCol].find((task) => task.id === active.id);
+			if (!movedTask) return prev;
+
+			// Remove from source
+			const newSourceTasks = prev[sourceCol].filter(
+				(task) => task.id !== active.id,
+			);
+
+			// Add to target
+			const updatedMovedTask = { ...movedTask, column: targetCol };
+			const newTargetTasks = [...(prev[targetCol] || [])];
+
+			// Find drop position; if not found, append to end
+			const overIndex = newTargetTasks.findIndex((task) => task.id === over.id);
+			if (overIndex === -1) newTargetTasks.push(updatedMovedTask);
+			else newTargetTasks.splice(overIndex, 0, updatedMovedTask);
+
+			return {
+				...prev,
+				[sourceCol]: newSourceTasks,
+				[targetCol]: newTargetTasks,
+			};
+		});
+	};
 	// Wrapper for sortable column
 	function SortableColumn({
 		id,
@@ -174,7 +180,12 @@ export default function KanbanBoard() {
 			transform,
 			transition,
 			isDragging,
-		} = useSortable({ id });
+		} = useSortable({
+			id,
+			data: {
+				column: id,
+			},
+		});
 		const style = {
 			transform: CSS.Transform.toString(transform),
 			transition,
@@ -201,7 +212,7 @@ export default function KanbanBoard() {
 
 	const activeTask = Object.values(tasks ?? {})
 		.flat()
-		.find((task) => task.id === activeId);
+		.find((task) => String(task.id) === activeId);
 
 	return (
 		<>
@@ -231,7 +242,9 @@ export default function KanbanBoard() {
 					</div>
 				</SortableContext>
 				<DragOverlay>
-					{activeTask ? <TaskCard task={activeTask} /> : null}
+					{activeTask ? (
+						<TaskCard task={activeTask} key={activeTask.id} />
+					) : null}
 				</DragOverlay>
 			</DndContext>
 			{modalColumn && (

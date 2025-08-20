@@ -26,13 +26,16 @@ export default function AddTaskModal({
 	return (
 		<div className="absolute z-50 inset-1 flex items-center justify-center bg-black bg-opacity-50 ">
 			<div className="bg-gray-700 rounded-md p-6 flex justify-center flex-col">
-				<input
-					type="text"
-					value={taskName}
-					onChange={(e) => setTaskName(e.target.value)}
-					placeholder="Add Task Name"
-					className="rounded-sm p-4 h-5 bg-gray-200 "
-				/>
+				<form>
+					<input
+						required
+						type="text"
+						value={taskName}
+						onChange={(e) => setTaskName(e.target.value)}
+						placeholder="Add Task Name"
+						className="rounded-sm p-4 h-5 bg-gray-200 mb-5 "
+					/>
+				</form>
 				<div className="mt-auto flex justify-end gap-2">
 					<Button
 						onClick={onCancel}

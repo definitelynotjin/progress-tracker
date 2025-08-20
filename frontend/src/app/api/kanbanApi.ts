@@ -7,10 +7,10 @@ const columnToIdMap: Record<string, number> = {
 	Done: 4,
 };
 
-const BASE_URL = '/api/kanban';
+const API_URL = 'http://127.0.0.1:8000';
 
 export async function fetchKanbanData() {
-	const response = await fetch(BASE_URL);
+	const response = await fetch('/api/kanban');
 	if (!response.ok) throw new Error('Failed to fetch kanban data');
 	const data = await response.json();
 	return data;
@@ -21,11 +21,16 @@ export async function updateTaskAPI(task: Task) {
 		...task,
 		board_column_id: columnToIdMap[task.column],
 	};
+	// const token = localStorage.getItem('token');
 
-	const res = await fetch(`api/tasks/${task.id}`, {
+	const res = await fetch(`${API_URL}/api/tasks/${task.id}`, {
 		method: 'PUT',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			// Authorization: `Bearer ${token}`,
+		},
 		body: JSON.stringify(taskForBackend),
+		// credentials: 'include',
 	});
 	if (!res.ok) throw new Error('Failed to update kanban data');
 	return await res.json();
@@ -46,7 +51,7 @@ export async function addTaskAPI(task: Omit<Task, 'id'>) {
 }
 
 export async function deleteTaskAPI(id: number) {
-	const res = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+	const res = await fetch(`api/tasks/${id}`, { method: 'DELETE' });
 	if (!res.ok) throw new Error('Failed to delete kanban data');
 	return await res.json();
 }
