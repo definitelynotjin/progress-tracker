@@ -5,8 +5,6 @@ import 'tippy.js/dist/tippy.css';
 import { useEffect } from 'react';
 import { DashboardSectionCard } from './DashboardSectionCard';
 import useDashboardStore from '../../stores/dashboardStore';
-import tippy from 'tippy.js';
-import Tippy from '@tippyjs/react';
 
 const dashboardSections = [
 	{
@@ -26,6 +24,7 @@ const dashboardSections = [
 		content: 'Upcoming deadlines and milestones.',
 	},
 ];
+
 
 function formattedDate(dueDate: string) {
 	if (!dueDate) return '';
@@ -51,7 +50,7 @@ export default function Dashboard() {
 		...tasks['In Progress'],
 		...tasks.Done,
 	];
-
+	console.log('whats in the dashboard ', allTasks);
 	return (
 		<div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
 			{/* Kanban Data Table */}

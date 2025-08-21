@@ -8,6 +8,11 @@ export type ColumnType = (typeof COLUMN_TYPES)[number];
 export type PriorityType = (typeof PRIORITIES)[number];
 export type AssigneeType = (typeof ASSIGNEE)[number];
 
+export type DueDateRange = {
+	from: Date;
+	to: Date;
+};
+
 export type Task = {
 	id: number;
 	title: string;
@@ -16,7 +21,7 @@ export type Task = {
 	updatedAt?: string;
 	priority?: PriorityType;
 	assignee?: AssigneeType;
-	dueDate?: string;
+	dueDate?: { from: Date; to: Date } | null;
 	checklist?: ChecklistItem[];
 };
 

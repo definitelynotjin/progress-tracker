@@ -3,7 +3,7 @@ import {
 	useSortable,
 	verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { Divide, LucideDivideCircle, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import React from 'react';
 import TaskCard from './TaskCard';
 import { ColumnType, Task } from '../../types/types';

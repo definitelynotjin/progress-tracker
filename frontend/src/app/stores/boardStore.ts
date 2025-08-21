@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { boardType, ColumnType, Task } from '../types/types';
+import type { boardType, ColumnType, DueDateRange, Task } from '../types/types';
 import {
 	addTaskAPI,
 	deleteTaskAPI,
@@ -26,7 +26,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 	loadTasks: async () => {
 		try {
 			const data = await fetchKanbanData();
-
+			// console.log('this is the data from boarstore', data);
 			const normalizedData: TaskByColumn = {
 				Backlog: [],
 				'To Do': [],
@@ -42,8 +42,11 @@ const useBoardStore = create<boardType>((set, get) => ({
 			data.forEach((column) => {
 				column.tasks.forEach((task) => {
 					const columnName = idToColumnMap[task.board_column_id];
-					const dueDate = task.due_date
-						? { from: task.due_date.from, to: task.due_date.to }
+					const dueDate: DueDateRange | undefined = task.due_date
+						? {
+								from: new Date(task.due_date.from),
+								to: new Date(task.due_date.to),
+							}
 						: undefined;
 					normalizedData[columnName].push({
 						...task,
@@ -52,7 +55,6 @@ const useBoardStore = create<boardType>((set, get) => ({
 					});
 				});
 			});
-			// console.log('boardstore wee wee', normalizedData);
 			set({ tasks: normalizedData });
 		} catch (e) {
 			toast.error((e as Error).message);
@@ -101,12 +103,12 @@ const useBoardStore = create<boardType>((set, get) => ({
 	updateTask: async (task: Task) => {
 		const prevTasks = get().tasks;
 
-		console.log('boardstore update task :', task);
+		// console.log('boardstore update task :', task);
 		console.log('boardstore previous task :', prevTasks);
 
 		if (!prevTasks[task.column]) {
-			console.error(`Column "${task.column}" does not exist in tasks`);
-			toast.error(`Cannot update task: invalid column "${task.column}"`);
+			// console.error(`Column "${task.column}" does not exist in tasks`);
+			// toast.error(`Cannot update task: invalid column "${task.column}"`);
 			return;
 		}
 
@@ -132,6 +134,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 			const res = await updateTaskAPI({
 				...task,
 				board_column_id: columnToIdMap[task.column],
+				due_date: task.dueDate,
 			} as TaskAPIUpdate);
 			console.log('it succee', res);
 		} catch (e) {
@@ -153,7 +156,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 		try {
 			await deleteTaskAPI(id);
 		} catch (e) {
-			toast.error('Failed to delete task');
+			toast.error('Failed to delete task, this from teh boardstore');
 			set({ tasks: prevTasks });
 		}
 	},

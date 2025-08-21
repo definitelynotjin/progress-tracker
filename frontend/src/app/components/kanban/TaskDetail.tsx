@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import type { DateRange } from 'react-day-picker';
 import {
 	Popover,
 	PopoverContent,
@@ -12,24 +11,31 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import TiptapEditor from './TiptapEditor';
 import { Task } from '../../types/types';
+import { CircleX } from 'lucide-react';
+import DeleteTaskModal from './DeleteTaskModal';
 
 type TaskDetailProps = {
 	task: Task;
 	onSave: (updatedTask: Task) => void;
 	onCancel: () => void;
+	onDelete: (id: number) => void;
+};
+type DateRange = {
+	from: Date;
+	to: Date;
 };
 
 export default function TaskDetail({
 	task,
 	onSave,
 	onCancel,
+	onDelete,
 }: TaskDetailProps) {
 	const [title, setTitle] = useState(task.title);
 	const [content, setContent] = useState(task.content || '');
 	const [priority, setPriority] = useState(task.priority || 'Medium');
 	const [assignee, setAssignee] = useState(task.assignee || '');
 	const [checklist, setChecklist] = useState(task.checklist ?? []);
-	// Support range selection for due date
 	const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
 		task.dueDate &&
 			typeof task.dueDate === 'object' &&
@@ -54,10 +60,8 @@ export default function TaskDetail({
 			checklist,
 			dueDate: dueDateRange
 				? {
-						from: dueDateRange.from
-							? dueDateRange.from.toISOString()
-							: undefined,
-						to: dueDateRange.to ? dueDateRange.to.toISOString() : undefined,
+						from: dueDateRange.from,
+						to: dueDateRange.to,
 					}
 				: undefined,
 			updatedAt: new Date().toISOString(),
@@ -65,9 +69,14 @@ export default function TaskDetail({
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center p-4 z-50">
-			<div className="bg-gray-700 rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
+		<div className="fixed inset-0 bg-black bg-opacity-40 flex flex-row justify-center items-center p-4 z-50">
+			<div className="relative flex flex-col bg-gray-700 rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
 				{/* Title input */}
+				<CircleX
+					size={16}
+					className=" absolute right-3 top-3 h-6 w-6 rounded-full bg-red-400 ml-2 hover:bg-red-800"
+					onClick={onDelete}
+				></CircleX>
 				<input
 					type="text"
 					className="text-white w-full bg-gray-700 text-1xl font-semibold border-b border-gray-500 pb-2 outline-none"

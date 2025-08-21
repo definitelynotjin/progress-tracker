@@ -11,7 +11,6 @@ interface AddTaskModalProps {
 }
 
 export default function AddTaskModal({
-	column,
 	onSubmit,
 	onCancel,
 }: AddTaskModalProps) {
@@ -33,7 +32,7 @@ export default function AddTaskModal({
 						value={taskName}
 						onChange={(e) => setTaskName(e.target.value)}
 						placeholder="Add Task Name"
-						className="rounded-sm p-4 h-5 bg-gray-200 mb-5 "
+						className="rounded-sm text-gray-600 p-4 h-5 bg-gray-300 mb-5 "
 					/>
 				</form>
 				<div className="mt-auto flex justify-end gap-2">

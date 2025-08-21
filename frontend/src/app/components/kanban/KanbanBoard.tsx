@@ -26,7 +26,7 @@ import type { ColumnType, Task } from '../../types/types';
 import useBoardStore from '@/app/stores/boardStore';
 
 export default function KanbanBoard() {
-	const { tasks, loadTasks, updateTask, newTask, deleteTask, setTasks } =
+	const { tasks, loadTasks, updateTask, newTask, setTasks, deleteTask } =
 		useBoardStore();
 
 	useEffect(() => {
@@ -60,6 +60,15 @@ export default function KanbanBoard() {
 		} catch (error: any) {
 			console.error('someting wrong:', error);
 			toast.error('Failed to update task, this is from kanbanboard');
+		}
+	};
+	const handleTaskDelete = async (id: number) => {
+		try {
+			await deleteTask(id);
+			setSelectedTask(null);
+		} catch (error: any) {
+			console.error('sorry cant delete', error);
+			console.log('this why', setSelectedTask);
 		}
 	};
 
@@ -259,6 +268,7 @@ export default function KanbanBoard() {
 					task={selectedTask}
 					onSave={handleTaskSave}
 					onCancel={handleTaskCancel}
+					onDelete={handleTaskDelete}
 				/>
 			)}
 		</>

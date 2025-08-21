@@ -5,28 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use Illuminate\Support\Facades\Response;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return response::json(Task::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTaskRequest $request)
     {
         $data = $request->validate([
@@ -50,7 +31,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return response::json($task);
+        return response()->json($task);
     }
 
     /**
@@ -87,6 +68,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->delete($task);
+        return response()->json(null, 204);
     }
 }
