@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import TiptapEditor from './TiptapEditor';
 import { Task } from '../../types/types';
-import { CircleX } from 'lucide-react';
 import DeleteTaskModal from './DeleteTaskModal';
+import { X } from 'lucide-react';
 
 type TaskDetailProps = {
 	task: Task;
@@ -45,6 +45,13 @@ export default function TaskDetail({
 			: undefined,
 	);
 
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+	const formatDate = (date: Date) =>
+		`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+			date.getDate(),
+		).padStart(2, '0')}`;
+
 	const handleSave = () => {
 		if (!task.column) {
 			console.error('cannot sae task without column, my brother');
@@ -60,23 +67,25 @@ export default function TaskDetail({
 			checklist,
 			dueDate: dueDateRange
 				? {
-						from: dueDateRange.from,
-						to: dueDateRange.to,
+						from: formatDate(dueDateRange.from),
+						to: formatDate(dueDateRange.to),
 					}
 				: undefined,
-			updatedAt: new Date().toISOString(),
+			updatedAt: formatDate(new Date()),
 		});
 	};
 
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-40 flex flex-row justify-center items-center p-4 z-50">
 			<div className="relative flex flex-col bg-gray-700 rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
-				{/* Title input */}
-				<CircleX
-					size={16}
-					className=" absolute right-3 top-3 h-6 w-6 rounded-full bg-red-400 ml-2 hover:bg-red-800"
-					onClick={onDelete}
-				></CircleX>
+				<div
+					className=" absolute right-3 top-3 h-6 w-6 rounded-full flex items-center justify-center bg-red-400 ml-2 hover:bg-red-800"
+					onClick={() => {
+						setShowDeleteModal(true);
+					}}
+				>
+					<X size={15} className="text-white" />
+				</div>
 				<input
 					type="text"
 					className="text-white w-full bg-gray-700 text-1xl font-semibold border-b border-gray-500 pb-2 outline-none"
@@ -85,8 +94,6 @@ export default function TaskDetail({
 					placeholder="Task Title"
 					autoFocus
 				/>
-
-				{/* Priority selector - interactive buttons */}
 				<div className="flex items-center gap-2">
 					<span className="text-xs text-gray-300">Priority:</span>
 					{[
@@ -112,7 +119,6 @@ export default function TaskDetail({
 						</button>
 					))}
 				</div>
-
 				{/* Due date range picker */}
 				<div className="flex items-center gap-2">
 					<span className="text-xs text-gray-300">Date Range:</span>
@@ -124,12 +130,12 @@ export default function TaskDetail({
 								className="text-xs text-gray-600 rounded-md bg-gray-100 px-2 py-1"
 							>
 								{dueDateRange?.from && dueDateRange?.to
-									? `${format(dueDateRange.from, 'MMM dd, yyyy')} - ${format(
+									? `${format(new Date(dueDateRange.from), 'MMM dd, yyyy')} - ${format(
 											dueDateRange.to,
 											'MMM dd, yyyy',
 										)}`
 									: dueDateRange?.from
-										? format(dueDateRange.from, 'MMM dd, yyyy')
+										? format(new Date(dueDateRange.from), 'MMM dd, yyyy')
 										: 'Pick range'}
 							</Button>
 						</PopoverTrigger>
@@ -143,14 +149,12 @@ export default function TaskDetail({
 						</PopoverContent>
 					</Popover>
 				</div>
-
 				{/* Rich text editor */}
 				<TiptapEditor
 					value={content}
 					onChange={setContent}
 					onChecklistChange={setChecklist}
 				/>
-
 				{/* Assignee input */}
 				<input
 					type="text"
@@ -159,7 +163,6 @@ export default function TaskDetail({
 					onChange={(e) => setAssignee(e.target.value)}
 					placeholder="Assigned to..."
 				/>
-
 				{/* Buttons */}
 				<div className="flex justify-end gap-4">
 					<button
@@ -176,6 +179,15 @@ export default function TaskDetail({
 					</button>
 				</div>
 			</div>
+
+			{showDeleteModal && (
+				<DeleteTaskModal
+					column={task.column}
+					taskId={task.id}
+					onSubmit={onDelete}
+					onCancel={() => setShowDeleteModal(false)}
+				/>
+			)}
 		</div>
 	);
 }

@@ -26,7 +26,6 @@ const useBoardStore = create<boardType>((set, get) => ({
 	loadTasks: async () => {
 		try {
 			const data = await fetchKanbanData();
-			// console.log('this is the data from boarstore', data);
 			const normalizedData: TaskByColumn = {
 				Backlog: [],
 				'To Do': [],
@@ -102,13 +101,8 @@ const useBoardStore = create<boardType>((set, get) => ({
 
 	updateTask: async (task: Task) => {
 		const prevTasks = get().tasks;
-
-		// console.log('boardstore update task :', task);
 		console.log('boardstore previous task :', prevTasks);
-
 		if (!prevTasks[task.column]) {
-			// console.error(`Column "${task.column}" does not exist in tasks`);
-			// toast.error(`Cannot update task: invalid column "${task.column}"`);
 			return;
 		}
 
@@ -157,6 +151,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 			await deleteTaskAPI(id);
 		} catch (e) {
 			toast.error('Failed to delete task, this from teh boardstore');
+			console.log('thisis why itfucked, from theboarstore', tasktoDelete);
 			set({ tasks: prevTasks });
 		}
 	},

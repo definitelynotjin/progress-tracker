@@ -68,7 +68,6 @@ export default function KanbanBoard() {
 			setSelectedTask(null);
 		} catch (error: any) {
 			console.error('sorry cant delete', error);
-			console.log('this why', setSelectedTask);
 		}
 	};
 

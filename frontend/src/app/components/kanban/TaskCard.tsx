@@ -2,7 +2,7 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, Pencil } from 'lucide-react';
+import { GripVertical, Pencil, CalendarClock } from 'lucide-react';
 import React, { useState } from 'react';
 import PriorityBadge from './PriorityBadge';
 import { Task } from '../../types/types';
@@ -63,10 +63,7 @@ export default function TaskCard({
 			>
 				<Pencil size={14} className="text-gray-300 hover:text-white" />
 			</button>
-
-			{/* Card content and drag icon */}
 			<div className="flex flex-col justify-center w-full h-full">
-				{/* Priority and title */}
 				<div className="flex flex-col items-start gap-1 w-full">
 					<div className="flex items-left w-full">
 						{task.priority && <PriorityBadge priority={task.priority} />}
@@ -116,7 +113,6 @@ export default function TaskCard({
 						)
 					)}
 				</div>
-
 				{/* Due Date */}
 				{task.dueDate &&
 					typeof task.dueDate === 'object' &&
@@ -125,21 +121,11 @@ export default function TaskCard({
 					task.dueDate.from &&
 					task.dueDate.to && (
 						<div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
-							<span className="flex items-center gap-1 text-gray-300">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									className="h-3 w-3"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										d="M8 7V3M16 7V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-									/>
-								</svg>
+							<span className="flex items-center pt-3 gap-1 text-gray-300">
+								<CalendarClock
+									className="ml-1  text-red-100 mr-0.5 "
+									size={14}
+								/>
 								<span>
 									{new Date(task.dueDate.from).toLocaleDateString('default', {
 										month: 'short',

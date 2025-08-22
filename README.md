@@ -22,11 +22,23 @@ A sleek and minimal **Kanban Board** application built with **Next.js**, **Tailw
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/kanban-board.git
-cd kanban-board
+git clone https://github.com/definitelynotjin/icon-progress-tracker
+cd icon-progress-tracker
+
+# Get to the frontend
+cd frontend
 
 # Install dependencies
 npm install
 
 # Run the development server
 npm run dev
+----------------------------
+# Get to the backend
+cd backend
+
+#Install dependencies
+composer install
+
+#Run the backend server
+php artisan serve
