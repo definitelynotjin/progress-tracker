@@ -15,6 +15,7 @@ export type DueDateRange = {
 
 export type Task = {
 	id: string | number;
+	tempId?: string;
 	title: string;
 	content: string;
 	column: ColumnType;

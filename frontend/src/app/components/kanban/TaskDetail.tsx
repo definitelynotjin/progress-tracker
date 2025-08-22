@@ -36,6 +36,7 @@ export default function TaskDetail({
 	const [priority, setPriority] = useState(task.priority || 'Medium');
 	const [assignee, setAssignee] = useState(task.assignee || '');
 	const [checklist, setChecklist] = useState(task.checklist ?? []);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
 		task.dueDate &&
 			typeof task.dueDate === 'object' &&
@@ -44,8 +45,6 @@ export default function TaskDetail({
 			? { from: new Date(task.dueDate.from), to: new Date(task.dueDate.to) }
 			: undefined,
 	);
-
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const formatDate = (date: Date) =>
 		`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(

@@ -82,7 +82,7 @@ const useBoardStore = create<boardType>((set, get) => ({
 				tasks: {
 					...prev.tasks,
 					[savedTask.column]: prev.tasks[savedTask.column].map((task) =>
-						task.id === tempId ? { ...savedTask, column: task.column } : task,
+						task.id === tempId ? savedTask : task,
 					),
 				},
 			}));
@@ -148,10 +148,8 @@ const useBoardStore = create<boardType>((set, get) => ({
 
 		set({ tasks: tasktoDelete });
 		try {
-			await deleteTaskAPI(id);
+			await deleteTaskAPI(Number(id));
 		} catch (e) {
-			toast.error('Failed to delete task, this from teh boardstore');
-			console.log('thisis why itfucked, from theboarstore', tasktoDelete);
 			set({ tasks: prevTasks });
 		}
 	},
