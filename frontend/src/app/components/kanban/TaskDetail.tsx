@@ -52,10 +52,10 @@ export default function TaskDetail({
 		).padStart(2, '0')}`;
 
 	const handleSave = () => {
-		if (!task.column) {
-			console.error('cannot sae task without column, my brother');
-			return;
-		}
+		// if (!task.column) {
+		// 	console.error('cannot sae task without column, my brother');
+		// 	return;
+		// }
 		onSave({
 			...task,
 			title,

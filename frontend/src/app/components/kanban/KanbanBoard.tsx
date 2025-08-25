@@ -84,10 +84,9 @@ export default function KanbanBoard() {
 		}
 	};
 
-	//
 	// possibly the checklist thingy,i forgot
 	const handleChecklistChange = (
-		taskId: string,
+		taskId: number,
 		checklist: Task['checklist'],
 	) => {
 		setTasks((prev) => {
@@ -102,7 +101,6 @@ export default function KanbanBoard() {
 	};
 
 	const sensors = useSensors(useSensor(PointerSensor));
-
 	// Unified drag logic for columns and cards
 	const handleDragStart = (event: DragEndEvent) => {
 		setActiveId(event.active.id as string);
@@ -221,7 +219,6 @@ export default function KanbanBoard() {
 	const activeTask = Object.values(tasks ?? {})
 		.flat()
 		.find((task) => String(task.id) === activeId);
-
 	return (
 		<>
 			{/* Unified DndContext for columns and cards */}

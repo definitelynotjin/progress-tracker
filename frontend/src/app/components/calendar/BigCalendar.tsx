@@ -25,7 +25,7 @@ export default function BigCalendar() {
 	useEffect(() => {
 		loadEvents();
 	}, [loadEvents]);
-
+	console.log('here are the events', allEvents);
 	function EventBar({ event }) {
 		return (
 			<Tippy
@@ -69,7 +69,11 @@ export default function BigCalendar() {
 						</div>
 						<div>
 							<strong>Tasks :</strong>{' '}
-							<span dangerouslySetInnerHTML={{ __html: event.content }} />
+							<span
+								className="text-xs text-white max-w-none  prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-1"
+								style={{ wordBreak: 'break-word', whiteSpace: 'none' }}
+								dangerouslySetInnerHTML={{ __html: event.content }}
+							/>
 						</div>
 					</div>
 				}
