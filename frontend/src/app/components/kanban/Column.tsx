@@ -30,7 +30,7 @@ interface ColumnProps {
 	items: Task[];
 	onAddCard: (column: ColumnType) => void;
 	onTaskClick: (task: Task) => void;
-	onChecklistChange: (taskId: string, checklist: Task['checklist']) => void;
+	onChecklistChange: (taskId: number, checklist: Task['checklist']) => void;
 }
 
 export default function Column({

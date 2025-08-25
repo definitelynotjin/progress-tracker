@@ -59,7 +59,6 @@ export default function TaskDetail({
 		onSave({
 			...task,
 			title,
-			content,
 			column: task.column,
 			priority,
 			assignee,

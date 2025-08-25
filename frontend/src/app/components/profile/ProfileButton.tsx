@@ -39,8 +39,10 @@ export default function ProfileButton() {
 				</Tooltip>
 				{dropdownOpen && (
 					<div className="absolute right-0 top-12 w-80 bg-gray-700 rounded-lg shadow-2xl z-50 p-6">
-						<div className="flex items-center justify-between mb-4">
-							<div className="w-20 h-20 rounded-full bg-red-200"></div>
+						<div className="flex items-center justify-center mb-4">
+							<div className=" flex justify-center items-center w-20 h-20 rounded-full bg-gray-200">
+								<CircleQuestionMark size={30} className="text-gray-400" />
+							</div>
 							<div className="text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">
 								Budiaman Anjay
 							</div>

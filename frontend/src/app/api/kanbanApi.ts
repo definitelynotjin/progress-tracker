@@ -21,16 +21,13 @@ export async function updateTaskAPI(task: Task) {
 		...task,
 		board_column_id: columnToIdMap[task.column],
 	};
-	// const token = localStorage.getItem('token');
 
 	const res = await fetch(`${API_URL}/api/tasks/${task.id}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			// Authorization: `Bearer ${token}`,
 		},
 		body: JSON.stringify(taskForBackend),
-		// credentials: 'include',
 	});
 	if (!res.ok) throw new Error('Failed to update kanban data');
 	return await res.json();

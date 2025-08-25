@@ -4,6 +4,7 @@ import {
 	DndContext,
 	DragEndEvent,
 	DragOverlay,
+	DragStartEvent,
 	PointerSensor,
 	closestCenter,
 	useSensor,
@@ -86,23 +87,25 @@ export default function KanbanBoard() {
 
 	// possibly the checklist thingy,i forgot
 	const handleChecklistChange = (
-		taskId: number,
+		taskId: string | number,
 		checklist: Task['checklist'],
 	) => {
 		setTasks((prev) => {
+			console.log('tasks : ', tasks);
 			const updated = { ...prev };
 			for (const col of Object.keys(updated) as ColumnType[]) {
 				updated[col] = updated[col].map((task) =>
 					task.id === taskId ? { ...task, checklist } : task,
 				);
 			}
+			console.log('this why', updated);
 			return updated;
 		});
 	};
 
 	const sensors = useSensors(useSensor(PointerSensor));
 	// Unified drag logic for columns and cards
-	const handleDragStart = (event: DragEndEvent) => {
+	const handleDragStart = (event: DragStartEvent) => {
 		setActiveId(event.active.id as string);
 	};
 	const handleDragEnd = (event: DragEndEvent) => {
@@ -128,15 +131,17 @@ export default function KanbanBoard() {
 		// Card drag
 		const sourceCol = active.data?.current?.column as ColumnType;
 		let targetCol = over.data?.current?.column as ColumnType;
+		console.log('sourcecol :', sourceCol);
+		console.log('targetcol :', targetCol);
 
 		// Try to get targetCol from placeholder id
-		if (
-			!targetCol &&
-			typeof over.id === 'string' &&
-			over.id.startsWith('placeholder-')
-		) {
-			targetCol = over.id.replace('placeholder-', '') as ColumnType;
-		}
+		// if (
+		// 	!targetCol &&
+		// 	typeof over.id === 'string' &&
+		// 	over.id.startsWith('placeholder-')
+		// ) {
+		// 	targetCol = over.id.replace('placeholder-', '') as ColumnType;
+		// }
 
 		if (!sourceCol || !targetCol) {
 			console.error('Drag failed: source or target column undefined', {
@@ -149,16 +154,16 @@ export default function KanbanBoard() {
 		setTasks((prev) => {
 			const movedTask = prev[sourceCol].find((task) => task.id === active.id);
 			if (!movedTask) return prev;
+			const updatedMovedTask = { ...movedTask, column: targetCol };
+			updateTask(updatedMovedTask);
 
-			// Remove from source
+			console.log('updatedmovetask : ', updatedMovedTask);
+
 			const newSourceTasks = prev[sourceCol].filter(
 				(task) => task.id !== active.id,
 			);
-
 			// Add to target
-			const updatedMovedTask = { ...movedTask, column: targetCol };
 			const newTargetTasks = [...(prev[targetCol] || [])];
-
 			// Find drop position; if not found, append to end
 			const overIndex = newTargetTasks.findIndex((task) => task.id === over.id);
 			if (overIndex === -1) newTargetTasks.push(updatedMovedTask);

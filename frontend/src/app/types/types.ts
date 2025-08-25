@@ -32,6 +32,9 @@ export type boardType = {
 	updateTask: (task: Task) => Promise<void>;
 	deleteTask: (id: number) => Promise<void>;
 	loadTasks: () => Promise<void>;
+	setTasks: (
+		updater: (prev: Record<ColumnType, Task[]>) => Record<ColumnType, Task[]>,
+	) => void;
 };
 
 export type ChecklistItem = {

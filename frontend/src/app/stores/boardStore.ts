@@ -69,11 +69,13 @@ const useBoardStore = create<boardType>()(
 				id: tempId,
 				column: task.column,
 			};
+
 			set((state) => {
 				state.tasks[task.column].push(optimisticTask);
 			});
 
-			set({ tasks: optimisticTask });
+			set({ tasks: prevTasks });
+
 			try {
 				const savedTask = await addTaskAPI(task);
 
@@ -144,8 +146,11 @@ const useBoardStore = create<boardType>()(
 				set({ tasks: prevTasks });
 			}
 		},
-		setTasks: async () => {
-			const prevTasks = get().tasks;
+
+		setTasks: (updater: (prev: TaskByColumn) => TaskByColumn) => {
+			set((state) => {
+				state.tasks = updater(state.tasks);
+			});
 		},
 	})),
 );

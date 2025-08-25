@@ -110,11 +110,11 @@ body {
 	border: none !important;
 	box-shadow: none !important;
 	background: transparent !important;
-	max-height: none !important;
+	max-height: max-content !important;
 }
 
 .rbc-event-content {
-	height: 50px;
+	height: 40px !important;
 }
 
 /* Today text */
@@ -125,14 +125,17 @@ body {
 /* Today box*/
 .rbc-today {
 	background: #1f2937 !important;
-	max-height: none !important;
+	max-height: max-content !important;
 }
 
 .rbc-toolbar {
 	background: #374151;
 	color: #ffffff;
+	/* color: red; */
+	text-align: center !important;
 	padding: 1.2rem 1.5rem 1rem 1.5rem;
-	font-size: 1.2rem;
+	font-size: 22px !important ;
+	font-weight: 800 !important;
 	border-top-left-radius: 1rem !important;
 	border-top-right-radius: 1rem !important;
 }
@@ -179,42 +182,46 @@ body {
 
 /* Button focus */
 .rbc-toolbar button:focus {
-	outline: 2px solid #ffffff;
+	outline: 1px solid white;
 }
 
 /* Self explanatory */
 .rbc-month-header {
 	border-bottom: none !important;
 	color: #fff;
+	font-size: 20px !important;
+	text-align: center !important;
 	background: #1f2937 !important;
-	height: 20px !important;
+	height: 50px !important;
 }
 
 /* Date cell */
 .rbc-date-cell {
-	font-size: 14px !important;
+	font-size: 15px !important;
 	height: 100% !important;
 	/* min-height: 40px !important; */
 }
 
 .rbc-calendar {
-	height: 1000px !important;
+	height: 1500px !important;
 	background: #ffffff;
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
 	font-family: inherit;
 	padding: 0.5rem !important;
-	border: 1px solid #e5e7eb !important;
+	border: llpx solid #e5e7eb !important;
 	border-bottom: 1rem !important;
 	border-bottom-right-radius: 1rem !important;
 	border-bottom-left-radius: 1rem !important;
+	zoom: 0.7 !important;
 }
 
 .rbc-row-content {
-	max-height: none !important;
+	max-height: min-content !important;
 }
 
 .rbc-month-row {
 	flex: 1 1 0 !important;
 	height: auto !important;
-	min-height: 200px;
+	min-height: none !important;
+	max-height: max-content !important;
 }
