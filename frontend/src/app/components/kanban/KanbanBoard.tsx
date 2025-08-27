@@ -25,6 +25,7 @@ import TaskDetail from './TaskDetail';
 import AddTaskModal from './AddTaskModal';
 import type { ColumnType, Task } from '../../types/types';
 import useBoardStore from '@/app/stores/boardStore';
+import { updateTaskAPI } from '@/app/api/kanbanApi';
 
 export default function KanbanBoard() {
 	const { tasks, loadTasks, updateTask, newTask, setTasks, deleteTask } =
@@ -92,6 +93,8 @@ export default function KanbanBoard() {
 	) => {
 		setTasks((prev) => {
 			console.log('tasks : ', tasks);
+			console.log('taskid : ', taskId);
+			console.log('checklist : ', checklist);
 			const updated = { ...prev };
 			for (const col of Object.keys(updated) as ColumnType[]) {
 				updated[col] = updated[col].map((task) =>
@@ -135,13 +138,13 @@ export default function KanbanBoard() {
 		console.log('targetcol :', targetCol);
 
 		// Try to get targetCol from placeholder id
-		// if (
-		// 	!targetCol &&
-		// 	typeof over.id === 'string' &&
-		// 	over.id.startsWith('placeholder-')
-		// ) {
-		// 	targetCol = over.id.replace('placeholder-', '') as ColumnType;
-		// }
+		if (
+			!targetCol &&
+			typeof over.id === 'string' &&
+			over.id.startsWith('placeholder-')
+		) {
+			targetCol = over.id.replace('placeholder-', '') as ColumnType;
+		}
 
 		if (!sourceCol || !targetCol) {
 			console.error('Drag failed: source or target column undefined', {
@@ -151,14 +154,14 @@ export default function KanbanBoard() {
 			return;
 		}
 
+		let updatedMovedTask: Task | undefined;
 		setTasks((prev) => {
-			const movedTask = prev[sourceCol].find((task) => task.id === active.id);
+			const movedTask = prev[sourceCol]?.find(
+				(task) => String(task.id) === String(active.id),
+			);
+
 			if (!movedTask) return prev;
-			const updatedMovedTask = { ...movedTask, column: targetCol };
-			updateTask(updatedMovedTask);
-
-			console.log('updatedmovetask : ', updatedMovedTask);
-
+			updatedMovedTask = { ...movedTask, column: targetCol };
 			const newSourceTasks = prev[sourceCol].filter(
 				(task) => task.id !== active.id,
 			);
@@ -175,6 +178,26 @@ export default function KanbanBoard() {
 				[targetCol]: newTargetTasks,
 			};
 		});
+
+		if (updatedMovedTask) {
+			const columnToIdMap: Record<string, number> = {
+				Backlog: 1,
+				'To Do': 2,
+				'In Progress': 3,
+				Done: 4,
+			};
+			type TaskApiUpdate = Omit<Task, 'board_column_id'> & {
+				board_column_id: number;
+			};
+			const taskForBackend: TaskApiUpdate = {
+				...updatedMovedTask,
+				board_column_id: columnToIdMap[updatedMovedTask.column],
+				dueDate: updatedMovedTask.dueDate,
+			};
+			updateTaskAPI(taskForBackend).catch(() => {
+				console.error('cant move bruh');
+			});
+		}
 	};
 	// Wrapper for sortable column
 	function SortableColumn({

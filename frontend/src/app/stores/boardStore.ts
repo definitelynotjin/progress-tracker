@@ -6,7 +6,6 @@ import {
 	fetchKanbanData,
 	updateTaskAPI,
 } from '../api/kanbanApi';
-import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import { immer } from 'zustand/middleware/immer';
 
@@ -58,11 +57,11 @@ const useBoardStore = create<boardType>()(
 				});
 				set({ tasks: normalizedData });
 			} catch (e) {
-				toast.error((e as Error).message);
+				console.error((e as Error).message);
 			}
 		},
 		newTask: async (task: Omit<Task, 'id'>) => {
-			const prevTasks = get().tasks;
+			// const prevTasks = get().tasks;
 			const tempId = uuidv4();
 			const optimisticTask = {
 				...task,
@@ -74,7 +73,7 @@ const useBoardStore = create<boardType>()(
 				state.tasks[task.column].push(optimisticTask);
 			});
 
-			set({ tasks: prevTasks });
+			// set({ tasks: prevTasks });
 
 			try {
 				const savedTask = await addTaskAPI(task);
@@ -86,7 +85,7 @@ const useBoardStore = create<boardType>()(
 					if (index !== -1) state.tasks[task.column][index] = savedTask;
 				});
 			} catch (e) {
-				toast.error('sorry big bro, it failed');
+				console.error('sorry big bro, it failed');
 				set((state) => {
 					state.tasks[task.column] = state.tasks[task.column].filter(
 						(t) => t.id !== tempId,
@@ -139,7 +138,6 @@ const useBoardStore = create<boardType>()(
 			) as TaskByColumn;
 
 			set({ tasks: tasktoDelete });
-
 			try {
 				await deleteTaskAPI(Number(id));
 			} catch (e) {

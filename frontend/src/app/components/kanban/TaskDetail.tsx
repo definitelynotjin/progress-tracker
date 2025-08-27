@@ -24,7 +24,6 @@ type DateRange = {
 	from: Date;
 	to: Date;
 };
-
 export default function TaskDetail({
 	task,
 	onSave,
@@ -52,14 +51,15 @@ export default function TaskDetail({
 		).padStart(2, '0')}`;
 
 	const handleSave = () => {
-		// if (!task.column) {
-		// 	console.error('cannot sae task without column, my brother');
-		// 	return;
-		// }
+		if (!task.column) {
+			console.error('cannot sae task without column, my brother');
+			return;
+		}
 		onSave({
 			...task,
 			title,
 			column: task.column,
+			content,
 			priority,
 			assignee,
 			checklist,
@@ -142,7 +142,6 @@ export default function TaskDetail({
 								mode="range"
 								selected={dueDateRange}
 								onSelect={setDueDateRange}
-								initialFocus
 							/>
 						</PopoverContent>
 					</Popover>

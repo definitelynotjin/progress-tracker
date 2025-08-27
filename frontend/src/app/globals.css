@@ -138,17 +138,22 @@ body {
 	font-weight: 800 !important;
 	border-top-left-radius: 1rem !important;
 	border-top-right-radius: 1rem !important;
+	/* border-bottom-right-radius: 1rem !important; */
+	/* border-bottom-left-radius: 1rem !important; */
 }
 
 .rbc-toolbar button {
 	background: #1f2937 !important;
 	color: #fff !important;
+	zoom: 115% !important;
 	font-weight: 700 !important;
 	transition:
 		background 0.2s,
 		color 0.2s !important;
 	font-size: smaller !important;
-	border: none !important;
+	border: 1rem !important;
+	/* border-top-left-radius: 0.5rem !important ; */
+	/* border-top-right-radius: 0.5rem !important ; */
 }
 
 /* Getting rid of today */
@@ -165,7 +170,7 @@ body {
 /*Chevron left*/
 .rbc-toolbar .rbc-btn-group:first-of-type > button:nth-child(2)::before {
 	content: '<' !important;
-	font-size: 13px !important;
+	font-size: 20px !important;
 }
 
 /* Next button*/
@@ -177,7 +182,7 @@ body {
 /*Chevron Next*/
 .rbc-toolbar .rbc-btn-group:first-of-type > button:last-child::before {
 	content: '>' !important;
-	font-size: 13px !important;
+	font-size: 20px !important;
 }
 
 /* Button focus */
@@ -208,7 +213,7 @@ body {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
 	font-family: inherit;
 	padding: 0.5rem !important;
-	border: llpx solid #e5e7eb !important;
+	border: 1rem !important;
 	border-bottom: 1rem !important;
 	border-bottom-right-radius: 1rem !important;
 	border-bottom-left-radius: 1rem !important;

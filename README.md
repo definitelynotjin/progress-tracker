@@ -8,7 +8,6 @@ A sleek and minimal **Kanban Board** application built with **Next.js**, **Tailw
 - 🧲 Drag and drop tasks between columns
 - 🔄 Sortable columns (To Do, In Progress, Done)
 - 👤 Assign tasks to team members
-- 📆 Formatted due dates (e.g., `14 Aug - 16 Aug`)
 - 📱 Responsive UI with smooth UX
 
 ## 🛠️ Tech Stack
@@ -22,7 +21,7 @@ A sleek and minimal **Kanban Board** application built with **Next.js**, **Tailw
 
 ```bash
 # Clone the repo
-git clone https://github.com/definitelynotjin/icon-progress-tracker
+git clone https://github.com/definitelynotjin/progress-tracker
 cd icon-progress-tracker
 
 # Get to the frontend

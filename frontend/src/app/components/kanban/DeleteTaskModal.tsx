@@ -1,7 +1,7 @@
 import { ColumnType } from '@/app/types/types';
 
 interface DeleteTaskModalProps {
-	taskId: number;
+	taskId: number | string;
 	column: ColumnType;
 	onSubmit: (id: number) => void;
 	onCancel: () => void;

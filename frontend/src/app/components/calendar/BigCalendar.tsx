@@ -9,7 +9,6 @@ import 'tippy.js/dist/tippy.css';
 import styles from './calendar.module.css';
 import useCalendarStore from '../../stores/calendarStore';
 import 'moment/locale/en-gb';
-// import tippy from 'tippy.js';
 
 const localizer = momentLocalizer(moment);
 
@@ -28,12 +27,8 @@ export default function BigCalendar() {
 	}, [loadEvents]);
 	console.log('here are the events', allEvents);
 	function EventBar({ event }) {
-		// tippy('button', {
-
-		// })
 		return (
 			<Tippy
-				// className="bg-green-300 max-h-screen max-w-screen"
 				content={
 					<div className="p-2 text-left max-w-screen bg-gray-800 text-white rounded">
 						<div className="mb-1">
@@ -85,7 +80,7 @@ export default function BigCalendar() {
 				interactive={true}
 				placement="top"
 				arrow={true}
-				appendTo={document.body}
+				appendTo={typeof window !== 'undefined' ? document.body : undefined}
 				zIndex={99999}
 			>
 				<span

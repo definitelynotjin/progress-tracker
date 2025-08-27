@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Toaster } from 'react-hot-toast';
 import './globals.css';
 import './sidebar-hover.css';
+// import { BrowserRouter as Router } from 'react-router';
 
 const inter = Inter({
 	variable: '--font-inter',
