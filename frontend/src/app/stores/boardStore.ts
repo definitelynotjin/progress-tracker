@@ -68,7 +68,6 @@ const useBoardStore = create<boardType>()(
 				id: tempId,
 				column: task.column,
 			};
-
 			set((state) => {
 				state.tasks[task.column].push(optimisticTask);
 			});

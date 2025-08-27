@@ -19,6 +19,10 @@ type TaskDetailProps = {
 	onSave: (updatedTask: Task) => void;
 	onCancel: () => void;
 	onDelete: (id: number) => void;
+	onCheckListChange?: (
+		taskId: string | number,
+		checklist: Task['checklist'],
+	) => void;
 };
 type DateRange = {
 	from: Date;
@@ -29,6 +33,7 @@ export default function TaskDetail({
 	onSave,
 	onCancel,
 	onDelete,
+	onCheckListChange,
 }: TaskDetailProps) {
 	const [title, setTitle] = useState(task.title);
 	const [content, setContent] = useState(task.content || '');
@@ -60,9 +65,9 @@ export default function TaskDetail({
 			title,
 			column: task.column,
 			content,
+			checklist,
 			priority,
 			assignee,
-			checklist,
 			dueDate: dueDateRange
 				? {
 						from: formatDate(dueDateRange.from),
@@ -148,9 +153,13 @@ export default function TaskDetail({
 				</div>
 				{/* Rich text editor */}
 				<TiptapEditor
+					taskId={task.id}
 					value={content}
 					onChange={setContent}
-					onChecklistChange={setChecklist}
+					onChecklistChange={(id, newChecklist) => {
+						setChecklist(newChecklist);
+						onCheckListChange?.(id, newChecklist);
+					}}
 				/>
 				{/* Assignee input */}
 				<input

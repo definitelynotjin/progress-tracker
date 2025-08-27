@@ -6,7 +6,6 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { extractChecklistFromHTML } from './TaskCard';
-// import type { ChecklistItem } from '@/app/types/types';
 
 export interface ChecklistItem {
 	id: string;
@@ -15,13 +14,18 @@ export interface ChecklistItem {
 }
 
 export interface TiptapBulletEditorProps {
+	taskId: string | number;
 	value: string;
 	onChange: (content: string) => void;
-	onChecklistChange?: (checklist: ChecklistItem[]) => void;
+	onChecklistChange?: (
+		taskId: string | number,
+		checklist: ChecklistItem[],
+	) => void;
 	className?: string;
 }
 
 export default function TiptapBulletEditor({
+	taskId,
 	value,
 	onChange,
 	onChecklistChange,
@@ -72,12 +76,10 @@ export default function TiptapBulletEditor({
 		},
 		onUpdate({ editor }) {
 			const html = editor.getHTML();
-			console.log('onchange', html);
 			onChange(html);
 			if (typeof onChecklistChange === 'function') {
 				const checklist = extractChecklistFromHTML(html);
-				console.log('checklist', checklist);
-				onChecklistChange(checklist);
+				onChecklistChange(taskId, checklist);
 			}
 		},
 		immediatelyRender: true,

@@ -50,7 +50,7 @@ export default function KanbanBoard() {
 	const handleAddCard = (column: ColumnType) => {
 		setModalColumn(column);
 	};
-
+	// fuck this sht
 	const handleTaskClick = (task: Task) => {
 		console.log('selected task:', task);
 		setSelectedTask(task);
@@ -293,6 +293,7 @@ export default function KanbanBoard() {
 					onSave={handleTaskSave}
 					onCancel={handleTaskCancel}
 					onDelete={handleTaskDelete}
+					onCheckListChange={handleChecklistChange}
 				/>
 			)}
 		</>

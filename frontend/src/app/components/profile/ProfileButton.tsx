@@ -25,11 +25,11 @@ export default function ProfileButton() {
 
 	return (
 		<TooltipProvider>
-			<div className="relative" ref={ref}>
+			<div className="relative " ref={ref}>
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative"
+							className="w-12  inset  h-12 flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-500 transition-colors relative"
 							onClick={() => setDropdownOpen((open) => !open)}
 						>
 							<CircleQuestionMark size={22} className="text-gray-300" />
@@ -40,10 +40,10 @@ export default function ProfileButton() {
 				{dropdownOpen && (
 					<div className="absolute right-0 top-12 w-80 bg-gray-700 rounded-lg shadow-2xl z-50 p-6">
 						<div className="flex items-center justify-center mb-4">
-							<div className=" flex justify-center items-center w-20 h-20 rounded-full bg-gray-200">
+							<div className="flex justify-center items-center w-20 h-20 rounded-full bg-gray-200">
 								<CircleQuestionMark size={30} className="text-gray-400" />
 							</div>
-							<div className="text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">
+							<div className=" text-gray-200 relative bg-red-500 px-2 py-1 rounded mx-6 bottom-6">
 								Budiaman Anjay
 							</div>
 						</div>
