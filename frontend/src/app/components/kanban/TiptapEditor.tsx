@@ -6,6 +6,35 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { extractChecklistFromHTML } from './TaskCard';
+import BulletList from '@tiptap/extension-bullet-list';
+import ListItem from '@tiptap/extension-list-item';
+import { Editor } from '@tiptap/core';
+import ListKit from '@tiptap/extension-bullet-list';
+import { Extension } from '@tiptap/core';
+
+const DashList = Extension.create({
+	name: 'dashList',
+
+	addKeyboardShortcuts() {
+		return {
+			Enter: () => {
+				const { state, commands } = this.editor;
+				const { selection } = state;
+				const { $from } = selection;
+				const text = $from.parent.textContent;
+
+				// If current line starts with `- `, add a new line with `- `
+				if (text.startsWith('- ')) {
+					commands.insertContent('\n- ');
+					commands.splitBlock();
+					commands.insertContent('- ');
+					return true;
+				}
+				return false;
+			},
+		};
+	},
+});
 
 export interface ChecklistItem {
 	id: string;
@@ -49,40 +78,25 @@ export default function TiptapBulletEditor({
 	const editor = useEditor({
 		extensions: [
 			StarterKit.configure({
-				bulletList: {
-					HTMLAttributes: {
-						class: 'bullet_class',
-					},
-				},
-				orderedList: {
-					HTMLAttributes: {
-						class: 'order_class',
-					},
-				},
-				heading: {
-					HTMLAttributes: {
-						class: 'headers_class',
-					},
-				},
+				bulletList: false,
+				listItem: false,
 			}),
+			BulletList,
+			ListItem,
+			DashList,
 		],
 		content: value,
-		autofocus: true,
-		editorProps: {
-			attributes: {
-				class:
-					'prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc min-h-[300px] p-4 bg-gray-600 text-sm text-white rounded-md w-full [&_li]:my-0',
-			},
-		},
+
 		onUpdate({ editor }) {
 			const html = editor.getHTML();
 			onChange(html);
+
 			if (typeof onChecklistChange === 'function') {
 				const checklist = extractChecklistFromHTML(html);
 				onChecklistChange(taskId, checklist);
 			}
 		},
-		immediatelyRender: true,
+		immediatelyRender: false,
 	});
 
 	// Sync external value changes to editor

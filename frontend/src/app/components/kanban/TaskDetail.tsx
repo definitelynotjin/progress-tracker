@@ -13,6 +13,9 @@ import TiptapEditor from './TiptapEditor';
 import { Task } from '../../types/types';
 import DeleteTaskModal from './DeleteTaskModal';
 import { X } from 'lucide-react';
+import TurndownService from 'turndown';
+
+const turndownService = new TurndownService();
 
 type TaskDetailProps = {
 	task: Task;
@@ -60,11 +63,13 @@ export default function TaskDetail({
 			console.error('cannot sae task without column, my brother');
 			return;
 		}
+		const markdownContent = turndownService.turndown(content);
+
 		onSave({
 			...task,
 			title,
 			column: task.column,
-			content,
+			content: markdownContent,
 			checklist,
 			priority,
 			assignee,

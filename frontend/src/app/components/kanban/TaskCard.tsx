@@ -107,7 +107,6 @@ export default function TaskCard({
 						task.content && (
 							<span
 								className="tiptap-taskcard prose max-w-none text-xs text-left text-white mt-1 gap-2 flex flex-col [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
-								style={{ wordBreak: 'break-word', whiteSpace: 'normal' }}
 								dangerouslySetInnerHTML={{ __html: task.content }}
 							/>
 						)

@@ -1,14 +1,29 @@
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
+	from {
+		opacity: 0;
+	}
 
-  to {
-    opacity: 1;
-  }
+	to {
+		opacity: 1;
+	}
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease;
-  opacity: 1 !important;
+	animation: fade-in 0.3s ease;
+	opacity: 1 !important;
 }
+
+.prose p {
+	white-space: pre-wrap;
+}
+
+ul {
+	list-style: none;
+
+	padding-left: 0;
+}
+/* ul li::before { */
+/* content: '- '; */
+/* display: inline-block; */
+/* width: 1em; */
+/* } */
