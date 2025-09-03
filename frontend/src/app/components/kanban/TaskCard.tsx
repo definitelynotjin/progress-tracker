@@ -109,8 +109,11 @@ export default function TaskCard({
 						</ul>
 					) : (
 						task.content && (
+							// <div
+							// 	className="block align-top max-w-none text-xs text-left text-white mt-1  [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
 							<div
-								className="block align-top max-w-none text-xs text-left text-white mt-1  [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
+								className="text-xs text-left text-white max-w-none prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]"
+								style={{ wordBreak: 'break-word', whiteSpace: 'none' }}
 								dangerouslySetInnerHTML={{ __html: htmlContent }}
 							/>
 						)

@@ -31,7 +31,6 @@ export default function MarkdownEditor({
 				preview="edit"
 				value={value}
 				onChange={onChange}
-				className="text-xl"
 			/>
 		</div>
 	);

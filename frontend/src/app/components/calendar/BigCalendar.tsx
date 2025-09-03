@@ -9,6 +9,8 @@ import 'tippy.js/dist/tippy.css';
 import styles from './calendar.module.css';
 import useCalendarStore from '../../stores/calendarStore';
 import 'moment/locale/en-gb';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 const localizer = momentLocalizer(moment);
 
@@ -27,6 +29,10 @@ export default function BigCalendar() {
 	}, [loadEvents]);
 	console.log('here are the events', allEvents);
 	function EventBar({ event }) {
+		const htmlContent = remark()
+			.use(html)
+			.processSync(event.content)
+			.toString();
 		return (
 			<Tippy
 				content={
@@ -72,7 +78,7 @@ export default function BigCalendar() {
 							<span
 								className="text-xs text-white max-w-none prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]"
 								style={{ wordBreak: 'break-word', whiteSpace: 'none' }}
-								dangerouslySetInnerHTML={{ __html: event.content }}
+								dangerouslySetInnerHTML={{ __html: htmlContent }}
 							/>
 						</div>
 					</div>

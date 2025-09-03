@@ -6,11 +6,12 @@
 	margin-top: -11px;
 }
 
-.w-md-editor .w-md-editor-preview {
-	height: 200px;
-	background-color: red;
-	color: red;
-}
+/* .w-md-editor .w-md-editor-preview { */
+/* height: 200px; */
+/* background-color: red; */
+/* color: red; */
+/* } */
+
 .w-md-editor {
 	height: 100px;
 	background-color: lightgray;

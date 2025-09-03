@@ -11,9 +11,8 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { Task } from '../../types/types';
 import DeleteTaskModal from './DeleteTaskModal';
-import { X, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import MarkdownEditor from './MDEditor';
-// import QuillEditor from './QuillEditor';
 
 type TaskDetailProps = {
 	task: Task;
@@ -69,7 +68,7 @@ export default function TaskDetail({
 			content,
 			checklist,
 			priority,
-			assignee,
+			assignee: task.assignee,
 			dueDate: dueDateRange
 				? {
 						from: formatDate(dueDateRange.from),

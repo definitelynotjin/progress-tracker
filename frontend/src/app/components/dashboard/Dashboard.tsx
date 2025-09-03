@@ -3,27 +3,8 @@
 import { format } from 'date-fns';
 import 'tippy.js/dist/tippy.css';
 import { useEffect } from 'react';
-import { DashboardSectionCard } from './DashboardSectionCard';
+// import { DashboardSectionCard } from './DashboardSectionCard';
 import useDashboardStore from '../../stores/dashboardStore';
-
-const dashboardSections = [
-	{
-		title: 'Overview',
-		color: 'bg-blue-500',
-		content: 'Project summary, stats, and quick links.',
-	},
-	{
-		title: 'Recent Activity',
-		color: 'bg-purple-500',
-		content: 'Latest updates and changes.',
-	},
-	{ title: 'Team', color: 'bg-teal-500', content: 'Team members and roles.' },
-	{
-		title: 'Deadlines',
-		color: 'bg-lime-500',
-		content: 'Upcoming deadlines and milestones.',
-	},
-];
 
 function formattedDate(dueDate: string) {
 	if (!dueDate) return ' - ';
@@ -58,7 +39,7 @@ export default function Dashboard() {
 					Kanban Board Data
 				</h2>
 				<div className="overflow-x-auto">
-					<table className="min-w-full bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg shadow-lg">
+					<table className="min-w-full bg-gray-800 rounded-lg shadow-lg">
 						<thead>
 							<tr className="rounded-xl bg-gray-800/80">
 								<th className="px-4 py-3 rounded-t-xl   text-left text-lg font-semibold text-blue-300 tracking-wide">
@@ -120,12 +101,8 @@ export default function Dashboard() {
 					</table>
 				</div>
 			</section>
-			{/* Existing dashboard sections */}
-			<div className="flex flex-row gap-4 min-w-400px justify-evenly overflow-x-auto">
-				{dashboardSections.map((section) => (
-					<DashboardSectionCard key={section.title} {...section} />
-				))}
-			</div>
+			{/* Existing dashboard sections */}{' '}
+			<div className="flex flex-row gap-4 min-w-400px justify-evenly overflow-x-auto"></div>
 		</div>
 	);
 }
