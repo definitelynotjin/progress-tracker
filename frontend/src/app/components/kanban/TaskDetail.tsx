@@ -9,13 +9,11 @@ import {
 import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
-import TiptapEditor from './TiptapEditor';
 import { Task } from '../../types/types';
 import DeleteTaskModal from './DeleteTaskModal';
-import { X } from 'lucide-react';
-import TurndownService from 'turndown';
-
-const turndownService = new TurndownService();
+import { X, Trash2 } from 'lucide-react';
+import MarkdownEditor from './MDEditor';
+// import QuillEditor from './QuillEditor';
 
 type TaskDetailProps = {
 	task: Task;
@@ -63,13 +61,12 @@ export default function TaskDetail({
 			console.error('cannot sae task without column, my brother');
 			return;
 		}
-		const markdownContent = turndownService.turndown(content);
 
 		onSave({
 			...task,
 			title,
 			column: task.column,
-			content: markdownContent,
+			content,
 			checklist,
 			priority,
 			assignee,
@@ -87,12 +84,12 @@ export default function TaskDetail({
 		<div className="fixed inset-0 bg-black bg-opacity-40 flex flex-row justify-center items-center p-4 z-50">
 			<div className="relative flex flex-col bg-gray-700 rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-6">
 				<div
-					className=" absolute right-3 top-3 h-6 w-6 rounded-full flex items-center justify-center bg-red-400 ml-2 hover:bg-red-800"
+					className=" absolute right-3 top-3 h-7 w-7 rounded-full flex items-center justify-center bg-red-400 ml-2 hover:bg-red-800"
 					onClick={() => {
 						setShowDeleteModal(true);
 					}}
 				>
-					<X size={15} className="text-white" />
+					<Trash2 size={18} className="text-white" />
 				</div>
 				<input
 					type="text"
@@ -157,10 +154,10 @@ export default function TaskDetail({
 					</Popover>
 				</div>
 				{/* Rich text editor */}
-				<TiptapEditor
-					taskId={task.id}
+				<MarkdownEditor
 					value={content}
 					onChange={setContent}
+					taskId={task.id}
 					onChecklistChange={(id, newChecklist) => {
 						setChecklist(newChecklist);
 						onCheckListChange?.(id, newChecklist);

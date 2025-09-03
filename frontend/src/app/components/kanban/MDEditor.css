@@ -1,0 +1,49 @@
+.w-md-editor-bar {
+	position: absolute;
+	cursor: s-resize;
+	right: 0;
+	bottom: 0;
+	margin-top: -11px;
+}
+
+.w-md-editor .w-md-editor-preview {
+	height: 200px;
+	background-color: red;
+	color: red;
+}
+.w-md-editor {
+	height: 100px;
+	background-color: lightgray;
+	color: darkslategray;
+}
+.block ul {
+	list-style-type: disc;
+}
+.block ol {
+	list-style-type: decimal;
+}
+
+.w-md-editor-text-input,
+.w-md-editor-text-pre .code-line {
+	font-size: 1rem !important;
+	gap: 50px;
+	line-height: 2rem !important;
+}
+.w-md-editor-text-pre .code-line {
+	display: block;
+}
+.w-md-editor-preview ul li {
+	color: red;
+}
+.w-md-editorpreview ol li {
+	color: red;
+}
+
+w-md-editor {
+	--color-prettylights-syntax-comment: red;
+	--color-prettylights-syntax-constant: black;
+}
+
+.-editor-text-input {
+	font-size: medium;
+}

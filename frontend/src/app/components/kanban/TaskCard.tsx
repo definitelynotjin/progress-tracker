@@ -6,6 +6,8 @@ import { GripVertical, Pencil, CalendarClock } from 'lucide-react';
 import React, { useState } from 'react';
 import PriorityBadge from './PriorityBadge';
 import { Task } from '../../types/types';
+import { remark } from 'remark';
+import html from 'remark-html';
 
 type TaskCardProps = {
 	task: Task;
@@ -41,6 +43,8 @@ export default function TaskCard({
 			return updated;
 		});
 	};
+	const htmlContent = remark().use(html).processSync(task.content).toString();
+	console.log(htmlContent);
 	const checklist = localChecklist;
 	const completed = checklist.filter((item) => item.done).length;
 	const progress =
@@ -105,9 +109,9 @@ export default function TaskCard({
 						</ul>
 					) : (
 						task.content && (
-							<span
-								className="tiptap-taskcard prose max-w-none text-xs text-left text-white mt-1 gap-2 flex flex-col [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
-								dangerouslySetInnerHTML={{ __html: task.content }}
+							<div
+								className="block align-top max-w-none text-xs text-left text-white mt-1  [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
+								dangerouslySetInnerHTML={{ __html: htmlContent }}
 							/>
 						)
 					)}

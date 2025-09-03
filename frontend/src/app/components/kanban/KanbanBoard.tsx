@@ -195,6 +195,7 @@ export default function KanbanBoard() {
 				dueDate: updatedMovedTask.dueDate,
 			};
 			updateTaskAPI(taskForBackend).catch(() => {
+				console.log('taskforbackend', taskForBackend);
 				console.error('cant move bruh');
 			});
 		}

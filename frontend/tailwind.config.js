@@ -2,8 +2,6 @@
 import tailwindcssAnimate from 'tailwindcss-animate';
 import typography from '@tailwindcss/typography';
 
-
-
 const config = {
 	darkMode: ['class'],
 	content: [
@@ -18,6 +16,12 @@ const config = {
 		'bg-teal-500',
 		'bg-lime-400',
 		'bg-red-600',
+		'[&_ul]:list-disc',
+		'[&_ol]:list-decimal',
+		// 'bg-background',
+		// 'text-foreground',
+		// 'dark:bg-background',
+		// 'dark:text-foreground',
 	],
 	theme: {
 		extend: {
