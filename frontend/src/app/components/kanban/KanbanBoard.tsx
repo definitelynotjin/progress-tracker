@@ -98,7 +98,7 @@ export default function KanbanBoard() {
 			const updated = { ...prev };
 			for (const col of Object.keys(updated) as ColumnType[]) {
 				updated[col] = updated[col].map((task) =>
-					task.id === taskId ? { ...task, checklist } : task,
+					String(task.id) === String(taskId) ? { ...task, checklist } : task,
 				);
 			}
 			console.log('this why', updated);

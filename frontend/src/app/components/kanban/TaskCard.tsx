@@ -8,6 +8,7 @@ import PriorityBadge from './PriorityBadge';
 import { Task } from '../../types/types';
 import { remark } from 'remark';
 import html from 'remark-html';
+import gfm from 'remark-gfm';
 
 type TaskCardProps = {
 	task: Task;
@@ -20,6 +21,8 @@ export default function TaskCard({
 	onClick,
 	onChecklistChange,
 }: TaskCardProps) {
+	console.log('Taskcard / task: ', task);
+	console.log('taskcard / checklist: ', task.checklist);
 	const [localChecklist, setLocalChecklist] = useState(task.checklist ?? []);
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({
@@ -43,13 +46,34 @@ export default function TaskCard({
 			return updated;
 		});
 	};
-	const htmlContent = remark().use(html).processSync(task.content).toString();
+	const htmlContent = remark()
+		.use(gfm)
+		.use(html)
+		.processSync(task.content)
+		.toString();
 	console.log(htmlContent);
 	const checklist = localChecklist;
 	const completed = checklist.filter((item) => item.done).length;
 	const progress =
 		checklist.length > 0 ? Math.round((completed / checklist.length) * 100) : 0;
 
+	const daysUntilDeadline = task.dueDate?.to
+		? Math.ceil(
+				(new Date(task.dueDate.to) - new Date()) / (1000 * 60 * 60 * 24),
+			)
+		: null;
+
+	const getDeadlineColor = (days: number) => {
+		if (days > 7) return 'text-green-400';
+		if (days > 3) return 'text-yellow-400';
+		if (days >= 0) return 'text-orange-400';
+		return 'text-red-400';
+	};
+
+	const deadlineColorClass =
+		daysUntilDeadline !== null
+			? getDeadlineColor(daysUntilDeadline)
+			: 'text-red-100';
 	return (
 		<div
 			ref={setNodeRef}
@@ -120,6 +144,7 @@ export default function TaskCard({
 					)}
 				</div>
 				{/* Due Date */}
+
 				{task.dueDate &&
 					typeof task.dueDate === 'object' &&
 					'from' in task.dueDate &&
@@ -129,7 +154,7 @@ export default function TaskCard({
 						<div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
 							<span className="flex items-center pt-3 gap-1 text-gray-300">
 								<CalendarClock
-									className="ml-1  text-red-100 mr-0.5 "
+									className={`ml-1 ${deadlineColorClass} mr-0.5`}
 									size={14}
 								/>
 								<span>
@@ -200,12 +225,12 @@ export default function TaskCard({
 }
 
 // Utility: Parse checklist from Tiptap HTML
-export function extractChecklistFromHTML(html: string) {
-	const doc = new window.DOMParser().parseFromString(html, 'text/html');
-	const items = Array.from(doc.querySelectorAll('ul li, ol li'));
-	return items.map((li, i) => ({
-		id: String(i + 1),
-		text: li.textContent || '',
-		done: false,
-	}));
-}
+// export function extractChecklistFromHTML(html: string) {
+// 	const doc = new window.DOMParser().parseFromString(html, 'text/html');
+// 	const items = Array.from(doc.querySelectorAll('ul li, ol li'));
+// 	return items.map((li, i) => ({
+// 		id: String(i + 1),
+// 		text: li.textContent || '',
+// 		done: false,
+// 	}));
+// }

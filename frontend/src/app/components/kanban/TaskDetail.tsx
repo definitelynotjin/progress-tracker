@@ -68,7 +68,7 @@ export default function TaskDetail({
 			content,
 			checklist,
 			priority,
-			assignee: task.assignee,
+			assignee,
 			dueDate: dueDateRange
 				? {
 						from: formatDate(dueDateRange.from),
@@ -154,6 +154,7 @@ export default function TaskDetail({
 				</div>
 				{/* Rich text editor */}
 				<MarkdownEditor
+					className="text-xs text-left text-white max-w-none prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]"
 					value={content}
 					onChange={setContent}
 					taskId={task.id}

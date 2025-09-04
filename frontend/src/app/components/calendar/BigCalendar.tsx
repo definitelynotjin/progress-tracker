@@ -89,7 +89,7 @@ export default function BigCalendar() {
 				appendTo={typeof window !== 'undefined' ? document.body : undefined}
 				zIndex={99999}
 			>
-				<span
+				<div
 					className="px-1 py-2 text-lg text-left "
 					style={{
 						background: `${columnColors[event.column]}`,
@@ -109,7 +109,7 @@ export default function BigCalendar() {
 					}}
 				>
 					{event.title}
-				</span>
+				</div>
 			</Tippy>
 		);
 	}

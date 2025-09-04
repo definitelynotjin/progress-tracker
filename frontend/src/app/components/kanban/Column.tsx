@@ -81,7 +81,7 @@ export default function Column({
 							) : (
 								items.map((task) => (
 									<TaskCard
-										key={task.id}
+										key={`task-${task.id}-${task.checklist?.length || 0}-${Date.now()}`}
 										task={task}
 										onClick={() => onTaskClick(task)}
 										onChecklistChange={onChecklistChange}

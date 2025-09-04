@@ -6,12 +6,6 @@
 	margin-top: -11px;
 }
 
-/* .w-md-editor .w-md-editor-preview { */
-/* height: 200px; */
-/* background-color: red; */
-/* color: red; */
-/* } */
-
 .w-md-editor {
 	height: 100px;
 	background-color: lightgray;
@@ -33,14 +27,8 @@
 .w-md-editor-text-pre .code-line {
 	display: block;
 }
-.w-md-editor-preview ul li {
-	color: red;
-}
-.w-md-editorpreview ol li {
-	color: red;
-}
 
-w-md-editor {
+.w-md-editor {
 	--color-prettylights-syntax-comment: red;
 	--color-prettylights-syntax-constant: black;
 }
