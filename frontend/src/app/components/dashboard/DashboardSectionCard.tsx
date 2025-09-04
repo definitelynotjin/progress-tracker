@@ -12,7 +12,7 @@ export function DashboardSectionCard({
 	return (
 		<div className="min-w-80 justify-center relative rounded-t-lg flex flex-col overflow-x-auto">
 			<div className={`h-1 rounded-t-lg ${color}`} />
-			<div className="bg-gray-700 rounded-b flex flex-col">
+			<div className="bg-red-700 rounded-b flex flex-col">
 				<div className="py-4 px-4">
 					<div className="flex items-center justify-between mb-4">
 						<h2 className="font-bold text-center text-white text-lg tracking-wide drop-shadow mb-2">

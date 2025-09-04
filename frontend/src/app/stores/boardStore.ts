@@ -72,8 +72,6 @@ const useBoardStore = create<boardType>()(
 				state.tasks[task.column].push(optimisticTask);
 			});
 
-			// set({ tasks: prevTasks });
-
 			try {
 				const savedTask = await addTaskAPI(task);
 

@@ -19,10 +19,6 @@ type TaskDetailProps = {
 	onSave: (updatedTask: Task) => void;
 	onCancel: () => void;
 	onDelete: (id: number) => void;
-	onCheckListChange?: (
-		taskId: string | number,
-		checklist: Task['checklist'],
-	) => void;
 };
 type DateRange = {
 	from: Date;
@@ -33,13 +29,11 @@ export default function TaskDetail({
 	onSave,
 	onCancel,
 	onDelete,
-	onCheckListChange,
 }: TaskDetailProps) {
 	const [title, setTitle] = useState(task.title);
 	const [content, setContent] = useState(task.content || '');
 	const [priority, setPriority] = useState(task.priority || 'Medium');
 	const [assignee, setAssignee] = useState(task.assignee || '');
-	const [checklist, setChecklist] = useState(task.checklist ?? []);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [dueDateRange, setDueDateRange] = useState<DateRange | undefined>(
 		task.dueDate &&
@@ -57,7 +51,7 @@ export default function TaskDetail({
 
 	const handleSave = () => {
 		if (!task.column) {
-			console.error('cannot sae task without column, my brother');
+			console.error('cannot save task without column, my brother');
 			return;
 		}
 
@@ -66,7 +60,6 @@ export default function TaskDetail({
 			title,
 			column: task.column,
 			content,
-			checklist,
 			priority,
 			assignee,
 			dueDate: dueDateRange
@@ -158,10 +151,6 @@ export default function TaskDetail({
 					value={content}
 					onChange={setContent}
 					taskId={task.id}
-					onChecklistChange={(id, newChecklist) => {
-						setChecklist(newChecklist);
-						onCheckListChange?.(id, newChecklist);
-					}}
 				/>
 				{/* Assignee input */}
 				<input

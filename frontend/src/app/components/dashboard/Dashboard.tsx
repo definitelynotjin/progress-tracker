@@ -3,8 +3,8 @@
 import { format } from 'date-fns';
 import 'tippy.js/dist/tippy.css';
 import { useEffect } from 'react';
-// import { DashboardSectionCard } from './DashboardSectionCard';
 import useDashboardStore from '../../stores/dashboardStore';
+import Tippy from '@tippyjs/react';
 
 function formattedDate(dueDate: string) {
 	if (!dueDate) return ' - ';
@@ -31,6 +31,7 @@ export default function Dashboard() {
 		...tasks.Done,
 	];
 	console.log('whats in the dashboard ', allTasks);
+
 	return (
 		<div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
 			{/* Kanban Data Table */}
@@ -64,7 +65,7 @@ export default function Dashboard() {
 								<tr>
 									<td
 										colSpan={5}
-										className="px-4 py-8 text-center text-gray-400 italic text-lg"
+										className="px-4 py-8  text-center text-red-400 italic text-lg"
 									>
 										No tasks available.
 									</td>
@@ -102,7 +103,6 @@ export default function Dashboard() {
 				</div>
 			</section>
 			{/* Existing dashboard sections */}{' '}
-			<div className="flex flex-row gap-4 min-w-400px justify-evenly overflow-x-auto"></div>
 		</div>
 	);
 }

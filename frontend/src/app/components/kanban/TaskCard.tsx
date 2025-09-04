@@ -3,7 +3,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Pencil, CalendarClock } from 'lucide-react';
-import React, { useState } from 'react';
+import React from 'react';
 import PriorityBadge from './PriorityBadge';
 import { Task } from '../../types/types';
 import { remark } from 'remark';
@@ -16,14 +16,9 @@ type TaskCardProps = {
 	onChecklistChange?: (taskId: string, checklist: Task['checklist']) => void;
 };
 
-export default function TaskCard({
-	task,
-	onClick,
-	onChecklistChange,
-}: TaskCardProps) {
+export default function TaskCard({ task, onClick }: TaskCardProps) {
 	console.log('Taskcard / task: ', task);
 	console.log('taskcard / checklist: ', task.checklist);
-	const [localChecklist, setLocalChecklist] = useState(task.checklist ?? []);
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({
 			id: String(task.id),
@@ -36,38 +31,26 @@ export default function TaskCard({
 		transform: CSS.Transform.toString(transform),
 		transition: transition ?? 'transform 250ms ease',
 	};
-
-	const handleToggle = (id: string) => {
-		setLocalChecklist((prev) => {
-			const updated = prev.map((item) =>
-				item.id === id ? { ...item, done: !item.done } : item,
-			);
-			if (onChecklistChange) onChecklistChange(task.id, updated);
-			return updated;
-		});
-	};
 	const htmlContent = remark()
 		.use(gfm)
 		.use(html)
 		.processSync(task.content)
 		.toString();
 	console.log(htmlContent);
-	const checklist = localChecklist;
-	const completed = checklist.filter((item) => item.done).length;
-	const progress =
-		checklist.length > 0 ? Math.round((completed / checklist.length) * 100) : 0;
 
-	const daysUntilDeadline = task.dueDate?.to
+	const daysUntilDeadline = task.dueDate?.from
 		? Math.ceil(
-				(new Date(task.dueDate.to) - new Date()) / (1000 * 60 * 60 * 24),
+				(new Date(task.dueDate.from) - new Date()) / (1000 * 60 * 60 * 24),
 			)
 		: null;
 
 	const getDeadlineColor = (days: number) => {
 		if (days > 7) return 'text-green-400';
-		if (days > 3) return 'text-yellow-400';
-		if (days >= 0) return 'text-orange-400';
-		return 'text-red-400';
+		if (days > 3) return 'text-orange-400';
+		if (days >= 0) return 'text-red-400';
+		else {
+			return 'text-black ';
+		}
 	};
 
 	const deadlineColorClass =
@@ -99,138 +82,65 @@ export default function TaskCard({
 					<span className="text-sm font-semibold pb-2">{task.title}</span>
 				</div>
 
-				{/* Checklist or content */}
-				<div className="w-full overflow-y-auto max-h-24 ">
-					{checklist.length > 0 ? (
-						<ul className="flex flex-col gap-1 mt-1">
-							{checklist.map((item) => (
-								<li
-									key={item.id}
-									className="flex items-left gap-4 text-xs text-gray-200 "
-								>
-									<input
-										type="checkbox"
-										checked={item.done}
-										onChange={() => handleToggle(item.id)}
-										className="accent-green-300 w-3.5 h-3.5 rounded border-gray-400 bg-gray-800 cursor-pointer"
-									/>
-									<span
-										className={
-											item.done
-												? 'line-through gap-4 opacity-60 truncate text-left'
-												: 'truncate text-left'
-										}
-										style={{
-											maxWidth: '200px',
-											wordBreak: 'break-word',
-											whiteSpace: 'normal',
-										}}
-									>
-										{item.text}
-									</span>
-								</li>
-							))}
-						</ul>
-					) : (
-						task.content && (
-							// <div
-							// 	className="block align-top max-w-none text-xs text-left text-white mt-1  [&_ol]:list-decimal [&_ul]:list-disc [&_li]:my-2"
-							<div
-								className="text-xs text-left text-white max-w-none prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]"
-								style={{ wordBreak: 'break-word', whiteSpace: 'none' }}
-								dangerouslySetInnerHTML={{ __html: htmlContent }}
-							/>
-						)
-					)}
-				</div>
-				{/* Due Date */}
-
-				{task.dueDate &&
-					typeof task.dueDate === 'object' &&
-					'from' in task.dueDate &&
-					'to' in task.dueDate &&
-					task.dueDate.from &&
-					task.dueDate.to && (
-						<div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
-							<span className="flex items-center pt-3 gap-1 text-gray-300">
-								<CalendarClock
-									className={`ml-1 ${deadlineColorClass} mr-0.5`}
-									size={14}
-								/>
-								<span>
-									{new Date(task.dueDate.from).toLocaleDateString('default', {
-										month: 'short',
-										day: 'numeric',
-									})}{' '}
-									-{' '}
-									{new Date(task.dueDate.to).toLocaleDateString('default', {
-										month: 'short',
-										day: 'numeric',
-									})}
-								</span>
-							</span>
-						</div>
-					)}
-
-				{/* Progress bar & assignee */}
-				{checklist.length > 0 && (
-					<div className="flex items-center justify-between rounded-xl mt-10 px-2 py-1 min-w-0 gap-2">
-						<div className="flex-1">
-							<div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden transition-all duration-500 ease-in-out">
-								<div
-									className="bg-green-300 h-full transition-all duration-700 ease-in-out"
-									style={{ width: `${progress}%` }}
-								></div>
-							</div>
-						</div>
-						{task.assignee && (
-							<span
-								className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-100 font-bold text-xs border-2 border-gray-600 shadow shrink-0"
-								title={task.assignee}
-							>
-								{task.assignee.charAt(0).toUpperCase()}
-							</span>
-						)}
-					</div>
+				{task.content && (
+					<div
+						className="text-xs text-left text-white max-w-none prose [&_ol]:list-decimal [&_ul]:list-disc [&_li]"
+						style={{ wordBreak: 'break-word', whiteSpace: 'none' }}
+						dangerouslySetInnerHTML={{ __html: htmlContent }}
+					/>
 				)}
-
-				{/* Assignee if no checklist */}
-				{checklist.length === 0 && task.assignee && (
-					<div className="flex items-center justify-end w-full mt-2">
-						<span
-							className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-100 font-bold text-xs border-2 border-gray-600 shadow"
-							title={task.assignee}
-						>
-							{task.assignee.charAt(0).toUpperCase()}
+			</div>
+			{/* Due Date */}
+			{task.dueDate &&
+				typeof task.dueDate === 'object' &&
+				'from' in task.dueDate &&
+				'to' in task.dueDate &&
+				task.dueDate.from &&
+				task.dueDate.to && (
+					<div className="w-full mt-2 gap-2 text-xs text-muted-foreground flex items-center justify-between">
+						<span className="flex items-center pt-3 gap-1 text-gray-300">
+							<CalendarClock
+								className={`ml-1 ${deadlineColorClass} mr-0.5`}
+								size={14}
+							/>
+							<span>
+								{new Date(task.dueDate.from).toLocaleDateString('default', {
+									month: 'short',
+									day: 'numeric',
+								})}{' '}
+								-{' '}
+								{new Date(task.dueDate.to).toLocaleDateString('default', {
+									month: 'short',
+									day: 'numeric',
+								})}
+							</span>
 						</span>
 					</div>
 				)}
-
-				{/* Drag handle */}
-				<div
-					data-handle="dot"
-					{...attributes}
-					{...listeners}
-					className="mt-4 flex items-center justify-center cursor-grab"
-					style={{ background: 'transparent' }}
+			{/* Progress bar & assignee */}
+			{/* Assignee if no checklist */}
+			<div className="flex items-center justify-end w-full mt-2">
+				<span
+					className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-400 text-gray-100 font-bold text-xs border-2 border-gray-600 shadow"
+					title={task.assignee}
 				>
-					<GripVertical
-						size={24}
-						className="text-gray-400 hover:text-gray-900 rotate-90"
-					/>
-				</div>
+					{task.assignee.charAt(0).toUpperCase()}
+				</span>
+			</div>
+
+			{/* Drag handle */}
+			<div
+				data-handle="dot"
+				{...attributes}
+				{...listeners}
+				className="mt-4 flex items-center justify-center cursor-grab"
+				style={{ background: 'transparent' }}
+			>
+				<GripVertical
+					size={24}
+					className="text-gray-400 hover:text-gray-900 rotate-90"
+				/>
 			</div>
 		</div>
 	);
 }
-
-// Utility: Parse checklist from Tiptap HTML
-// export function extractChecklistFromHTML(html: string) {
-// 	const doc = new window.DOMParser().parseFromString(html, 'text/html');
-// 	const items = Array.from(doc.querySelectorAll('ul li, ol li'));
-// 	return items.map((li, i) => ({
-// 		id: String(i + 1),
-// 		text: li.textContent || '',
-// 		done: false,
-// 	}));
-// }
