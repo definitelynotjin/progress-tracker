@@ -31,11 +31,10 @@ export default function Dashboard() {
 		...tasks.Done,
 	];
 	console.log('whats in the dashboard ', allTasks);
-
 	return (
 		<div className="bg-gray-800 bg-repeat-round min-h-screen rounded-xl shadow-lg p-8">
 			{/* Kanban Data Table */}
-			<section className="mb-8">
+			<section className="mb-8 ">
 				<h2 className="text-2xl font-extrabold text-white mb-4 tracking-wide drop-shadow rounded-xl ">
 					Kanban Board Data
 				</h2>
@@ -97,7 +96,7 @@ export default function Dashboard() {
 										</td>
 									</tr>
 								))
-							)}
+					)}
 						</tbody>
 					</table>
 				</div>

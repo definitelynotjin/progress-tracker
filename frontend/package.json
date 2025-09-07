@@ -2,7 +2,7 @@
 	"name": "icon-progress-tracker",
 	"version": "0.1.0",
 	"private": true,
-	"type ": "module",
+	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -79,7 +79,8 @@
 		"zustand": "^5.0.7"
 	},
 	"devDependencies": {
-		"@eslint/eslintrc": "^3",
+		"@eslint/eslintrc": "^3.3.1",
+		"@eslint/js": "^9.35.0",
 		"@tailwindcss/postcss": "^4.1.12",
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/html-to-text": "^9.0.4",
@@ -90,9 +91,11 @@
 		"@types/react-big-calendar": "^1.16.2",
 		"@types/react-dom": "^18.3.7",
 		"@types/turndown": "^5.0.5",
+		"@typescript-eslint/eslint-plugin": "^8.42.0",
+		"@typescript-eslint/parser": "^8.42.0",
 		"autoprefixer": "^10.4.21",
-		"eslint": "^9.32.0",
-		"eslint-config-next": "15.4.1",
+		"eslint": "^9.35.0",
+		"eslint-config-next": "^15.5.2",
 		"postcss": "^8.5.6",
 		"prettier": "^3.6.2",
 		"tailwindcss": "^3.2.7",
