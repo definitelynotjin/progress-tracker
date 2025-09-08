@@ -40,7 +40,7 @@ const useBoardStore = create<boardType>()(
 					4: 'Done',
 				};
 				data.forEach((column: object) => {
-					column.tasks.forEach((task) => {
+					column.tasks.forEach((task) => { 
 						const columnName = idToColumnMap[task.board_column_id];
 						const dueDate: DueDateRange | undefined = task.due_date
 							? {
